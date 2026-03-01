@@ -57,10 +57,7 @@ if (type === 'login') {
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<AuthForm />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-    </Routes>
+    <AuthForm /> 
   );
 }
 
