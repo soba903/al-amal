@@ -1,0 +1,1934 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>العطور و العنايه الشخصية</title>
+<style>
+  body {
+    font-family: "Cairo", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff5f7;
+    color: #333;
+  }
+
+  header {
+    background-color: #1ebde9;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+
+  .search-bar {
+    text-align: center;
+    margin: 15px 0;
+  }
+
+  .search-bar input {
+    width: 60%;
+    max-width: 400px;
+    padding: 10px;
+    border: 2px solid  #1ebde9;
+    border-radius: 25px;
+    outline: none;
+    font-size: 1rem;
+  }
+
+  .products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+/* للأجهزة المتوسطة زي التابلت */
+@media (max-width: 1024px) {
+  .products {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* للموبايلات */
+@media (max-width: 768px) {
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* للموبايلات الصغيرة جدًا */
+@media (max-width: 480px) {
+  .products {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+  .product {
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .product:hover {
+    transform: translateY(-5px);
+  }
+
+  .product img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 15px;
+  }
+
+  .product h3 {
+    color: #e91e63;
+    font-size: 1.2rem;
+    margin: 10px 0 5px;
+  }
+
+  .product p {
+    font-size: 0.95rem;
+    color: #555;
+  }
+
+  .product .price {
+    font-size: 1.1rem;
+    color: #444;
+    margin: 5px 0 10px;
+  }
+
+  .product button {
+    background-color: #e91e63;
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 25px;
+    cursor: pointer;
+    margin: 5px;
+    transition: 0.3s;
+  }
+
+  .product button:hover {
+    background-color: #c2185b;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #4caf50;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 25px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: 0.4s ease;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<header> قسم العطور و العنايه الشخصية</header>
+
+<div class="search-bar">
+  <input type="text" id="searchInput" placeholder="ابحث عن منتج...">
+</div>
+
+<div class="products" id="productList">
+
+  <!-- مثال منتج -->
+    <div class="product" data-name="كريم one بشره حساسه 125 جرام">
+    <img src="صور مستحضرات التجميل/كريم One 125 جم للبشرة الحساسة.jpg" alt="شامبو لوريال">
+    <h3>كريم One للبشره الحساسة 125 جرام </h3>
+    <p>هو كريم لإزالة الشعر، يتميز بتركيبة لطيفة وغنية بخلاصة البابونج لتهدئة البشرة وتقليل التهيج</p>
+    <div class="price">42.00 جنيه</div>
+    <input type="number" id="qty-1" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كريم one للبشره الحساسه 125 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('كريم one للبشره الحساسه 125 جرام', 'qty-1')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="كريم one بشره حساسه 40 جرام">
+    <img src="صور مستحضرات التجميل/كريم One 125 جم للبشرة الحساسة.jpg" alt="شامبو لوريال">
+    <h3>كريم One للبشره الحساسة 40 جرام </h3>
+    <p>هو كريم لإزالة الشعر، يتميز بتركيبة لطيفة وغنية بخلاصة البابونج لتهدئة البشرة وتقليل التهيج</p>
+    <div class="price">23.00 جنيه</div>
+    <input type="number" id="qty-2" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كريم one للبشره الحساسه 40 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('كريم one للبشره الحساسه 40 جرام', 'qty-2')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name=" كريم one بالعسل للبشره الجافه 90 جرام">
+    <img src="صور مستحضرات التجميل/28 كريم One 90 جم بالعسل للبشرة الجافة.jpg" alt="شامبو لوريال">
+    <h3>كريم one بالعسل للبشره الجافه 90 جرام</h3>
+    <p>هو كريم لإزالة الشعر، يتميز بتركيبة لطيفة وغنية بخلاصة البابونج لتهدئة البشرة وتقليل التهيج.</p>
+    <div class="price">27.89 جنيه</div>
+    <input type="number" id="qty-3" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كريم one بالعسل للبشره الجافه 90 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('كريم one بالعسل للبشره الجافه 90 جرام', 'qty-3')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name=" كريم one بالعسل للبشره الجافه 40 جرام">
+    <img src="صور مستحضرات التجميل/28 كريم One 90 جم بالعسل للبشرة الجافة.jpg" alt="شامبو لوريال">
+    <h3>كريم one بالعسل للبشره الجافه 40 جرام</h3>
+    <p>هو كريم لإزالة الشعر، يتميز بتركيبة لطيفة وغنية بخلاصة البابونج لتهدئة البشرة وتقليل التهيج.</p>
+    <div class="price">19.20 جنيه</div>
+    <input type="number" id="qty-4" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كريم one بالعسل للبشره الجافه 40 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('كريم one بالعسل للبشره الجافه 40 جرام', 'qty-4')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="حرير سويت">
+    <img src="صور مستحضرات التجميل/حرير سويت.jpg" alt="شامبو لوريال">
+    <h3>حرير سويت</h3>
+    <p>منتج لإزالة الشعر يقوم بإزالة الشعر من جذوره</p>
+    <div class="price">17.00 جنيه</div>
+    <input type="number" id="qty-5" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('حرير سويت')">أضف إلى السلة</button>
+    <button onclick="buyNow('حرير سويت', 'qty-5')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="اسبراي AXE">
+    <img src="صور مستحضرات التجميل/اسبراي AXE.jpg" alt="شامبو لوريال">
+    <h3>اسبراي AXE</h3>
+    <p>مزيل عرق عطري للرجال يوفر حماية تدوم حتى 48 ساعة</p>
+    <div class="price">135.75 جنيه</div>
+    <input type="number" id="qty-6" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي AXE')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي AXE', 'qty-6')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="اسبراي رجالي XL">
+    <img src="صور مستحضرات التجميل/اسبراي رجالي XL.webp" alt="شامبو لوريال">
+    <h3>اسبراي رجالي XL</h3>
+    <p>مزيل عرق عطري للرجال يوفر حماية تدوم حتى 48 ساعة</p>
+    <div class="price">89.76 جنيه</div>
+    <input type="number" id="qty-7" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي رجالي XL')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي رجالي XL', 'qty-7')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي حريمي XL">
+    <img src="صور مستحضرات التجميل/اسبراي حريمي XL.webp" alt="شامبو لوريال">
+    <h3>اسبراي حريمي XL</h3>
+    <p>مزيل عرق عطري للرجال يوفر حماية تدوم حتى 48 ساعة</p>
+    <div class="price">89.76 جنيه</div>
+    <input type="number" id="qty-8" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي حريمي XL')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي حريمي XL', 'qty-8')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="اسبراي foG">
+    <img src="صور مستحضرات التجميل/اسبراي fog.webp" alt="شامبو لوريال">
+    <h3>اسبراي foG</h3>
+    <p>مزيل عرق عطري للرجال يوفر حماية تدوم حتى 48 ساعة</p>
+    <div class="price">100.00 جنيه</div>
+    <input type="number" id="qty-9" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبرايfoG')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي foG', 'qty-9')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="نيفيا بليه حريمي/رجالي">
+    <img src="صور مستحضرات التجميل/نيفيا بليه حريمي  رجالي.avif" alt="شامبو لوريال">
+    <h3>نيفيا بليه حريمي /رجالي</h3>
+    <p>توفر حماية لمدة 48 ساعة ضد التعرق والرائحة</p>
+    <div class="price">68.40 جنيه</div>
+    <input type="number" id="qty-10" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('نيفيا بليه حريمي / رجالي')">أضف إلى السلة</button>
+    <button onclick="buyNow('نيفيا بليه حريمي / رجالي', 'qty-10')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="نيفيا اسبراي حريمي">
+    <img src="صور مستحضرات التجميل/نيفيا اسبراي حريمي.webp" alt="شامبو لوريال">
+    <h3>نيفيا اسبراي حريمي</h3>
+    <p>توفر حماية لمدة 48 ساعة ضد التعرق والرائحة</p>
+    <div class="price">122.00 جنيه</div>
+    <input type="number" id="qty-11" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('نيفيا اسبراي حريمي')">أضف إلى السلة</button>
+    <button onclick="buyNow('نيفيا اسبراي حريمي', 'qty-11')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="كريم مزيل عرق العود الملكي">
+    <img src="صور مستحضرات التجميل/كريم مزيل عرق العود الملكي.jpg" alt="شامبو لوريال">
+    <h3>كريم مزيل عرق العود الملكي</h3>
+    <p>توفر حماية لمدة 48 ساعة ضد التعرق والرائحة</p>
+    <div class="price">32.00 جنيه</div>
+    <input type="number" id="qty-12" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كريم مزيل عرق العود الملكي')">أضف إلى السلة</button>
+    <button onclick="buyNow('كريم مزيل عرق العود الملكي', 'qty-12')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="زاك رول 50 مللي">
+    <img src="صور مستحضرات التجميل/زاك رول 50 مللي.webp" alt="شامبو لوريال">
+    <h3>زاك رول 50 مللي</h3>
+    <p>توفر حماية لمدة 48 ساعة ضد التعرق والرائحة</p>
+    <div class="price">42.90 جنيه</div>
+    <input type="number" id="qty-13" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('زاك رول 50 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('زاك رول 50 مللي', 'qty-13')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="ريكسونا رول رجالي 50 مللي">
+    <img src="صور مستحضرات التجميل/ريكسونا رول رجالي 50 مللي.webp" alt="شامبو لوريال">
+    <h3>ريكسونا رول رجالي 50 مللي</h3>
+    <p>توفر حماية لمدة 48 ساعة ضد التعرق والرائحة</p>
+    <div class="price">63.00 جنيه</div>
+    <input type="number" id="qty-14" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ريكسونا رول رجالي 50 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('ريكسونا رول رجالي 50 مللي', 'qty-14')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ريكسونا رول رجالي 20 مللي">
+    <img src="صور مستحضرات التجميل/ريكسونا رول رجالي 50 مللي.webp" alt="شامبو لوريال">
+    <h3>ريكسونا رول رجالي 20 مللي</h3>
+    <p>توفر حماية لمدة 48 ساعة ضد التعرق والرائحة</p>
+    <div class="price">26.81 جنيه</div>
+    <input type="number" id="qty-15" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ريكسونا رول رجالي 20 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('ريكسونا رول رجالي 20 مللي', 'qty-15')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="جيليت بلو 2 ماكينه صبار ">
+    <img src="صور مستحضرات التجميل/جيليت بلو 2 ماكينه صبار.jpg" alt="شامبو لوريال">
+    <h3>جيليت بلو 2 ماكينه صبار</h3>
+    <p> تتميز بشريط ترطيب يحتوي على الصبار، ومقبض مريح للتحكم، وتوفر حلاقة ناعمة</p>
+    <div class="price">17.00 جنيه</div>
+    <input type="number" id="qty-16" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('جيليت بلو 2 ماكينه صبار')">أضف إلى السلة</button>
+    <button onclick="buyNow('جيليت بلو 2 ماكينه صبار', 'qty-16')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="جيليت بلو 2 اكياس 5 ق حريمي">
+    <img src="صور مستحضرات التجميل/جيليت بلو 2 اكياس 5 ق حريمي.webp" alt="شامبو لوريال">
+    <h3>جيليت بلو 2 اكياس 5 ق حريمي</h3>
+    <p>شفرات حلاقة نسائية قابلة للتخلص منها،</p>
+    <div class="price">75.95 جنيه</div>
+    <input type="number" id="qty-17" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('جيليت بلو 2 اكياس 5 ق حريمي')">أضف إلى السلة</button>
+    <button onclick="buyNow('جيليت بلو 2 اكياس 5ق حريمي', 'qty-17')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name=" جيليت ناست 2 ماكينه">
+    <img src="صور مستحضرات التجميل/ناست 2 ماكينه.webp" alt="شامبو لوريال">
+    <h3> جيليت ناست 2 ماكينه</h3>
+    <p>ماكينة حلاقة جيليت ناسيت 2 هي ماكينة حلاقة ذات شفرتين، تتميز بشفرات حادة مزدوجة</p>
+    <div class="price">10.20 جنيه</div>
+    <input type="number" id="qty-18" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('جيليت ناست 2 ماكينه')">أضف إلى السلة</button>
+    <button onclick="buyNow('جيليت ناست 2 ماكينه', 'qty-18')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="ريد ازرق اكوا بدون رائحه 300 مللي">
+    <img src="صور مستحضرات التجميل/ريد ازرق اكوا بدون رائحه 300 ملي.jpg" alt="شامبو لوريال">
+    <h3>ريد ازرق اكوا بدون رائحه 300 مللي</h3>
+    <p>بخاخ لرش مبيد الحشرات الطائرة</p>
+    <div class="price">74.33 جنيه</div>
+    <input type="number" id="qty-19" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ريد ازرق اكوا بدون رائحه 300 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('ريد ازرق اكوا بدون رائحه 300 مللي', 'qty-19')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ريد ازرق اكوا بدون رائحه 400 مللي">
+    <img src="صور مستحضرات التجميل/ريد ازرق اكوا بدون رائحه 300 ملي.jpg" alt="شامبو لوريال">
+    <h3>ريد ازرق اكوا بدون رائحه 400 مللي</h3>
+    <p>بخاخ لرش مبيد الحشرات الطائرة</p>
+    <div class="price">93.5 جنيه</div>
+    <input type="number" id="qty-20" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ريد ازرق اكوا بدون رائحه 400 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('ريد ازرق اكوا بدون رائحه 400 مللي', 'qty-20')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="لونا مرطب شفاه (جوز الهند)">
+    <img src="صور مستحضرات التجميل/لونا مرطب شفاه (جوز الهند).jpg" alt="شامبو لوريال">
+    <h3>لونا مرطب شفاه (جوز الهند)</h3>
+    <div class="price">13.75 جنيه</div>
+    <input type="number" id="qty-21" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لونا مرطب شفاه (جوز الهند)')">أضف إلى السلة</button>
+    <button onclick="buyNow('لونا مرطب شفاه (جوز الهند)', 'qty-21')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="لونا مرطب شفاه (فراوله)">
+    <img src="صور مستحضرات التجميل/لونا مرطب شفاه (فراوله).avif" alt="شامبو لوريال">
+    <h3>لونا مرطب شفاه (فراوله)</h3>
+    <div class="price">13.75 جنيه</div>
+    <input type="number" id="qty-22" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لونا مرطب شفاه (فراوله)')">أضف إلى السلة</button>
+    <button onclick="buyNow('لونا مرطب شفاه (فراوله)', 'qty-22')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فيستا عازل طبي انواع">
+    <img src="صور مستحضرات التجميل/فيستا عازل طبي.jpg" alt="شامبو لوريال">
+    <h3>فيستا عازل طبي انواع</h3>
+    <div class="price">20.9 جنيه</div>
+    <input type="number" id="qty-23" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فيستا عازل طبي انواع')">أضف إلى السلة</button>
+    <button onclick="buyNow('فيستا عازل طبي انواع', 'qty-23')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="سمبليكس عازل">
+    <img src="صور مستحضرات التجميل/سمبليكس عازل.avif" alt="شامبو لوريال">
+    <h3>سمبليكس عازل</h3>
+    <div class="price">27.00 جنيه</div>
+    <input type="number" id="qty-24" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('سمبليكس عازل')">أضف إلى السلة</button>
+    <button onclick="buyNow('سمبليكس عازل', 'qty-24')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="ديوركس عازل طبي الوان">
+    <img src="صور مستحضرات التجميل/ديوركس عازل طبي الوان.webp" alt="شامبو لوريال">
+    <h3>ديوركس عازل طبي الوان</h3>
+    <div class="price">63.95 جنيه</div>
+    <input type="number" id="qty-25" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ديوركس عازل طبي الوان')">أضف إلى السلة</button>
+    <button onclick="buyNow('ديوركس عازل طبي الوان', 'qty-25')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="معجون اسنان مسواك كبير بالنعناع">
+    <img src="صور مستحضرات التجميل/معجون اسنان مسواك كبير بالنعناع.jpg" alt="شامبو لوريال">
+    <h3>معجون اسنان مسواك كبير بالنعناع</h3>
+    <p>معجون بمكونات طبيعية للاسنان</p>
+    <div class="price">31.24 جنيه</div>
+    <input type="number" id="qty-26" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('معجون اسنان مسواك كبير بالنعناع')">أضف إلى السلة</button>
+    <button onclick="buyNow('معجون اسنان مسواك كبير بالنعناع', 'qty-26')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="معجون اسنان مسواك كبير جولد">
+    <img src="صور مستحضرات التجميل/معجون اسنان المسواك كبير جولد.jpg" alt="شامبو لوريال">
+    <h3>معجون اسنان مسواك كبير جلود</h3>
+    <p>معجون بمكونات طبيعيه للاسنان</p>
+    <div class="price">31.24 جنيه</div>
+    <input type="number" id="qty-27" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('معجون اسنان مسواك كبير جولد')">أضف إلى السلة</button>
+    <button onclick="buyNow('معجون اسنان مسواك كبير جولد', 'qty-27')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="معجون اسنان مسواك صغير جولد">
+    <img src="صور مستحضرات التجميل/معجون اسنان المسواك كبير جولد.jpg" alt="شامبو لوريال">
+    <h3>معجون اسنان مسواك صغير جلود</h3>
+    <p>معجون بمكونات طبيعيه للاسنان</p>
+    <div class="price">16.13 جنيه</div>
+    <input type="number" id="qty-28" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('معجون اسنان مسواك صغير جولد')">أضف إلى السلة</button>
+    <button onclick="buyNow('معجون اسنان مسواك صغير جولد', 'qty-28')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="معجون اسنان مسواك صغير بالنعناع">
+    <img src="صور مستحضرات التجميل/معجون اسنان مسواك كبير بالنعناع.jpg" alt="شامبو لوريال">
+    <h3>معجون اسنان مسواك صغير بالنعناع</h3>
+    <p>معجون بمكونات طبيعية للاسنان</p>
+    <div class="price">16.13 جنيه</div>
+    <input type="number" id="qty-29" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('معجون اسنان مسواك صغير بالنعناع')">أضف إلى السلة</button>
+    <button onclick="buyNow('معجون اسنان مسواك صغير بالنعناع', 'qty-29')">اشترِ الآن</button>
+  </div>
+    <div class="product" data-name="شاور جل فريده 650 مللي ">
+    <img src="صور مستحضرات التجميل/شاور جل فريده 650 ملي.jpg" alt="شامبو لوريال">
+    <h3>شاور جل فريده 650 مللي</h3>
+    <div class="price">77.67 جنيه</div>
+    <input type="number" id="qty-30" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شاور جل فريده 650 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('شاور جل فريده 650 مللي', 'qty-30')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="شاور جل فريده 1.2 لتر">
+    <img src="صور مستحضرات التجميل/شاور جل فريده 1.2 لتر.jpg" alt="شامبو لوريال">
+    <h3>شاور جل فريده 1.2 لتر</h3>
+    <div class="price">132.24 جنيه</div>
+    <input type="number" id="qty-31" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شاور جل فريده 1.2 لتر')">أضف إلى السلة</button>
+    <button onclick="buyNow('شاور جل فريده 1.2 لتر', 'qty-31')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="ميدي ميكس فرشاه اسنان">
+    <img src="صور مستحضرات التجميل/ميدي ميكس فرشاه اسنان.webp" alt="شامبو لوريال">
+    <h3>ميدي ميكس فرشاه اسنان</h3>
+    <div class="price">12.90 جنيه</div>
+    <input type="number" id="qty-32" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ميدي ميكس فرشاه اسنان')">أضف إلى السلة</button>
+    <button onclick="buyNow('ميدي ميكس فرشاه اسنان', 'qty-32')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="ديتول صابون 165 جرام مغذي">
+    <img src="صور مستحضرات التجميل/ديتول صابون 165 جرام مغذي.avif" alt="شامبو لوريال">
+    <h3>ديتول صابون 165 جرام مغذي</h3>
+    <div class="price">36.40 جنيه</div>
+    <input type="number" id="qty-33" min="1" value="1" style="width:60px;text-align:center;">
+      <button onclick="addToCart('ديتول صابون 165 جرام مغذي')">أضف إلى السلة</button>
+    <button onclick="buyNow('ديتول صابون 165 جرام مغذي', 'qty-33')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="ديتول صابون 165 جرام كوول لبني">
+    <img src="صور مستحضرات التجميل/ديتول صابون 165 جرام كوول لبني.avif" alt="شامبو لوريال">
+    <h3>ديتول صابون 165 جرام كوول لبني</h3>
+    <div class="price">36.40 جنيه</div>
+    <input type="number" id="qty-34" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ديتول صابون 165 جرام كوول لبني')">أضف إلى السلة</button>
+    <button onclick="buyNow('ديتول صابون 165 جرام كوول لبني', 'qty-34')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="ديتول صابون 115 جرام انواع ">
+    <img src="صور مستحضرات التجميل/ديتول صابون 115 جرام انواع.jpg" alt="شامبو لوريال">
+    <h3>ديتول صابون 115 جرام انواع</h3>
+    <div class="price">24.47 جنيه</div>
+    <input type="number" id="qty-35" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ديتول صابون 115 جرام انواع')">أضف إلى السلة</button>
+    <button onclick="buyNow('ديتول صابون 115 جرام انواع', 'qty-35')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="ديتول صابون 85 جرام بينك">
+    <img src="صور مستحضرات التجميل/ديتول صابون 85 جرام بينك.jpg" alt="شامبو لوريال">
+    <h3>ديتول صابون 85 جرام بينك</h3>
+    <div class="price">19.55 جنيه</div>
+    <input type="number" id="qty-36" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ديتول صابون 85 جرام بينك')">أضف إلى السلة</button>
+    <button onclick="buyNow('ديتول صابون 85 جرام بينك', 'qty-36')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="ديتول صابون 85 جرام انواع">
+    <img src="صور مستحضرات التجميل/ديتول صابون 115 جرام انواع.jpg" alt="شامبو لوريال">
+    <h3>ديتول صابون 85 جرام انواع</h3>
+    <div class="price">20.70 جنيه</div>
+    <input type="number" id="qty-37" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ديتول صابون 85 جرام انواع')">أضف إلى السلة</button>
+    <button onclick="buyNow('ديتول صابون 85 جرام انواع', 'qty-37')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فلامنجو امواس حواجب 3 شفرات">
+    <img src="صور مستحضرات التجميل/فلامنجو امواس حواجب 3 شفرات.webp" alt="شامبو لوريال">
+    <h3>فلامنجو امواس حواجب 3 شفرات</h3>
+    <div class="price">139.12 جنيه</div>
+    <input type="number" id="qty-38" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فلامنجو امواس حواجب 3 شفرات')">أضف إلى السلة</button>
+    <button onclick="buyNow('فلامنجو امواس حواجب 3 شفرات', 'qty-38')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="شفرات فينوس حريمي كيس 8+4 فري">
+    <img src="صور مستحضرات التجميل/شفرات فينوس حريمي كيس 8+4 فري.avif" alt="شامبو لوريال">
+    <h3>شفرات فينوس حريمي كيس 8+4 فري</h3>
+    <div class="price">138.00 جنيه</div>
+    <input type="number" id="qty-39" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شفرات فينوس حريمي كيس 8+4 فري')">أضف إلى السلة</button>
+    <button onclick="buyNow('شفرات فينوس حريمي كيس 8+4 فري', 'qty-39')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="شفرات فينوس حريمي كيس 5 قطع">
+    <img src="صور مستحضرات التجميل/شفرات فينوس حريمي كيس 5 قطع.jpeg" alt="شامبو لوريال">
+    <h3>شفرات فينوس حريمي كيس 5 قطع</h3>
+    <div class="price">70.00 جنيه</div>
+    <input type="number" id="qty-40" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شفرات فينوس حريمي كيس 5 قطع')">أضف إلى السلة</button>
+    <button onclick="buyNow('شفرات فينوس حريمي كيس 5 قطع', 'qty-40')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="سيجنال 50 مللي">
+    <img src="صور مستحضرات التجميل/سيجنال 50 مللي.jpg" alt="شامبو لوريال">
+    <h3>سيجنال 50 مللي</h3>
+    <div class="price">27.56 جنيه</div>
+    <input type="number" id="qty-41" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('سيجنال 50 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('سيجنال 50 مللي', 'qty-41')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="سيجنال 25 مللي">
+    <img src="صور مستحضرات التجميل/سيجنال 50 مللي.jpg" alt="شامبو لوريال">
+    <h3>سيجنال 25 مللي</h3>
+    <div class="price">15.20 جنيه</div>
+    <input type="number" id="qty-42" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('سيجنال 25 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('سيجنال 25 مللي', 'qty-42')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="اسبراي ZAK TIMELESS 175 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي ZAK TIMELESS 175 مللي.avif" alt="شامبو لوريال">
+    <h3>اسبراي ZAK TIMELESS 175 مللي</h3>
+    <div class="price">205.00 جنيه</div>
+    <input type="number" id="qty-43" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي ZAK TIMELESS 175 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي ZAK TIMELESS 175 مللي', 'qty-43')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="اكتيف مان فوم حلاقه 200 مللي">
+    <img src="صور مستحضرات التجميل/اكتيف مان فوم حلاقه 200 مللي.jpg" alt="شامبو لوريال">
+    <h3>اكتيف مان فوم حلاقه 200 مللي</h3>
+    <div class="price">50.00 جنيه</div>
+    <input type="number" id="qty-44" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اكتيف مان فوم حلاقه 200 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اكتيف مان فوم حلاقه 200 مللي', 'qty-44')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="ايجاكس معطر فم">
+    <img src="صور مستحضرات التجميل/ايجكس معطر فم.jpg" alt="شامبو لوريال">
+    <h3>ايجاكس معطر فم</h3>
+    <div class="price">20.00 جنيه</div>
+    <input type="number" id="qty-45" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايجكس معطر فم')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايجكس معطر فم', 'qty-45')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="ديتول صابون 165 جرام جددي نشاطك">
+    <img src="صور مستحضرات التجميل/ديتول صابون 165 جرام جددي نشاطك.avif" alt="شامبو لوريال">
+    <h3>ديتول صابون 165 جرام جددي نشاطك</h3>
+    <div class="price">36.80 جنيه</div>
+    <input type="number" id="qty-46" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ديتول صابون 165 جرام جددي نشاطك')">أضف إلى السلة</button>
+    <button onclick="buyNow('ديتول صابون 165 جرام جددي نشاطك', 'qty-46')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="ديتول صابون 165 جرام بمبي سكين كير">
+    <img src="صور مستحضرات التجميل/ديتول صابون 165 جرام بمبي سكين كير.jpg" alt="شامبو لوريال">
+    <h3>ديتول صابون 165 جرام بمبي سكين كير</h3>
+    <div class="price">36.80 جنيه</div>
+    <input type="number" id="qty-47" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ديتول صابون 165 جرام بمبي سكين كير')">أضف إلى السلة</button>
+    <button onclick="buyNow('ديتول صابون 165 جرام بمبي سكين كير', 'qty-47')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="ديتول صابون 165 جرام الاصلي الاخضر">
+    <img src="صور مستحضرات التجميل/ديتول صابون 165 جرام الاصلي الاخضر.avif" alt="شامبو لوريال">
+    <h3>ديتول صابون 165 جرام الاصلي الاخضر</h3>
+    <div class="price">36.80 جنيه</div>
+    <input type="number" id="qty-48" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ديتول صابون 165 جرام الاصلي الاخضر')">أضف إلى السلة</button>
+    <button onclick="buyNow('ديتول صابون 165 جرام الاصلي الاخضر', 'qty-48')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فريده معطر جو انواع 460 مللي">
+    <img src="صور مستحضرات التجميل/فريده معطر جو انواع 460 مللي.jpg" alt="شامبو لوريال">
+    <h3>فريده معطر جو انواع 460 مللي</h3>
+    <div class="price">52.50 جنيه</div>
+    <input type="number" id="qty-49" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فريده معطر جو انواع 460 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('فريده معطر جو انواع 460 مللي', 'qty-49')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="الويز ماكس دبل ليلي طويل جدا 16*16">
+    <img src="صور مستحضرات التجميل/الويز ماكس دبل ليلي طويل جدا 1616.webp" alt="شامبو لوريال">
+    <h3>الويز ماكس دبل ليلي طويل جدا 16*16</h3>
+    <div class="price">891.00 جنيه</div>
+    <input type="number" id="qty-50" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('الويز ماكس دبل ليلي طويل جدا 16*16')">أضف إلى السلة</button>
+    <button onclick="buyNow('الويز ماكس دبل ليلي طويل جدا 16*16', 'qty-50')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="الويز ماكسي دوبل 16*18 طويل">
+    <img src="صور مستحضرات التجميل/الويز ماكسي دوبل 1618 طويل" alt="شامبو لوريال">
+    <h3>الويز ماكسي دوبل 16*18 طويل</h3>
+    <div class="price">845.00 جنيه</div>
+    <input type="number" id="qty-51" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('الويز ماكسي دوبل 16*18 طويل')">أضف إلى السلة</button>
+    <button onclick="buyNow('الويز ماكسي دوبل 16*18 طويل', 'qty-51')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="الويز ماكس فردي عادي طويل جدا 8*16">
+    <img src="صور مستحضرات التجميل/الويز ماكس فردي عادي طويل جدا 816.jpg" alt="شامبو لوريال">
+    <h3>الويز ماكس فردي عادي طويل جدا 8*16</h3>
+    <div class="price">493.00 جنيه</div>
+    <input type="number" id="qty-52" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('الويز ماكس فردي عادي طويل جدا 8*16')">أضف إلى السلة</button>
+    <button onclick="buyNow('الويز ماكس فردي عادي طويل جدا 8*16', 'qty-52')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="الويز الترا فردي طويل جدا 7*16 فوطه انتعاش الاعشاب">
+    <img src="صور مستحضرات التجميل/الويز الترا فردي طويل جدا 716 فوطه انتعاش الاعشاب.webp" alt="شامبو لوريال">
+    <h3>الويز الترا فردي طويل جدا 7*16 فوطه انتعاش الاعشاب</h3>
+    <div class="price">650.00 جنيه</div>
+    <input type="number" id="qty-53" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('الويز الترا فردي طويل جدا 7*16 فوطه انتعاش الاعشاب')">أضف إلى السلة</button>
+    <button onclick="buyNow('الويز الترا فردي طويل جدا 7*16 فوطه انتعاش الاعشاب', 'qty-53')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="الويز الترا دبل 8*14 فوطه انتعاش الاعشاب طويل جدا">
+    <img src="صور مستحضرات التجميل/الويز الترا دبل 814 فوطه انتعاش الاعشاب طويل جدا.jpg" alt="شامبو لوريال">
+    <h3>الويز الترا دبل 8*14 فوطه انتعاش الاعشاب طويل جدا</h3>
+    <div class="price">585.00 جنيه</div>
+    <input type="number" id="qty-54" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('الويز الترا دبل 8*14 فوطه انتعاش الاعشاب طويل جدا')">أضف إلى السلة</button>
+    <button onclick="buyNow('الويز الترا دبل 8*14 فوطه انتعاش الاعشاب طويل جدا', 'qty-54')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="الويز الترا فردي طويل 16*8">
+    <img src="صور مستحضرات التجميل/الويز الترا فردي طويل 168.jpg" alt="شامبو لوريال">
+    <h3>الويز الترا فردي طويل 16*8</h3>
+    <div class="price">493.00 جنيه</div>
+    <input type="number" id="qty-55" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('الويز الترا فردي طويل 16*8')">أضف إلى السلة</button>
+    <button onclick="buyNow('الويز الترا فردي طويل 16*8', 'qty-55')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="الويز الترا دبل طويل 8*16">
+    <img src="صور مستحضرات التجميل/الويز الترا دبل طويل 816.png" alt="شامبو لوريال">
+    <h3>الويز الترا دبل طويل 8*16</h3>
+    <div class="price">441.00 جنيه</div>
+    <input type="number" id="qty-56" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('الويز الترا دبل طويل 8*16')">أضف إلى السلة</button>
+    <button onclick="buyNow('الويز الترا دبل طويل 8*16', 'qty-56')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="تيامو برفان اسبراي 25 مللي استاند">
+    <img src="صور مستحضرات التجميل/تيامو برفان اسبراي 25 مللي استاند.jfif" alt="شامبو لوريال">
+    <h3>تيامو برفان اسبراي 25 مللي استاند</h3>
+    <div class="price">550.00 جنيه</div>
+    <input type="number" id="qty-57" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('تيامو برفان اسبراي 25 مللي استاند')">أضف إلى السلة</button>
+    <button onclick="buyNow('تيامو برفان اسبراي 25 مللي استاند', 'qty-56')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="موبلد سوفت طويل جدا 8*(2*2+12)">
+    <img src="صور مستحضرات التجميل/موبلد سوفت طويل جدا 8(2212).jfif" alt="شامبو لوريال">
+    <h3>موبلد سوفت طويل جدا 8*(2*2+12)</h3>
+    <div class="price">613.98 جنيه</div>
+    <input type="number" id="qty-57" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('موبلد سوفت طويل جدا 8*(2*2+12)')">أضف إلى السلة</button>
+    <button onclick="buyNow('موبلد سوفت طويل جدا 8*(2*2+12)', 'qty-57')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="مولبد سوفت طويل 16*7">
+    <img src="صور مستحضرات التجميل/مولبد سوفت طويل 167.jpg" alt="شامبو لوريال">
+    <h3>مولبد سوفت طويل 16*7</h3>
+    <div class="price">397.40 جنيه</div>
+    <input type="number" id="qty-58" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('مولبد سوفت طويل 16*7')">أضف إلى السلة</button>
+    <button onclick="buyNow('مولبد سوفت طويل 16*7', 'qty-58')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="مولبد سوفت طويل جدا 16*6">
+    <img src="صور مستحضرات التجميل/مولبد سوفت طويل جدا 166.jpg" alt="شامبو لوريال">
+    <h3>مولبد سوفت طويل جدا 16*6</h3>
+    <div class="price">397.40 جنيه</div>
+    <input type="number" id="qty-59" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('مولبد سوفت طويل جدا 16*6')">أضف إلى السلة</button>
+    <button onclick="buyNow('مولبد سوفت طويل جدا 16*6', 'qty-59')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="مولبد طويل 8*(2*2+14)">
+    <img src="صور مستحضرات التجميل/مولبد طويل 8(2214).jpg" alt="شامبو لوريال">
+    <h3>مولبد طويل 8*(2*2+14)</h3>
+    <div class="price">626.51 جنيه</div>
+    <input type="number" id="qty-60" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('مولبد طويل 8*(2*2+14)')">أضف إلى السلة</button>
+    <button onclick="buyNow('مولبد طويل 8*(2*2+14)', 'qty-60')">اشترِ الآن</button>
+  </div>
+          <div class="product" data-name="مولبد اكسترا طويل (14+2*2)*8">
+    <img src="صور مستحضرات التجميل/مولبد اكسترا طويل 14+228.jpg" alt="شامبو لوريال">
+    <h3>مولبد اكسترا طويل (14+2*2)*8</h3>
+    <div class="price"> جنيه 626.51</div>
+    <input type="number" id="qty-61" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('مولبد اكسترا طويل (14+2*2)*8')">أضف إلى السلة</button>
+    <button onclick="buyNow('مولبد اكسترا طويل (14+2*2)*8', 'qty-61')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="مولبد اكسترا طويل 8*16">
+    <img src="صور مستحضرات التجميل/مولبد اكسترا طويل 816.jpg" alt="شامبو لوريال">
+    <h3>مولبد اكسترا طويل 8*16</h3>
+    <div class="price"> جنيه 404.88</div>
+    <input type="number" id="qty-62" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('مولبد اكسترا طويل 8*16')">أضف إلى السلة</button>
+    <button onclick="buyNow('مولبد اكسترا طويل 8*16', 'qty-62')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="مولبد طويل 8*(2*2+12)">
+    <img src="صور مستحضرات التجميل/مولبد طويل 8(22+12).jpg.jpg" alt="شامبو لوريال">
+    <h3>مولبد طويل 8*(2*2+12)</h3>
+    <div class="price"> جنيه 626.11</div>
+    <input type="number" id="qty-63" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('مولبد طويل 8*(2*2+12)')">أضف إلى السلة</button>
+    <button onclick="buyNow('مولبد طويل 8*(2*2+12)', 'qty-63')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="مولبد اكسترا طويل جدا 7*16">
+    <img src="صور مستحضرات التجميل/مولبد اكسترا طويل جدا 716.jpg" alt="شامبو لوريال">
+    <h3>مولبد اكسترا طويل جدا 7*16</h3>
+    <div class="price"> جنيه 405.13</div>
+    <input type="number" id="qty-64" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('مولبد اكسترا طويل جدا 7*16')">أضف إلى السلة</button>
+    <button onclick="buyNow('مولبد اكسترا طويل جدا 7*16', 'qty-64')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="مولبد طويل جدا 14*2*8">
+    <img src="صور مستحضرات التجميل/مولبد طويل جدا 1428.jfif" alt="شامبو لوريال">
+    <h3>مولبد طويل جدا 14*2*8</h3>
+    <div class="price"> جنيه 703.11</div>
+    <input type="number" id="qty-65" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('مولبد طويل جدا 14*2*8')">أضف إلى السلة</button>
+    <button onclick="buyNow('مولبد طويل جدا 14*2*8', 'qty-65')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="مولبد الترا طويل 16*7">
+    <img src="صور مستحضرات التجميل/مولبد الترا طويل 167.jpg" alt="شامبو لوريال">
+    <h3>مولبد الترا طويل 16*7</h3>
+    <div class="price"> جنيه 405.11</div>
+    <input type="number" id="qty-66" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('مولبد الترا طويل 16*7')">أضف إلى السلة</button>
+    <button onclick="buyNow('مولبد الترا طويل 16*7', 'qty-66')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="مولبد الترا طويل جدا 16*6">
+    <img src="صور مستحضرات التجميل/مولبد الترا طويل جدا 166.jfif" alt="شامبو لوريال">
+    <h3>مولبد الترا طويل جدا 16*6</h3>
+    <div class="price"> جنيه 405.51</div>
+    <input type="number" id="qty-67" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('مولبد الترا طويل جدا 16*6')">أضف إلى السلة</button>
+    <button onclick="buyNow('مولبد الترا طويل جدا 16*6', 'qty-67')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفا ايسيتون بدون رائحه 100 مللي">
+    <img src="صور مستحضرات التجميل/ايفا ايسيتون بدون رائحه 100 مللي.jpg" alt="شامبو لوريال">
+    <h3>ايفا ايسيتون بدون رائحه 100 مللي</h3>
+    <div class="price"> جنيه 38.00</div>
+    <input type="number" id="qty-68" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا ايسيتون بدون رائحه 100 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا ايسيتون بدون رائحه 100 مللي', 'qty-68')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايزي سويت عادي 40 جرام">
+    <img src="صور مستحضرات التجميل/ايزي سويت عادي 40 جرام.jpg" alt="شامبو لوريال">
+    <h3>ايزي سويت عادي 40 جرام</h3>
+    <div class="price"> جنيه 8.00</div>
+    <input type="number" id="qty-69" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايزي سويت عادي 40 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايزي سويت عادي 40 جرام', 'qty-69')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايزي سويت عادي 90 جرام">
+    <img src="صور مستحضرات التجميل/ايزي سويت عادي 90 جرام.jpg" alt="شامبو لوريال">
+    <h3>ايزي سويت عادي 90 جرام</h3>
+    <div class="price"> جنيه 14.00</div>
+    <input type="number" id="qty-70" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايزي سويت عادي 90 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايزي سويت عادي 90 جرام', 'qty-70')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="لوف حمام كف سوري">
+    <img src="صور مستحضرات التجميل/لوف حمام كف سوري.jpg" alt="شامبو لوريال">
+    <h3>لوف حمام كف سوري</h3>
+    <div class="price"> جنيه 25.00</div>
+    <input type="number" id="qty-71" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لوف حمام كف سوري')">أضف إلى السلة</button>
+    <button onclick="buyNow('لوف حمام كف سوري', 'qty-71')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رول fa اتراكشن رجالي 50 مللي">
+    <img src="صور مستحضرات التجميل/رول fa اتراكشن رجالي 50 مللي.avif" alt="شامبو لوريال">
+    <h3>رول fa اتراكشن رجالي 50 مللي</h3>
+    <div class="price"> جنيه 49.00</div>
+    <input type="number" id="qty-72" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رول fa اتراكشن رجالي 50 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('رول fa اتراكشن رجالي 50 مللي', 'qty-72')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رول fa سوفت اند كنترول 50 مللي حريمي">
+    <img src="صور مستحضرات التجميل/رول fa سوفت اند كنترول 50 مللي حريمي.avif" alt="شامبو لوريال">
+    <h3>رول fa سوفت اند كنترول 50 مللي حريمي</h3>
+    <div class="price"> جنيه 49.00</div>
+    <input type="number" id="qty-73" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رول fa سوفت اند كنترول 50 مللي حريمي')">أضف إلى السلة</button>
+    <button onclick="buyNow('رول fa سوفت اند كنترول 50 مللي حريمي', 'qty-73')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رول fa انفزبل 50 مللي حريمي">
+    <img src="صور مستحضرات التجميل/رول fa انفزبل 50 مللي حريمي.webp" alt="شامبو لوريال">
+    <h3>رول fa انفزبل 50 مللي حريمي</h3>
+    <div class="price"> جنيه 49.00</div>
+    <input type="number" id="qty-74" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رول fa انفزبل 50 مللي حريمي')">أضف إلى السلة</button>
+    <button onclick="buyNow('رول fa انفزبل 50 مللي حريمي', 'qty-74')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رول fa فريشلي فري 50 مللي رجالي">
+    <img src="صور مستحضرات التجميل/رول fa فريشلي فري 50 مللي رجالي.jpg" alt="شامبو لوريال">
+    <h3>رول fa فريشلي فري 50 مللي رجالي</h3>
+    <div class="price"> جنيه 49.00</div>
+    <input type="number" id="qty-75" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رول fa فريشلي فري 50 مللي رجالي')">أضف إلى السلة</button>
+    <button onclick="buyNow('رول fa فريشلي فري 50 مللي رجالي', 'qty-75')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رول zak كاربون بودي جار ازرق 50 مللي">
+    <img src="صور مستحضرات التجميل/رول zak كاربون بودي جار ازرق 50 مللي.jpg" alt="شامبو لوريال">
+    <h3>رول zak كاربون بودي جار ازرق 50 مللي</h3>
+    <div class="price"> جنيه 45.00</div>
+    <input type="number" id="qty-76" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رول zak كاربون بودي جار ازرق 50 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('رول zak كاربون بودي جار ازرق 50 مللي', 'qty-76')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رول zak فريش بودي جارد رمادي 50 مللي">
+    <img src="صور مستحضرات التجميل/رول zak فريش بودي جارد رمادي 50 مللي.jpeg" alt="شامبو لوريال">
+    <h3>رول zak فريش بودي جارد رمادي 50 مللي</h3>
+    <div class="price"> جنيه 45.00</div>
+    <input type="number" id="qty-77" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رول zak فريش بودي جارد رمادي 50 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('رول zak فريش بودي جارد رمادي 50 مللي', 'qty-77')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="نيفيا اسبراي فريش سينسيشن حريمي 150 مللي">
+    <img src="صور مستحضرات التجميل/نيفيا اسبراي فريش سينسيشن حريمي 150 مللي.jpg" alt="شامبو لوريال">
+    <h3>نيفيا اسبراي فريش سينسيشن حريمي 150 مللي</h3>
+    <div class="price"> جنيه 122.00</div>
+    <input type="number" id="qty-78" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('نيفيا اسبراي فريش سينسيشن حريمي 150 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('نيفيا اسبراي فريش سينسيشن حريمي 150 مللي', 'qty-78')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="نيفيا اسبراي بيرل اند بيوتي حريمي 150 مللي">
+    <img src="صور مستحضرات التجميل/نيفيا اسبراي بيرل اند بيوتي حريمي 150 مللي.avif" alt="شامبو لوريال">
+    <h3>نيفيا اسبراي بيرل اند بيوتي حريمي 150 مللي</h3>
+    <div class="price"> جنيه 115.00</div>
+    <input type="number" id="qty-79" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('نيفيا اسبراي بيرل اند بيوتي حريمي 150 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('نيفيا اسبراي بيرل اند بيوتي حريمي 150 مللي', 'qty-79')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="نيفيا اسبراي بلاك اند وايت رجالي 150 مللي">
+    <img src="صور مستحضرات التجميل/نيفيا اسبراي بلاك اند وايت رجالي 150 مللي.avif" alt="شامبو لوريال">
+    <h3>نيفيا اسبراي بلاك اند وايت رجالي 150 مللي</h3>
+    <div class="price"> جنيه 115.00</div>
+    <input type="number" id="qty-80" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('نيفيا اسبراي بلاك اند وايت رجالي 150 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('نيفيا اسبراي بلاك اند وايت رجالي 150 مللي', 'qty-80')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="نيفيا اسبراي بلاك كاربون رجالي 150 مللي">
+    <img src="صور مستحضرات التجميل/نيفيا اسبراي بلاك كاربون رجالي 150 مللي.avif" alt="شامبو لوريال">
+    <h3>نيفيا اسبراي بلاك كاربون رجالي 150 مللي</h3>
+    <div class="price"> جنيه 115.00</div>
+    <input type="number" id="qty-81" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('نيفيا اسبراي بلاك كاربون رجالي 150 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('نيفيا اسبراي بلاك كاربون رجالي 150 مللي', 'qty-81')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="نيفيا اسبراي فريش كتيف رجالي 150 مللي">
+    <img src="صور مستحضرات التجميل/نيفيا اسبراي فريش كتيف رجالي 150 مللي.avif" alt="شامبو لوريال">
+    <h3>نيفيا اسبراي فريش كتيف رجالي 150 مللي</h3>
+    <div class="price"> جنيه 122.00</div>
+    <input type="number" id="qty-82" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('نيفيا اسبراي فريش كتيف رجالي 150 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('نيفيا اسبراي فريش كتيف رجالي 150 مللي', 'qty-82')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="نيفيا اسبراي فريش ناتشورال حريمي 150 مللي">
+    <img src="صور مستحضرات التجميل/نيفيا اسبراي فريش ناتشورال حريمي 150 مللي.avif" alt="شامبو لوريال">
+    <h3>نيفيا اسبراي فريش ناتشورال حريمي 150 مللي</h3>
+    <div class="price"> جنيه 122.00</div>
+    <input type="number" id="qty-83" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('نيفيا اسبراي فريش ناتشورال حريمي 150 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('نيفيا اسبراي فريش ناتشورال حريمي 150 مللي', 'qty-83')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="نيفيا اسبراي بلاك اند وايت حريمي 150 مللي">
+    <img src="صور مستحضرات التجميل/نيفيا اسبراي بلاك اند وايت حريمي 150 مللي.webp" alt="شامبو لوريال">
+    <h3>نيفيا اسبراي بلاك اند وايت حريمي 150 مللي</h3>
+    <div class="price"> جنيه 115.00</div>
+    <input type="number" id="qty-84" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('نيفيا اسبراي بلاك اند وايت حريمي 150 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('نيفيا اسبراي بلاك اند وايت حريمي 150 مللي', 'qty-84')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي اواك (fog) رجالي 120 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي اواك (fog) رجالي 120 مللي.webp" alt="شامبو لوريال">
+    <h3>اسبراي اواك (fog) رجالي 120 مللي</h3>
+    <div class="price"> جنيه 100.00</div>
+    <input type="number" id="qty-85" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي اواك (fog) رجالي 120 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي اواك (fog) رجالي 120 مللي', 'qty-85')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي fog ماستر سيدار رجالي 120 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي fog ماستر سيدار رجالي 120 مللي.jpg" alt="شامبو لوريال">
+    <h3>اسبراي fog ماستر سيدار رجالي 120 مللي</h3>
+    <div class="price"> جنيه 100.00</div>
+    <input type="number" id="qty-86" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي fog ماستر سيدار رجالي 120 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي fog ماستر سيدار رجالي 120 مللي', 'qty-86')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي fog ماستر اجار رجالي 120 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي fog ماستر اجار رجالي 120 مللي.avif" alt="شامبو لوريال">
+    <h3>اسبراي fog ماستر اجار رجالي 120 مللي</h3>
+    <div class="price"> جنيه 100.00</div>
+    <input type="number" id="qty-87" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي fog ماستر اجار رجالي 120 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي fog ماستر اجار رجالي 120 مللي', 'qty-87')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي fog ماركو رجالي 120 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي fog ماركو رجالي 120 مللي.avif" alt="شامبو لوريال">
+    <h3>اسبراي fog ماركو رجالي 120 مللي</h3>
+    <div class="price"> جنيه 100.00</div>
+    <input type="number" id="qty-88" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي fog ماركو رجالي 120 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي fog ماركو رجالي 120 مللي', 'qty-88')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي fog اسود بخط اخضر رجالي 120 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي fog اسود بخط اخضر رجالي 120 مللي.jpg" alt="شامبو لوريال">
+    <h3>اسبراي fog اسود بخط اخضر رجالي 120 مللي</h3>
+    <div class="price"> جنيه 100.00</div>
+    <input type="number" id="qty-89" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي fog اسود بخط اخضر رجالي 120 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي fog اسود بخط اخضر رجالي 120 مللي', 'qty-89')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي fog اسود بخط اصفر رجالي 120 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي fog اسود بخط اصفر رجالي 120 مللي.avif" alt="شامبو لوريال">
+    <h3>اسبراي fog اسود بخط اصفر رجالي 120 مللي</h3>
+    <div class="price"> جنيه 100.00</div>
+    <input type="number" id="qty-90" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي fog اسود بخط اصفر رجالي 120 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي fog اسود بخط اصفر رجالي 120 مللي', 'qty-90')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي fog اسود بخط احمر رجالي 120 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي fog اسود بخط احمر رجالي 120 مللي.avif" alt="شامبو لوريال">
+    <h3>اسبراي fog اسود بخط احمر رجالي 120 مللي</h3>
+    <div class="price"> جنيه 100.00</div>
+    <input type="number" id="qty-91" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي fog اسود بخط احمر رجالي 120 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي fog اسود بخط احمر رجالي 120 مللي', 'qty-91')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي fog ديناميك رجالي 120 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي fog ديناميك رجالي 120 مللي.avif" alt="شامبو لوريال">
+    <h3>اسبراي fog ديناميك رجالي 120 مللي</h3>
+    <div class="price"> جنيه 100.00</div>
+    <input type="number" id="qty-92" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي fog ديناميك رجالي 120 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي fog ديناميك رجالي 120 مللي', 'qty-92')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي fog ماستر باين رجالي 120 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي fog ماستر باين رجالي 120 مللي.avif" alt="شامبو لوريال">
+    <h3>اسبراي fog ماستر باين رجالي 120 مللي</h3>
+    <div class="price"> جنيه 100.00</div>
+    <input type="number" id="qty-93" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي fog ماستر باين رجالي 120 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي fog ماستر باين رجالي 120 مللي', 'qty-93')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي fog مونارك بني رجالي 120 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي fog مونارك بني رجالي 120 مللي.jpg" alt="شامبو لوريال">
+    <h3>اسبراي fog مونارك بني رجالي 120 مللي</h3>
+    <div class="price"> جنيه 100.00</div>
+    <input type="number" id="qty-94" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي fog مونارك بني رجالي 120 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي fog مونارك بني رجالي 120 مللي', 'qty-94')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي fog باراديز موف حريمي 120 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي fog باراديز موف حريمي 120 مللي.webp" alt="شامبو لوريال">
+    <h3>اسبراي fog باراديز موف حريمي 120 مللي</h3>
+    <div class="price"> جنيه 100.00</div>
+    <input type="number" id="qty-95" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي fog باراديز موف حريمي 120 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي fog باراديز موف حريمي 120 مللي', 'qty-95')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي fog رويال ازرق حريمي 120 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي fog رويال ازرق حريمي 120 مللي.webp" alt="شامبو لوريال">
+    <h3>اسبراي fog رويال ازرق حريمي 120 مللي</h3>
+    <div class="price"> جنيه 100.00</div>
+    <input type="number" id="qty-96" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي fog رويال ازرق حريمي 120 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي fog رويال ازرق حريمي 120 مللي', 'qty-96')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي fog ايسانس بمبي حريمي 120 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي fog ايسانس بمبي حريمي 120 مللي.jpg" alt="شامبو لوريال">
+    <h3>اسبراي fog ايسانس بمبي حريمي 120 مللي</h3>
+    <div class="price"> جنيه 100.00</div>
+    <input type="number" id="qty-97" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي fog ايسانس بمبي حريمي 120 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي fog ايسانس بمبي حريمي 120 مللي', 'qty-97')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رول FA فيجي دريم حريمي 50 مللي">
+    <img src="صور مستحضرات التجميل/رول FA فيجي دريم حريمي 50 مللي.jpg" alt="شامبو لوريال">
+    <h3>رول FA فيجي دريم حريمي 50 مللي</h3>
+    <div class="price"> جنيه 49.00</div>
+    <input type="number" id="qty-98" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رول FA فيجي دريم حريمي 50 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('رول FA فيجي دريم حريمي 50 مللي', 'qty-98')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رول FA فلورال بروتيكت حريمي 50 مللي">
+    <img src="صور مستحضرات التجميل/رول FA فلورال بروتيكت حريمي 50 مللي.avif" alt="شامبو لوريال">
+    <h3>رول FA فلورال بروتيكت حريمي 50 مللي</h3>
+    <div class="price"> جنيه 49.00</div>
+    <input type="number" id="qty-99" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رول FA فلورال بروتيكت حريمي 50 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('رول FA فلورال بروتيكت حريمي 50 مللي', 'qty-99')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي fog مطلق اسود رجالي 120 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي fog مطلق اسود رجالي 120 مللي.jpg" alt="شامبو لوريال">
+    <h3>اسبراي fog مطلق اسود رجالي 120 مللي</h3>
+    <div class="price"> جنيه 100.00</div>
+    <input type="number" id="qty-100" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي fog مطلق اسود رجالي 120 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي fog مطلق اسود رجالي 120 مللي', 'qty-100')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي fog احتفل رجالي 120 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي fog احتفل رجالي 120 مللي.png" alt="شامبو لوريال">
+    <h3>اسبراي fog احتفل رجالي 120 مللي</h3>
+    <div class="price"> جنيه 100.00</div>
+    <input type="number" id="qty-101" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي fog احتفل رجالي 120 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي fog احتفل رجالي 120 مللي', 'qty-101')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="الصفا قطن اذن 100 عود">
+    <img src="صور مستحضرات التجميل/الصفا قطن اذن 100 عود.webp" alt="شامبو لوريال">
+    <h3>الصفا قطن اذن 100 عود</h3>
+    <div class="price"> جنيه 11.00</div>
+    <input type="number" id="qty-102" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('الصفا قطن اذن 100 عود')">أضف إلى السلة</button>
+    <button onclick="buyNow('الصفا قطن اذن 100 عود', 'qty-102')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رول ZAK اكستريم 50 مللي">
+    <img src="صور مستحضرات التجميل/رول ZAK اكستريم 50 مللي.avif" alt="شامبو لوريال">
+    <h3>رول ZAK اكستريم 50 مللي</h3>
+    <div class="price"> جنيه 43.16</div>
+    <input type="number" id="qty-103" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رول ZAK اكستريم 50 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('رول ZAK اكستريم 50 مللي', 'qty-103')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رول ZAK سبورت 50 مللي">
+    <img src="صور مستحضرات التجميل/رول ZAK سبورت 50 مللي.jpeg" alt="شامبو لوريال">
+    <h3>رول ZAK سبورت 50 مللي</h3>
+    <div class="price"> جنيه 45.00</div>
+    <input type="number" id="qty-104" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رول ZAK سبورت 50 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('رول ZAK سبورت 50 مللي', 'qty-104')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="برفان AXE mysterious 122 مللي">
+    <img src="صور مستحضرات التجميل/برفان AXE mysterious 122 مللي.jpg" alt="شامبو لوريال">
+    <h3>برفان AXE mysterious 122 مللي</h3>
+    <div class="price"> جنيه 190.00</div>
+    <input type="number" id="qty-105" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('برفان AXE mysterious 122 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('برفان AXE mysterious 122 مللي', 'qty-105')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="برفان AXE rogue 122 مللي">
+    <img src="صور مستحضرات التجميل/برفان AXE rogue 122 مللي.jpg" alt="شامبو لوريال">
+    <h3>برفان AXE rogue 122 مللي</h3>
+    <div class="price"> جنيه 190.00</div>
+    <input type="number" id="qty-106" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('برفان AXE rogue 122 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('برفان AXE rogue 122 مللي', 'qty-106')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="برفان AXE suave 122 مللي">
+    <img src="صور مستحضرات التجميل/برفان AXE suave 122 مللي.jpg" alt="شامبو لوريال">
+    <h3>برفان AXE suave 122 مللي</h3>
+    <div class="price"> جنيه 190.00</div>
+    <input type="number" id="qty-107" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('برفان AXE suave 122 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('برفان AXE suave 122 مللي', 'qty-107')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="برفان AXE maverick 122 مللي">
+    <img src="صور مستحضرات التجميل/برفان AXE maverick 122 مللي.jpg" alt="شامبو لوريال">
+    <h3>برفان AXE maverick 122 مللي</h3>
+    <div class="price"> جنيه 190.00</div>
+    <input type="number" id="qty-108" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('برفان AXE maverick 122 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('برفان AXE maverick 122 مللي', 'qty-108')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="برفان AXE champion 122 مللي">
+    <img src="صور مستحضرات التجميل/برفان AXE champion 122 مللي.jpg" alt="شامبو لوريال">
+    <h3>برفان AXE champion 122 مللي</h3>
+    <div class="price"> جنيه 190.00</div>
+    <input type="number" id="qty-109" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('برفان AXE champion 122 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('برفان AXE champion 122 مللي', 'qty-109')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="برفان AXE intense 122 مللي">
+    <img src="صور مستحضرات التجميل/برفان AXE intense 122 مللي.jpg" alt="شامبو لوريال">
+    <h3>برفان AXE intense 122 مللي</h3>
+    <div class="price"> جنيه 190.00</div>
+    <input type="number" id="qty-110" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('برفان AXE intense 122 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('برفان AXE intense 122 مللي', 'qty-110')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ديبي واكس شمع ازاله 100 مللي مصري">
+    <img src="صور مستحضرات التجميل/ديبي واكس شمع ازاله 100 مللي مصري.jpg" alt="شامبو لوريال">
+    <h3>ديبي واكس شمع ازاله 100 مللي مصري</h3>
+    <div class="price"> جنيه 32.80</div>
+    <input type="number" id="qty-111" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ديبي واكس شمع ازاله 100 مللي مصري')">أضف إلى السلة</button>
+    <button onclick="buyNow('ديبي واكس شمع ازاله 100 مللي مصري', 'qty-111')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="لوف سوري طويل">
+    <img src="صور مستحضرات التجميل/لوف سوري طويل.jfif" alt="شامبو لوريال">
+    <h3>لوف سوري طويل</h3>
+    <div class="price"> جنيه 23.00</div>
+    <input type="number" id="qty-112" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لوف سوري طويل')">أضف إلى السلة</button>
+    <button onclick="buyNow('لوف سوري طويل', 'qty-112')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي AXE Black night 150 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي AXE Black night 150 مللي.webp" alt="شامبو لوريال">
+    <h3>اسبراي AXE Black night 150 مللي</h3>
+    <div class="price"> جنيه 140.00</div>
+    <input type="number" id="qty-113" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي AXE Black night 150 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي AXE Black night 150 مللي', 'qty-113')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي AXE Dark tempetation 150 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي AXE Dark tempetation 150 مللي.avif" alt="شامبو لوريال">
+    <h3>اسبراي AXE Dark tempetation 150 مللي</h3>
+    <div class="price"> جنيه 140.00</div>
+    <input type="number" id="qty-114" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي AXE Dark tempetation 150 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي AXE Dark tempetation 150 مللي', 'qty-114')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي AXE Gold tempetation 150 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي AXE Gold tempetation 150 مللي.avif" alt="شامبو لوريال">
+    <h3>اسبراي AXE Gold tempetation 150 مللي</h3>
+    <div class="price"> جنيه 140.00</div>
+    <input type="number" id="qty-115" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي AXE Gold tempetation 150 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي AXE Gold tempetation 150 مللي', 'qty-115')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي AXE Ice chill 150 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي AXE Ice chill 150 مللي.avif" alt="شامبو لوريال">
+    <h3>اسبراي AXE Ice chill 150 مللي</h3>
+    <div class="price"> جنيه 140.00</div>
+    <input type="number" id="qty-116" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي AXE Ice chill 150 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي AXE Ice chill 150 مللي', 'qty-116')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي AXE كوكيز leather 150 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي AXE كوكيز leather 150 مللي.webp" alt="شامبو لوريال">
+    <h3>اسبراي AXE كوكيز leather 150 مللي</h3>
+    <div class="price"> جنيه 140.00</div>
+    <input type="number" id="qty-117" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي AXE كوكيز leather 150 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي AXE كوكيز leather 150 مللي', 'qty-117')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي AXE recharge 150 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي AXE recharge 150 مللي.jpg" alt="شامبو لوريال">
+    <h3>اسبراي AXE recharge 150 مللي</h3>
+    <div class="price"> جنيه 140.00</div>
+    <input type="number" id="qty-118" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي AXE recharge 150 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي AXE recharge 150 مللي', 'qty-118')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي AXE Skateboard 150 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي AXE Skateboard 150 مللي.avif" alt="شامبو لوريال">
+    <h3>اسبراي AXE Skateboard 150 مللي</h3>
+    <div class="price"> جنيه 140.00</div>
+    <input type="number" id="qty-119" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي AXE Skateboard 150 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي AXE Skateboard 150 مللي', 'qty-119')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي AXE اسود 150 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي AXE اسود 150 مللي.jpg" alt="شامبو لوريال">
+    <h3>اسبراي AXE اسود 150 مللي</h3>
+    <div class="price"> جنيه 140.00</div>
+    <input type="number" id="qty-120" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي AXE اسود 150 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي AXE اسود 150 مللي', 'qty-120')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي AXE اسكيت روسيس 150 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي AXE اسكيت روسيس 150 مللي.jpg" alt="شامبو لوريال">
+    <h3>اسبراي AXE اسكيت روسيس 150 مللي</h3>
+    <div class="price"> جنيه 140.00</div>
+    <input type="number" id="qty-121" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي AXE اسكيت روسيس 150 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي AXE اسكيت روسيس 150 مللي', 'qty-121')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="رول fa جريب فروت حريمي 50 مللي">
+    <img src="صور مستحضرات التجميل/رول fa جريب فروت حريمي 50 مللي.avif" alt="شامبو لوريال">
+    <h3>رول fa جريب فروت حريمي 50 مللي</h3>
+    <div class="price"> جنيه 49.00</div>
+    <input type="number" id="qty-122" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رول fa جريب فروت حريمي 50 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('رول fa جريب فروت حريمي 50 مللي', 'qty-122')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رول fa ليمون و جوز هند حريمي 50 مللي">
+    <img src="صور مستحضرات التجميل/رول fa ليمون و جوز هند حريمي 50 مللي.avif" alt="شامبو لوريال">
+    <h3>رول fa ليمون و جوز هند حريمي 50 مللي</h3>
+    <div class="price"> جنيه 49.00</div>
+    <input type="number" id="qty-123" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رول fa ليمون و جوز هند حريمي 50 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('رول fa ليمون و جوز هند حريمي 50 مللي', 'qty-123')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رول fa خيار و شمام (برتقالي) حريمي 50 مللي">
+    <img src="صور مستحضرات التجميل/رول fa خيار و شمام (برتقالي) حريمي 50 مللي.jpg" alt="شامبو لوريال">
+    <h3>رول fa خيار و شمام (برتقالي) حريمي 50 مللي</h3>
+    <div class="price"> جنيه 49.00</div>
+    <input type="number" id="qty-124" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رول fa خيار و شمام (برتقالي) حريمي 50 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('رول fa خيار و شمام (برتقالي) حريمي 50 مللي', 'qty-124')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رول fa بالليمون و الجنزبيل رجالي 50 مللي">
+    <img src="صور مستحضرات التجميل/رول fa بالليمون و الجنزبيل رجالي 50 مللي.avif" alt="شامبو لوريال">
+    <h3>رول fa بالليمون و الجنزبيل رجالي 50 مللي</h3>
+    <div class="price"> جنيه 49.00</div>
+    <input type="number" id="qty-125" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رول fa بالليمون و الجنزبيل رجالي 50 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('رول fa بالليمون و الجنزبيل رجالي 50 مللي', 'qty-125')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="رول fa بالنعناع و الرغموت رجالي 50 مللي">
+    <img src="صور مستحضرات التجميل/رول fa بالنعناع و الرغموت رجالي 50 مللي.avif" alt="شامبو لوريال">
+    <h3>رول fa بالنعناع و الرغموت رجالي 50 مللي</h3>
+    <div class="price"> جنيه 49.00</div>
+    <input type="number" id="qty-126" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رول fa بالنعناع و الرغموت رجالي 50 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('رول fa بالنعناع و الرغموت رجالي 50 مللي', 'qty-126')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي fog نابليون 120 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي fog نابليون 120 مللي.avif" alt="شامبو لوريال">
+    <h3>اسبراي fog نابليون 120 مللي</h3>
+    <div class="price"> جنيه 100.00</div>
+    <input type="number" id="qty-127" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي fog نابليون 120 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي fog نابليون 120 مللي', 'qty-127')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي fog اسود بخط تركواز موجه نشاط رجالي 120 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي fog اسود بخط تركواز موجه نشاط رجالي 120 مللي.png" alt="شامبو لوريال">
+    <h3>اسبراي fog اسود بخط تركواز موجه نشاط رجالي 120 مللي</h3>
+    <div class="price"> جنيه 100.00</div>
+    <input type="number" id="qty-128" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي fog اسود بخط تركواز موجه نشاط رجالي 120 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي fog اسود بخط تركواز موجه نشاط رجالي 120 مللي', 'qty-128')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="اسبراي xl bonjour 150 حريمي مللي">
+    <img src="صور مستحضرات التجميل/اسبراي xl bonjour 150 حريمي مللي.png" alt="شامبو لوريال">
+    <h3>اسبراي xl bonjour 150 حريمي مللي</h3>
+    <div class="price"> جنيه 100.00</div>
+    <input type="number" id="qty-129" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي xl bonjour 150 حريمي مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي xl bonjour 150 حريمي مللي', 'qty-128')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي xl elegance 150 حريمي مللي">
+    <img src="صور مستحضرات التجميل/اسبراي xl elegance 150 حريمي مللي.avif" alt="شامبو لوريال">
+    <h3>اسبراي xl elegance 150 حريمي مللي</h3>
+    <div class="price"> جنيه 90.00</div>
+    <input type="number" id="qty-129" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي xl elegance 150 حريمي مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي xl elegance 150 حريمي مللي', 'qty-129')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي xl cache dor 150 حريمي مللي">
+    <img src="صور مستحضرات التجميل/اسبراي xl cache dor 150 حريمي مللي.jpg" alt="شامبو لوريال">
+    <h3>اسبراي xl cache dor 150 حريمي مللي</h3>
+    <div class="price"> جنيه 90.00</div>
+    <input type="number" id="qty-130" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي xl cache dor 150 حريمي مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي xl cache dor 150 حريمي مللي', 'qty-130')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي xl equity 150 فضي رجالي مللي">
+    <img src="صور مستحضرات التجميل/اسبراي xl equity 150 فضي رجالي مللي.jpg" alt="شامبو لوريال">
+    <h3>اسبراي xl equity 150 فضي رجالي مللي</h3>
+    <div class="price"> جنيه 90.00</div>
+    <input type="number" id="qty-131" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي xl equity 150 فضي رجالي مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي xl equity 150 فضي رجالي مللي', 'qty-131')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي xl gold 150 فضي حريمي مللي">
+    <img src="صور مستحضرات التجميل/اسبراي xl gold 150 فضي حريمي مللي.webp" alt="شامبو لوريال">
+    <h3>اسبراي xl gold 150  حريمي مللي</h3>
+    <div class="price"> جنيه 90.00</div>
+    <input type="number" id="qty-132" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي xl gold 150  حريمي مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي xl gold 150  حريمي مللي', 'qty-132')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="اسبراي xl grand 150 رجالي مللي">
+    <img src="صور مستحضرات التجميل/اسبراي xl grand 150 رجالي مللي.jpg" alt="شامبو لوريال">
+    <h3>اسبراي xl grand 150 رجالي مللي</h3>
+    <div class="price"> جنيه 90.00</div>
+    <input type="number" id="qty-133" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي xl grand 150 رجالي مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي xl grand 150 رجالي مللي', 'qty-133')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي xl kiss 150 حريمي مللي">
+    <img src="صور مستحضرات التجميل/اسبراي xl kiss 150 حريمي مللي.jfif" alt="شامبو لوريال">
+    <h3>اسبراي xl kiss 150 حريمي مللي</h3>
+    <div class="price"> جنيه 90.00</div>
+    <input type="number" id="qty-134" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي xl kiss 150 حريمي مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي xl kiss 150 حريمي مللي', 'qty-134')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي xl platinum 150 رجالي مللي">
+    <img src="صور مستحضرات التجميل/اسبراي xl platinum 150 رجالي مللي.jpg" alt="شامبو لوريال">
+    <h3>اسبراي xl platinum 150 رجالي مللي</h3>
+    <div class="price"> جنيه 90.00</div>
+    <input type="number" id="qty-135" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي xl platinum 150 رجالي مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي xl platinum 150 رجالي مللي', 'qty-135')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي xl tango 150 حريمي مللي">
+    <img src="صور مستحضرات التجميل/اسبراي xl tango 150 حريمي مللي.jpg" alt="شامبو لوريال">
+    <h3>اسبراي xl tango 150 حريمي مللي</h3>
+    <div class="price"> جنيه 90.00</div>
+    <input type="number" id="qty-136" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي xl tango 150 حريمي مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي xl tango 150 حريمي مللي', 'qty-136')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي xl vanilla 150 حريمي مللي">
+    <img src="صور مستحضرات التجميل/اسبراي xl vanilla 150 حريمي مللي.jpg" alt="شامبو لوريال">
+    <h3>اسبراي xl vanilla 150 حريمي مللي</h3>
+    <div class="price"> 90.00 جنيه</div>
+    <input type="number" id="qty-137" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي xl vanilla 150 حريمي مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي xl vanilla 150 حريمي مللي', 'qty-137')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي xl azzura 150 حريمي مللي">
+    <img src="صور مستحضرات التجميل/اسبراي xl azzura 150 حريمي مللي.jpg" alt="شامبو لوريال">
+    <h3>اسبراي xl azzura 150 حريمي مللي</h3>
+    <div class="price"> جنيه 90.00</div>
+    <input type="number" id="qty-138" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي xl azzura 150 حريمي مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي xl azzura 150 حريمي مللي', 'qty-138')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي xl عود اسود 150 حريمي مللي">
+    <img src="صور مستحضرات التجميل/اسبراي xl عود اسود 150 حريمي مللي.jpg" alt="شامبو لوريال">
+    <h3>اسبراي xl عود اسود 150 حريمي مللي</h3>
+    <div class="price"> جنيه 90.00</div>
+    <input type="number" id="qty-139" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي xl عود اسود 150 حريمي مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي xl عود اسود 150 حريمي مللي', 'qty-139')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي xl فضي 150 حريمي مللي">
+    <img src="صور مستحضرات التجميل/اسبراي xl فضي 150 حريمي مللي.webp" alt="شامبو لوريال">
+    <h3>اسبراي xl فضي 150 حريمي مللي</h3>
+    <div class="price"> جنيه 90.00</div>
+    <input type="number" id="qty-140" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي xl فضي 150 حريمي مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي xl فضي 150 حريمي مللي', 'qty-140')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي xl وان بليون 150 حريمي مللي">
+    <img src="صور مستحضرات التجميل/اسبراي xl وان بليون 150 حريمي مللي.jfif" alt="شامبو لوريال">
+    <h3>اسبراي xl وان بليون 150 حريمي مللي</h3>
+    <div class="price"> جنيه 90.00</div>
+    <input type="number" id="qty-141" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي xl وان بليون 150 حريمي مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي xl وان بليون 150 حريمي مللي', 'qty-141')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي xl azzura 150 رجالي مللي">
+    <img src="صور مستحضرات التجميل/اسبراي xl azzura 150 رجالي مللي.jpg" alt="شامبو لوريال">
+    <h3>اسبراي xl azzura 150 رجالي مللي</h3>
+    <div class="price"> جنيه 90.00</div>
+    <input type="number" id="qty-142" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي xl azzura 150 رجالي مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي xl azzura 150 رجالي مللي', 'qty-142')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي xl chocolat 150 رجالي مللي">
+    <img src="صور مستحضرات التجميل/اسبراي xl chocolat 150 رجالي مللي.jpg" alt="شامبو لوريال">
+    <h3>اسبراي xl chocolat 150 رجالي مللي</h3>
+    <div class="price"> جنيه 90.00</div>
+    <input type="number" id="qty-143" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي xl chocolat 150 رجالي مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي xl chocolat 150 رجالي مللي', 'qty-143')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي xl اسود مطلق 150 رجالي مللي">
+    <img src="صور مستحضرات التجميل/اسبراي xl اسود مطلق 150 رجالي مللي.jpg" alt="شامبو لوريال">
+    <h3>اسبراي xl اسود مطلق 150 رجالي مللي</h3>
+    <div class="price"> جنيه 90.00</div>
+    <input type="number" id="qty-144" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي xl اسود مطلق 150 رجالي مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي xl اسود مطلق 150 رجالي مللي', 'qty-144')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي xl العود 150 رجالي مللي">
+    <img src="صور مستحضرات التجميل/اسبراي xl العود 150 رجالي مللي.jpg" alt="شامبو لوريال">
+    <h3>اسبراي xl العود 150 رجالي مللي</h3>
+    <div class="price"> جنيه 90.00</div>
+    <input type="number" id="qty-145" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي xl العود 150 رجالي مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي xl العود 150 رجالي مللي', 'qty-145')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي xl فضي 150 رجالي مللي">
+    <img src="صور مستحضرات التجميل/اسبراي xl فضي 150 رجالي مللي.webp" alt="شامبو لوريال">
+    <h3>اسبراي xl فضي 150 رجالي مللي</h3>
+    <div class="price"> جنيه 90.00</div>
+    <input type="number" id="qty-146" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي xl فضي 150 رجالي مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي xl فضي 150 رجالي مللي', 'qty-146')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي xl وان بليون 150 رجالي مللي">
+    <img src="صور مستحضرات التجميل/اسبراي xl وان بليون 150 رجالي مللي.png" alt="شامبو لوريال">
+    <h3>اسبراي xl وان بليون 150 رجالي مللي</h3>
+    <div class="price"> جنيه 90.00</div>
+    <input type="number" id="qty-147" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي xl وان بليون 150 رجالي مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي xl وان بليون 150 رجالي مللي', 'qty-147')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اسبراي xl جرافيتي 150 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي xl جرافيتي 150 مللي.jpg" alt="شامبو لوريال">
+    <h3>اسبراي xl جرافيتي 150 مللي</h3>
+    <div class="price"> جنيه 90.00</div>
+    <input type="number" id="qty-148" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي xl جرافيتي 150 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي xl جرافيتي 150 مللي', 'qty-148')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="اسبراي zak فينتاج 175 مللي">
+    <img src="صور مستحضرات التجميل/اسبراي zak فينتاج 175 مللي.jpg" alt="شامبو لوريال">
+    <h3>اسبراي zak فينتاج 175 مللي</h3>
+    <div class="price"> جنيه 205.00</div>
+    <input type="number" id="qty-149" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اسبراي zak فينتاج 175 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('اسبراي zak فينتاج 175 مللي', 'qty-149')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="الشريف قصافه صلب">
+    <img src="صور مستحضرات التجميل/الشريف قصافه صلب.jpg" alt="شامبو لوريال">
+    <h3>الشريف قصافه صلب</h3>
+    <div class="price"> جنيه 27.00</div>
+    <input type="number" id="qty-150" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('الشريف قصافه صلب')">أضف إلى السلة</button>
+    <button onclick="buyNow('الشريف قصافه صلب', 'qty-150')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="الشريف مقص استانلس">
+    <img src="صور مستحضرات التجميل/الشريف مقص استانلس.webp" alt="شامبو لوريال">
+    <h3>الشريف مقص استانلس</h3>
+    <div class="price"> جنيه 21.00</div>
+    <input type="number" id="qty-151" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('الشريف مقص استانلس')">أضف إلى السلة</button>
+    <button onclick="buyNow('الشريف مقص استانلس', 'qty-151')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="الشريف ملقاط صلب">
+    <img src="صور مستحضرات التجميل/الشريف ملقاط صلب.jpg" alt="شامبو لوريال">
+    <h3>الشريف ملقاط صلب</h3>
+    <div class="price"> جنيه 18.00</div>
+    <input type="number" id="qty-152" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('الشريف ملقاط صلب')">أضف إلى السلة</button>
+    <button onclick="buyNow('الشريف ملقاط صلب', 'qty-152')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اميجو فرشه حلاقه مصري">
+    <img src="صور مستحضرات التجميل/اميجو فرشه حلاقه مصري.jpg" alt="شامبو لوريال">
+    <h3>اميجو فرشه حلاقه مصري</h3>
+    <div class="price"> جنيه 48.00</div>
+    <input type="number" id="qty-153" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اميجو فرشه حلاقه مصري')">أضف إلى السلة</button>
+    <button onclick="buyNow('اميجو فرشه حلاقه مصري', 'qty-153')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="انجرام كريم حلاقه 40 جرام">
+    <img src="صور مستحضرات التجميل/انجرام كريم حلاقه 40 جرام.jpg" alt="شامبو لوريال">
+    <h3>انجرام كريم حلاقه 40 جرام</h3>
+    <div class="price"> جنيه 33.00</div>
+    <input type="number" id="qty-154" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('انجرام كريم حلاقه 40 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('انجرام كريم حلاقه 40 جرام', 'qty-154')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اورال لايت فرشه اسنان اطفال + ساعه">
+    <img src="صور مستحضرات التجميل/اورال لايت فرشه اسنان اطفال + ساعه.jpg" alt="شامبو لوريال">
+    <h3>اورال لايت فرشه اسنان اطفال + ساعه</h3>
+    <div class="price"> جنيه 26.00</div>
+    <input type="number" id="qty-155" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اورال لايت فرشه اسنان اطفال + ساعه')">أضف إلى السلة</button>
+    <button onclick="buyNow('اورال لايت فرشه اسنان اطفال + ساعه', 'qty-155')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اورال لايت فرشه اسنان اطفال + سبايدر مان">
+    <img src="صور مستحضرات التجميل/اورال لايت فرشه اسنان اطفال + سبايدر مان.avif" alt="شامبو لوريال">
+    <h3>اورال لايت فرشه اسنان اطفال + سبايدر مان</h3>
+    <div class="price"> جنيه 24.00</div>
+    <input type="number" id="qty-156" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اورال لايت فرشه اسنان اطفال + سبايدر مان')">أضف إلى السلة</button>
+    <button onclick="buyNow('اورال لايت فرشه اسنان اطفال + سبايدر مان', 'qty-156')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اورال لايت فرشه اسنان اطفال + نضاره">
+    <img src="صور مستحضرات التجميل/اورال لايت فرشه اسنان اطفال + نضاره.jpg" alt="شامبو لوريال">
+    <h3>اورال لايت فرشه اسنان اطفال + نضاره</h3>
+    <div class="price"> جنيه 27.00</div>
+    <input type="number" id="qty-157" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اورال لايت فرشه اسنان اطفال + نضاره')">أضف إلى السلة</button>
+    <button onclick="buyNow('اورال لايت فرشه اسنان اطفال + نضاره', 'qty-157')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="ايفا بادي سبلاش 240 مللي ان ذا كلاودز">
+    <img src="صور مستحضرات التجميل/ايفا بادي سبلاش 240 مللي ان ذا كلاودز.jfif" alt="شامبو لوريال">
+    <h3>ايفا بادي سبلاش 240 مللي ان ذا كلاودز</h3>
+    <div class="price"> جنيه 175.00</div>
+    <input type="number" id="qty-158" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا بادي سبلاش 240 مللي ان ذا كلاودز')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا بادي سبلاش 240 مللي ان ذا كلاودز', 'qty-158')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفا بادي سبلاش 240 مللي جولد سبيل">
+    <img src="صور مستحضرات التجميل/ايفا بادي سبلاش 240 مللي جولد سبيل.webp" alt="شامبو لوريال">
+    <h3>ايفا بادي سبلاش 240 مللي جولد سبيل</h3>
+    <div class="price"> جنيه 175.00</div>
+    <input type="number" id="qty-159" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا بادي سبلاش 240 مللي جولد سبيل')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا بادي سبلاش 240 مللي جولد سبيل', 'qty-159')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفا بادي سبلاش 240 مللي سبرينج ليليز">
+    <img src="صور مستحضرات التجميل/ايفا بادي سبلاش 240 مللي سبرينج ليليز.webp" alt="شامبو لوريال">
+    <h3>ايفا بادي سبلاش 240 مللي سبرينج ليليز</h3>
+    <div class="price"> جنيه 175.00</div>
+    <input type="number" id="qty-160" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا بادي سبلاش 240 مللي سبرينج ليليز')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا بادي سبلاش 240 مللي سبرينج ليليز', 'qty-160')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفا بادي سبلاش 240 مللي سمر تويست">
+    <img src="صور مستحضرات التجميل/ايفا بادي سبلاش 240 مللي سمر تويست.webp" alt="شامبو لوريال">
+    <h3>ايفا بادي سبلاش 240 مللي سمر تويست</h3>
+    <div class="price"> جنيه 175.00</div>
+    <input type="number" id="qty-161" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا بادي سبلاش 240 مللي سمر تويست')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا بادي سبلاش 240 مللي سمر تويست', 'qty-161')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفا بادي سبلاش 240 مللي كوزي دريم">
+    <img src="صور مستحضرات التجميل/ايفا بادي سبلاش 240 مللي كوزي دريم.avif" alt="شامبو لوريال">
+    <h3>ايفا بادي سبلاش 240 مللي كوزي دريم</h3>
+    <div class="price"> جنيه 175.00</div>
+    <input type="number" id="qty-162" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا بادي سبلاش 240 مللي كوزي دريم')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا بادي سبلاش 240 مللي كوزي دريم', 'qty-162')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفا بادي سبلاش 240 مللي لاف تلي">
+    <img src="صور مستحضرات التجميل/ايفا بادي سبلاش 240 مللي لاف تلي.webp" alt="شامبو لوريال">
+    <h3>ايفا بادي سبلاش 240 مللي لاف تلي</h3>
+    <div class="price"> جنيه 175.00</div>
+    <input type="number" id="qty-163" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا بادي سبلاش 240 مللي لاف تلي')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا بادي سبلاش 240 مللي لاف تلي', 'qty-163')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفا بادي سبلاش 240 مللي مورنينج بلوسوم">
+    <img src="صور مستحضرات التجميل/ايفا بادي سبلاش 240 مللي مورنينج بلوسوم.jfif" alt="شامبو لوريال">
+    <h3>ايفا بادي سبلاش 240 مللي مورنينج بلوسوم</h3>
+    <div class="price"> جنيه 175.00</div>
+    <input type="number" id="qty-164" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا بادي سبلاش 240 مللي مورنينج بلوسوم')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا بادي سبلاش 240 مللي مورنينج بلوسوم', 'qty-164')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفا بادي سبلاش 240 مللي نايت اوت">
+    <img src="صور مستحضرات التجميل/ايفا بادي سبلاش 240 مللي نايت اوت.jpeg" alt="شامبو لوريال">
+    <h3>ايفا بادي سبلاش 240 مللي نايت اوت</h3>
+    <div class="price"> جنيه 175.00</div>
+    <input type="number" id="qty-165" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا بادي سبلاش 240 مللي نايت اوت')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا بادي سبلاش 240 مللي نايت اوت', 'qty-165')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفا بادي سبلاش 240 مللي ياسمين">
+    <img src="صور مستحضرات التجميل/ايفا بادي سبلاش 240 مللي ياسمين.jpg" alt="شامبو لوريال">
+    <h3>ايفا بادي سبلاش 240 مللي ياسمين</h3>
+    <div class="price"> جنيه 175.00</div>
+    <input type="number" id="qty-166" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا بادي سبلاش 240 مللي ياسمين')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا بادي سبلاش 240 مللي ياسمين', 'qty-166')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفا بادي سبلاش 240 مللي ريد جلامور">
+    <img src="صور مستحضرات التجميل/ايفا بادي سبلاش 240 مللي ريد جلامور.webp" alt="شامبو لوريال">
+    <h3>ايفا بادي سبلاش 240 مللي ريد جلامور</h3>
+    <div class="price"> جنيه 175.00</div>
+    <input type="number" id="qty-167" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا بادي سبلاش 240 مللي ريد جلامور')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا بادي سبلاش 240 مللي ريد جلامور', 'qty-167')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفا بادي سبلاش 240 مللي ميستك اوركيد">
+    <img src="صور مستحضرات التجميل/ايفا بادي سبلاش 240 مللي ميستك اوركيد.jfif" alt="شامبو لوريال">
+    <h3>ايفا بادي سبلاش 240 مللي ميستك اوركيد</h3>
+    <div class="price"> جنيه 175.00</div>
+    <input type="number" id="qty-168" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا بادي سبلاش 240 مللي ميستك اوركيد')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا بادي سبلاش 240 مللي ميستك اوركيد', 'qty-168')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفا سبراي جليتر اربيان نايت 150 مللي">
+    <img src="صور مستحضرات التجميل/ايفا سبراي جليتر اربيان نايت 150 مللي.webp" alt="شامبو لوريال">
+    <h3>ايفا سبراي جيليتر اربيان نايت 150 مللي</h3>
+    <div class="price"> جنيه 172.00</div>
+    <input type="number" id="qty-169" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا سبراي جليتر اربيان نايت 150 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا سبراي جليتر اربيان نايت 150 مللي', 'qty-169')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفا سبراي جليتر بيرلي هيز 150 مللي">
+    <img src="صور مستحضرات التجميل/ايفا سبراي جليتر بيرلي هيز 150 مللي.webp" alt="شامبو لوريال">
+    <h3>ايفا سبراي جيليتر بيرلي هيز 150 مللي</h3>
+    <div class="price"> جنيه 172.00</div>
+    <input type="number" id="qty-170" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا سبراي جليتر بيرلي هيز 150 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا سبراي جليتر بيرلي هيز 150 مللي', 'qty-170')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بيكيني باتر للتفتيح 500 مللي">
+    <img src="صور مستحضرات التجميل/بيكيني باتر للتفتيح 500 مللي.jpg" alt="شامبو لوريال">
+    <h3>بيكيني باتر للتفتيح 500 مللي</h3>
+    <div class="price"> جنيه 238.00</div>
+    <input type="number" id="qty-171" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بيكيني باتر للتفتيح 500 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('بيكيني باتر للتفتيح 500 مللي', 'qty-171')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بيور بودره قدم 50 جرام">
+    <img src="صور مستحضرات التجميل/بيور بودره قدم 50 جرام.jpg" alt="شامبو لوريال">
+    <h3>بيور بودره قدم 50 جرام</h3>
+    <div class="price"> جنيه 12.00</div>
+    <input type="number" id="qty-172" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بيور بودره قدم 50 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('بيور بودره قدم 50 جرام', 'qty-172')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ترو سولي ستربس">
+    <img src="صور مستحضرات التجميل/ترو سولي ستربس.jpg" alt="شامبو لوريال">
+    <h3>ترو سولي ستربس</h3>
+    <div class="price"> جنيه 177.00</div>
+    <input type="number" id="qty-173" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ترو سولي ستربس')">أضف إلى السلة</button>
+    <button onclick="buyNow('ترو سولي ستربس', 'qty-173')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="جوليشيا حنه اظافر اسود بالكيس">
+    <img src="صور مستحضرات التجميل/جوليشيا حنه اظافر اسود بالكيس.jpg" alt="شامبو لوريال">
+    <h3>جوليشيا حنه اظافر اسود بالكيس</h3>
+    <div class="price"> جنيه 19.00</div>
+    <input type="number" id="qty-174" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('جوليشيا حنه اظافر اسود بالكيس')">أضف إلى السلة</button>
+    <button onclick="buyNow('جوليشيا حنه اظافر اسود بالكيس', 'qty-174')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="جوليشيا حنه اظافر بني بالكيس">
+    <img src="صور مستحضرات التجميل/جوليشيا حنه اظافر بني بالكيس.jpg" alt="شامبو لوريال">
+    <h3>جوليشيا حنه اظافر بني بالكيس</h3>
+    <div class="price"> جنيه 19.00</div>
+    <input type="number" id="qty-175" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('جوليشيا حنه اظافر بني بالكيس')">أضف إلى السلة</button>
+    <button onclick="buyNow('جوليشيا حنه اظافر بني بالكيس', 'qty-175')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="جيليت بلو تو بلاس 15+5">
+    <img src="صور مستحضرات التجميل/جيليت بلو تو بلاس 15+5.jpg" alt="شامبو لوريال">
+    <h3>جيليت بلو تو بلاس 15+5</h3>
+    <div class="price"> جنيه 247.00</div>
+    <input type="number" id="qty-176" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('جيليت بلو تو بلاس 15+5')">أضف إلى السلة</button>
+    <button onclick="buyNow('جيليت بلو تو بلاس 15+5', 'qty-176')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="دابر املا زيت اطفال 180 مللي">
+    <img src="صور مستحضرات التجميل/دابر املا زيت اطفال 180 مللي.jfif" alt="شامبو لوريال">
+    <h3>دابر املا زيت اطفال 180 مللي</h3>
+    <div class="price"> جنيه 71.9</div>
+    <input type="number" id="qty-177" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('دابر املا زيت اطفال 180 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('دابر املا زيت اطفال 180 مللي', 'qty-177')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="دابر املا زيت اطفال 90-100 مللي">
+    <img src="صور مستحضرات التجميل/دابر املا زيت اطفال 180 مللي.jfif" alt="شامبو لوريال">
+    <h3>دابر املا زيت اطفال 90-100 مللي</h3>
+    <div class="price"> جنيه 44.97</div>
+    <input type="number" id="qty-178" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('دابر املا زيت اطفال 90-100 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('دابر املا زيت اطفال 90-100 مللي', 'qty-178')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="دراكون مناديل ازاله ميكب مبلله">
+    <img src="صور مستحضرات التجميل/دراكون مناديل ازاله ميكب مبلله.webp" alt="شامبو لوريال">
+    <h3>دراكون مناديل ازاله ميكب مبلله</h3>
+    <div class="price"> جنيه 46.00</div>
+    <input type="number" id="qty-179" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('دراكون مناديل ازاله ميكب مبلله')">أضف إلى السلة</button>
+    <button onclick="buyNow('دراكون مناديل ازاله ميكب مبلله', 'qty-179')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="نيفيا بليه بيرلا اند بيوتي">
+    <img src="صور مستحضرات التجميل/نيفيا بليه بيرلا اند بيوتي.avif" alt="شامبو لوريال">
+    <h3>نيفيا بليه بيرلا اند بيوتي</h3>
+    <div class="price"> جنيه 70.00</div>
+    <input type="number" id="qty-180" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('نيفيا بليه بيرلا اند بيوتي')">أضف إلى السلة</button>
+    <button onclick="buyNow('نيفيا بليه بيرلا اند بيوتي', 'qty-180')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="نيفيا بليه حريمي بلاك اند وايت">
+    <img src="صور مستحضرات التجميل/نيفيا اسبراي بلاك اند وايت حريمي 150 مللي.webp" alt="شامبو لوريال">
+    <h3>نيفيا بليه حريمي بلاك اند وايت</h3>
+    <div class="price"> جنيه 70.00</div>
+    <input type="number" id="qty-181" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('نيفيا بليه حريمي بلاك اند وايت')">أضف إلى السلة</button>
+    <button onclick="buyNow('نيفيا بليه حريمي بلاك اند وايت', 'qty-181')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="نيفيا بليه حريمي فريش ناتشورال">
+    <img src="صور مستحضرات التجميل/نيفيا بليه حريمي فريش ناتشورال.jfif" alt="شامبو لوريال">
+    <h3>نيفيا بليه حريمي فريش ناتشورال</h3>
+    <div class="price"> جنيه 70.00</div>
+    <input type="number" id="qty-182" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('نيفيا بليه حريمي فريش ناتشورال')">أضف إلى السلة</button>
+    <button onclick="buyNow('نيفيا بليه حريمي فريش ناتشورال', 'qty-182')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="نيفيا بليه رجالي بلاك اند وايت">
+    <img src="صور مستحضرات التجميل/نيفيا بليه رجالي بلاك اند وايت.jpg" alt="شامبو لوريال">
+    <h3>نيفيا بليه رجالي بلاك اند وايت</h3>
+    <div class="price"> جنيه 70.00</div>
+    <input type="number" id="qty-183" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('نيفيا بليه رجالي بلاك اند وايت')">أضف إلى السلة</button>
+    <button onclick="buyNow('نيفيا بليه رجالي بلاك اند وايت', 'qty-183')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="نيفيا بليه رجالي ديب">
+    <img src="صور مستحضرات التجميل/نيفيا بليه رجالي ديب.jpg" alt="شامبو لوريال">
+    <h3>نيفيا بليه رجالي ديب</h3>
+    <div class="price"> جنيه 70.00</div>
+    <input type="number" id="qty-184" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('نيفيا بليه رجالي ديب')">أضف إلى السلة</button>
+    <button onclick="buyNow('نيفيا بليه رجالي ديب', 'qty-184')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="نيفيا بليه رجالي سيلفر">
+    <img src="صور مستحضرات التجميل/نيفيا بليه رجالي سيلفر.jpg" alt="شامبو لوريال">
+    <h3>نيفيا بليه رجالي سيلفر</h3>
+    <div class="price"> جنيه 70.00</div>
+    <input type="number" id="qty-185" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('نيفيا بليه رجالي سيلفر')">أضف إلى السلة</button>
+    <button onclick="buyNow('نيفيا بليه رجالي سيلفر', 'qty-185')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="نيفيا بليه رجالي فريش اكتيف">
+    <img src="صور مستحضرات التجميل/نيفيا بليه رجالي فريش اكتيف.jfif.jpg" alt="شامبو لوريال">
+    <h3>نيفيا بليه رجالي فريش اكتيف</h3>
+    <div class="price"> جنيه 70.00</div>
+    <input type="number" id="qty-186" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('نيفيا بليه رجالي فريش اكتيف')">أضف إلى السلة</button>
+    <button onclick="buyNow('نيفيا بليه رجالي فريش اكتيف', 'qty-186')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="نيفيا بليه رجالي كول كيك">
+    <img src="صور مستحضرات التجميل/نيفيا بليه رجالي كول كيك.jfif" alt="شامبو لوريال">
+    <h3>نيفيا بليه رجالي كول كيك</h3>
+    <div class="price"> جنيه 70.00</div>
+    <input type="number" id="qty-187" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('نيفيا بليه رجالي كول كيك')">أضف إلى السلة</button>
+    <button onclick="buyNow('نيفيا بليه رجالي كول كيك', 'qty-187')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="هايت فريش مناديل جيب 15 منديل">
+    <img src="صور مستحضرات التجميل/هايت فريش مناديل جيب 15 منديل.webp" alt="شامبو لوريال">
+    <h3>هايت فريش مناديل جيب 15 منديل</h3>
+    <div class="price"> جنيه 6.00</div>
+    <input type="number" id="qty-188" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('هايت فريش مناديل جيب 15 منديل')">أضف إلى السلة</button>
+    <button onclick="buyNow('هايت فريش مناديل جيب 15 منديل', 'qty-188')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كوكو واكس شمع رول اصفر 100 جرام">
+    <img src="صور مستحضرات التجميل/كوكو واكس شمع رول اصفر 100 جرام.jpg" alt="شامبو لوريال">
+    <h3>كوكو واكس شمع رول اصفر 100 جرام</h3>
+    <div class="price"> جنيه 45.00</div>
+    <input type="number" id="qty-189" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كوكو واكس شمع رول اصفر 100 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('كوكو واكس شمع رول اصفر 100 جرام', 'qty-189')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كوكو واكس شمع رول روز 100 جرام">
+    <img src="صور مستحضرات التجميل/كوكو واكس شمع رول روز 100 جرام.jpg" alt="شامبو لوريال">
+    <h3>كوكو واكس شمع رول روز 100 جرام</h3>
+    <div class="price"> جنيه 45.00</div>
+    <input type="number" id="qty-190" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كوكو واكس شمع رول روز 100 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('كوكو واكس شمع رول روز 100 جرام', 'qty-190')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كوكو وايت سويت عجينه باست تشيري 100 جرام">
+    <img src="صور مستحضرات التجميل/كوكو وايت سويت عجينه باست تشيري 100 جرام.avif" alt="شامبو لوريال">
+    <h3>كوكو وايت سويت عجينه باست تشيري 100 جرام</h3>
+    <div class="price"> جنيه 23.00</div>
+    <input type="number" id="qty-191" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كوكو وايت سويت عجينه باست تشيري 100 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('كوكو وايت سويت عجينه باست تشيري 100 جرام', 'qty-191')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كوكو وايت سويت عجينه باست باشون 100 جرام">
+    <img src="صور مستحضرات التجميل/كوكو وايت سويت عجينه باست باشون 100 جرام.webp" alt="شامبو لوريال">
+    <h3>كوكو وايت سويت عجينه باست باشون 100 جرام</h3>
+    <div class="price"> جنيه 23.00</div>
+    <input type="number" id="qty-192" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كوكو وايت سويت عجينه باست باشون 100 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('كوكو وايت سويت عجينه باست باشون 100 جرام', 'qty-192')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كوكو وايت سويت عجينه رومان 100 جرام">
+    <img src="صور مستحضرات التجميل/كوكو وايت سويت عجينه رومان 100 جرام.avif" alt="شامبو لوريال">
+    <h3>كوكو وايت سويت عجينه رومان 100 جرام</h3>
+    <div class="price"> جنيه 23.00</div>
+    <input type="number" id="qty-193" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كوكو وايت سويت عجينه رومان 100 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('كوكو وايت سويت عجينه رومان 100 جرام', 'qty-193')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كوكو وايت سويت عجينه فالنتينا 100 جرام">
+    <img src="صور مستحضرات التجميل/كوكو وايت سويت عجينه فالنتينا 100 جرام.jpg" alt="شامبو لوريال">
+    <h3>كوكو وايت سويت عجينه فالنتينا 100 جرام</h3>
+    <div class="price"> جنيه 23.00</div>
+    <input type="number" id="qty-194" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كوكو وايت سويت عجينه فالنتينا 100 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('كوكو وايت سويت عجينه فالنتينا 100 جرام', 'qty-194')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كوكو وايت سويت عجينه فانيليا و جوز الهند 100 جرام">
+    <img src="صور مستحضرات التجميل/كوكو وايت سويت عجينه فانيليا و جوز الهند 100 جرام.jpg" alt="شامبو لوريال">
+    <h3>كوكو وايت سويت عجينه فانيليا و جوز الهند 100 جرام</h3>
+    <div class="price"> جنيه 23.00</div>
+    <input type="number" id="qty-195" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كوكو وايت سويت عجينه فانيليا و جوز الهند 100 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('كوكو وايت سويت عجينه فانيليا و جوز الهند 100 جرام', 'qty-195')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="لوف مسك طويل">
+    <img src="صور مستحضرات التجميل/لوف سوري طويل.jfif.jpg" alt="شامبو لوريال">
+    <h3>لوف مسك طويل</h3>
+    <div class="price"> جنيه 32.00</div>
+    <input type="number" id="qty-196" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لوف مسك طويل')">أضف إلى السلة</button>
+    <button onclick="buyNow('لوف مسك طويل', 'qty-196')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="لوف مسك كف">
+    <img src="صور مستحضرات التجميل/لوف مسك كف.png" alt="شامبو لوريال">
+    <h3>لوف مسك كف</h3>
+    <div class="price"> جنيه 32.00</div>
+    <input type="number" id="qty-197" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لوف مسك كف')">أضف إلى السلة</button>
+    <button onclick="buyNow('لوف مسك كف', 'qty-197')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="لوكس شاور بالجريت فروت 500 مللي">
+    <img src="صور مستحضرات التجميل/لوكس شاور بالجريت فروت 500 مللي.jpg.jpg" alt="شامبو لوريال">
+    <h3>لوكس شاور بالجريت فروت 500 مللي</h3>
+    <div class="price"> جنيه 78.00</div>
+    <input type="number" id="qty-198" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لوكس شاور بالجريت فروت 500 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('لوكس شاور بالجريت فروت 500 مللي', 'qty-198')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="لوكس شاور رومانسيه الكركديه 500 مللي">
+    <img src="صور مستحضرات التجميل/لوكس شاور رومانسيه الكركديه 500 مللي.avif" alt="شامبو لوريال">
+    <h3>لوكس شاور رومانسيه الكركديه 500 مللي</h3>
+    <div class="price"> جنيه 78.00</div>
+    <input type="number" id="qty-199" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لوكس شاور رومانسيه الكركديه 500 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('لوكس شاور رومانسيه الكركديه 500 مللي', 'qty-199')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="لوكس شاور زهره الاوركيد 500 مللي">
+    <img src="صور مستحضرات التجميل/لوكس شاور زهره الاوركيد 500 مللي.jpeg" alt="شامبو لوريال">
+    <h3>لوكس شاور زهره الاوركيد 500 مللي</h3>
+    <div class="price"> جنيه 78.00</div>
+    <input type="number" id="qty-200" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لوكس شاور زهره الاوركيد 500 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('لوكس شاور زهره الاوركيد 500 مللي', 'qty-200')">اشترِ الآن</button>
+  </div>
+          <div class="product" data-name="ايفوفا بدي سبلاش cherry blassom 235 مللي">
+    <img src="صور مستحضرات التجميل/ايفوفا بدي سبلاش cherry blassom 235 مللي.webp" alt="شامبو لوريال">
+    <h3>ايفوفا بدي سبلاش cherry blassom 253 مللي</h3>
+    <div class="price"> جنيه 142.00</div>
+    <input type="number" id="qty-201" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفوفا بدي سبلاش cherry blassom 235 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفوفا بدي سبلاش cherry blassom 253 مللي', 'qty-201')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفوفا بدي سبلاش floral 235 مللي">
+    <img src="صور مستحضرات التجميل/ايفوفا بدي سبلاش floral 235 مللي.jpg" alt="شامبو لوريال">
+    <h3>ايفوفا بدي سبلاش floral 253 مللي</h3>
+    <div class="price"> جنيه 142.00</div>
+    <input type="number" id="qty-202" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفوفا بدي سبلاش floral 253 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفوفا بدي سبلاش floral 253 مللي', 'qty-202')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفوفا بدي سبلاش mango 253 مللي">
+    <img src="صور مستحضرات التجميل/ايفوفا بدي سبلاش mango 253 مللي.jpg" alt="شامبو لوريال">
+    <h3>ايفوفا بدي سبلاش mango 253 مللي</h3>
+    <div class="price"> جنيه 142.00</div>
+    <input type="number" id="qty-203" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفوفا بدي سبلاش mango 253 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفوفا بدي سبلاش mango 253 مللي', 'qty-203')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفوفا بدي سبلاش passion fruit 253 مللي">
+    <img src="صور مستحضرات التجميل/ايفوفا بدي سبلاش passion fruit 253 مللي.jpg" alt="شامبو لوريال">
+    <h3>ايفوفا بدي سبلاش passion fruit 253 مللي</h3>
+    <div class="price"> جنيه 142.00</div>
+    <input type="number" id="qty-204" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفوفا بدي سبلاش passion fruit 253 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفوفا بدي سبلاش passion fruit 253 مللي', 'qty-204')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفوفا بدي سبلاش vanilla 253 مللي">
+    <img src="صور مستحضرات التجميل/ايفوفا بدي سبلاش vanilla 253 مللي.jpg" alt="شامبو لوريال">
+    <h3>ايفوفا بدي سبلاش vanilla 253 مللي</h3>
+    <div class="price"> جنيه 142.00</div>
+    <input type="number" id="qty-205" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفوفا بدي سبلاش vanilla 253 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفوفا بدي سبلاش vanilla 253 مللي', 'qty-205')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفوفا بدي سبلاش cherry blassom 55 مللي">
+    <img src="صور مستحضرات التجميل/ايفوفا بدي سبلاش cherry blassom 55 مللي.jpg" alt="شامبو لوريال">
+    <h3>ايفوفا بدي سبلاش cherry blassom 55 مللي</h3>
+    <div class="price"> جنيه 40.00</div>
+    <input type="number" id="qty-206" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفوفا بدي سبلاش cherry blassom 55 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفوفا بدي سبلاش cherry blassom 55 مللي', 'qty-206')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفوفا بدي سبلاش floral 55 مللي">
+    <img src="صور مستحضرات التجميل/ايفوفا بدي سبلاش floral 55 مللي.webp" alt="شامبو لوريال">
+    <h3>ايفوفا بدي سبلاش floral 55 مللي</h3>
+    <div class="price"> جنيه 40.00</div>
+    <input type="number" id="qty-207" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفوفا بدي سبلاش floral 55 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفوفا بدي سبلاش floral 55 مللي', 'qty-207')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفوفا بدي سبلاش passion fruit 55 مللي">
+    <img src="صور مستحضرات التجميل/ايفوفا بدي سبلاش passion fruit 55 مللي.webp" alt="شامبو لوريال">
+    <h3>ايفوفا بدي سبلاش passion fruit 55 مللي</h3>
+    <div class="price"> جنيه 40.00</div>
+    <input type="number" id="qty-208" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفوفا بدي سبلاش passion fruit 55 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفوفا بدي سبلاش passion fruit 55 مللي', 'qty-208')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفوفا بدي سبلاش vanilla 55 مللي">
+    <img src="صور مستحضرات التجميل/ايفوفا بدي سبلاش vanilla 55 مللي.jpg" alt="شامبو لوريال">
+    <h3>ايفوفا بدي سبلاش vanilla 55 مللي</h3>
+    <div class="price"> جنيه 40.00</div>
+    <input type="number" id="qty-209" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفوفا بدي سبلاش vanilla 55 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفوفا بدي سبلاش vanilla 55 مللي', 'qty-209')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بيور فازلين 30 مللي">
+    <img src="صور مستحضرات التجميل/بيور فازلين 30 مللي.jpg" alt="شامبو لوريال">
+    <h3>بيور فازلين 30 مللي</h3>
+    <div class="price"> جنيه10.00  </div>
+    <input type="number" id="qty-210" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بيور فازلين 30 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('بيور فازلين 30 مللي', 'qty-210')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بيور فازلين 50 مللي">
+    <img src="صور مستحضرات التجميل/بيور فازلين 30 مللي.jpg" alt="شامبو لوريال">
+    <h3>بيور فازلين 50 مللي</h3>
+    <div class="price"> جنيه 15.00</div>
+    <input type="number" id="qty-211" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بيور فازلين 50 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('بيور فازلين 50 مللي', 'qty-211')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بيور فازلين 70 مللي">
+    <img src="صور مستحضرات التجميل/بيور فازلين 30 مللي.jpg" alt="شامبو لوريال">
+    <h3>بيور فازلين 70 مللي</h3>
+    <div class="price"> جنيه 21.00</div>
+    <input type="number" id="qty-212" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بيور فازلين 70 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('بيور فازلين 70 مللي', 'qty-212')">اشترِ الآن</button>
+  </div>
+  <!-- باقي المنتجات هتكون بنفس الشكل -->
+  <!-- انسخ الكارت وغير الاسم والسعر والوصف -->
+</div>
+
+<div class="toast" id="toast">تمت الإضافة إلى السلة 🛒</div>
+
+<script>
+  const searchInput = document.getElementById('searchInput');
+  const products = document.querySelectorAll('.product');
+  const toast = document.getElementById('toast');
+
+  searchInput.addEventListener('keyup', function() {
+    const value = this.value.toLowerCase();
+    products.forEach(product => {
+      const name = product.getAttribute('data-name').toLowerCase();
+      product.style.display = name.includes(value) ? "block" : "none";
+    });
+  });
+
+  function addToCart(productName) {
+    toast.textContent = `تمت إضافة ${productName} إلى السلة 🛒`;
+    toast.classList.add('show');
+    setTimeout(() => toast.classLit.remove('show'), 2000);
+  }
+  function buyNow(productName) {
+  // حفظ اسم المنتج في localStorage
+  localStorage.setItem("selectedProduct", productName);
+  // التحويل لصفحة الدفع
+  window.location.href = "checkout.html";
+}
+</script>
+<script>
+  function buyNow(productName) {
+    const quantity = 1; // تقدر تخليها متغيرة لو عندك اختيار كمية
+    const url = `checkout.html?product=${encodeURIComponent(productName)}&quantity=${quantity}`;
+    window.location.href = url;
+  }
+</script>
+<script>
+  function buyNow(productName, qtyId) {
+    const quantity = document.getElementById(qtyId).value || 1;
+    const url = `checkout.html?product=${encodeURIComponent(productName)}&quantity=${encodeURIComponent(quantity)}`;
+    window.location.href = url;
+  }
+</script>
+</body>
+<script src="Cart.js"></script>
+</html>

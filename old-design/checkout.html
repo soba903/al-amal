@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إتمام عملية الشراء</title>
+  <style>
+    body {
+      font-family: "Cairo", sans-serif;
+      background-color: #f9fbfd;
+      margin: 0;
+      padding: 0;
+    }
+
+    .checkout-container {
+      max-width: 600px;
+      margin: 60px auto;
+      background: #fff;
+      padding: 35px 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    h2 {
+      text-align: center;
+      color: #007bff;
+      margin-bottom: 25px;
+      font-size: 26px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      outline: none;
+      transition: all 0.2s ease-in-out;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0,123,255,0.3);
+    }
+
+    button {
+      width: 100%;
+      background-color: #007bff;
+      color: white;
+      font-size: 18px;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .readonly-field {
+      background: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="checkout-container">
+    <h2>إتمام عملية الشراء</h2>
+    <form id="checkoutForm">
+      <label>اسم المنتج:</label>
+      <input type="text" id="productName" name="productName" class="readonly-field" readonly>
+
+      <label>الكمية:</label>
+      <input type="number" id="productQuantity" name="productQuantity" class="readonly-field" readonly>
+
+      <label>الاسم الكامل:</label>
+      <input type="text" name="name" placeholder="اكتب اسمك بالكامل" required>
+
+      <label>البريد الإلكتروني:</label>
+      <input type="email" name="email" placeholder="example@email.com" required>
+
+      <label>رقم الهاتف:</label>
+      <input type="tel" name="phone" placeholder="01000000000" required>
+
+      <label>العنوان:</label>
+      <textarea name="address" placeholder="اكتب عنوانك بالتفصيل" rows="3" required></textarea>
+
+      <label>طريقة الدفع:</label>
+      <select name="paymentMethod" required>
+        <option value="">اختر طريقة الدفع</option>
+        <option value="Credit card">credit card</option>
+        <option value="Vodafone cash">Vodafone cash</option>
+        <option value="Orange cash">Orange cash</option>
+        <option value="Etisalat cash">Orange cash</option>
+        <option value="We Pay">We pay</option>
+        <option value="Insta pay">Insta pay</option>
+      </select>
+
+      <button type="submit">إرسال الطلب</button>
+    </form>
+  </div>
+
+ <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  (function() {
+    emailjs.init("SvpoqikCIslazGM2Z"); // 🔹 حط المفتاح العام الخاص بـ EmailJS
+  })();
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const params = new URLSearchParams(window.location.search);
+    const product = params.get("product") || "غير محدد";
+    const quantity = params.get("quantity") || 1;
+
+    // عرض البيانات في الحقول
+    document.getElementById("productName").value = product;
+    document.getElementById("productQuantity").value = quantity;
+
+    document.getElementById("checkoutForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      // ✳️ إضافة اسم المنتج والكمية كمتغيرات إضافية قبل الإرسال
+      const formData = new FormData(this);
+      formData.append("productName", product);
+      formData.append("productQuantity", quantity);
+
+      emailjs.send('service_34tw6rq', 'template_11oixht', {
+        name: formData.get("name"),
+        email: formData.get("email"),
+        phone: formData.get("phone"),
+        address: formData.get("address"),
+        paymentMethod: formData.get("paymentMethod"),
+        productName: product,
+        productQuantity: quantity
+      }).then(() => {
+        alert("✅ تم إرسال الطلب بنجاح! سنتواصل معك قريبًا علي واتساب .");
+      }).catch(() => {
+        alert("❌ حدث خطأ أثناء إرسال الطلب، حاول مرة أخرى.");
+      });
+    });
+  });
+  // 1. استهداف زرار الدفع من الـ HTML (تأكد إن الزرار عندك واخد id="checkout-btn")
+const checkoutBtn = document.getElementById('checkout-btn');
+
+// 2. الفانكشن اللي بتبعت البيانات للسيرفر
+const startPayment = async () => {
+    // هنجيب المنتجات اللي في السلة (نفترض إنك مخزنها في مصفوفة)
+    const cartItems = [
+        {
+            price_data: {
+                currency: 'egp',
+                product_data: { name: 'Cosmetic Product Name' }, // اسم المنتج
+                unit_amount: 50000, // السعر بالقروش (يعني ده 500 جنيه)
+            },
+            quantity: 1, // الكمية
+        }
+    ];
+
+    try {
+        // بنخبط على باب الـ Backend
+        const response = await fetch('http://localhost:5000/api/payment/checkout', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                // بنبعت التوكن عشان السيرفر يعرف مين اللي بيدفع
+                'Authorization': localStorage.getItem('token') 
+            },
+            body: JSON.stringify({ items: cartItems })
+        });
+
+        const data = await response.json();
+
+        if (data.url) {
+            // لو السيرفر رد باللينك، هنحول العميل فوراً لصفحة Stripe
+            window.location.href = data.url;
+        } else {
+            alert("في مشكلة حصلت، اتأكد إنك مسجل دخول");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("السيرفر مش بيرد، اتأكد إنك مشغله (node server.js)");
+    }
+};
+
+// 3. ربط الفانكشن بالزرار لما يتداس عليه
+if (checkoutBtn) {
+    checkoutBtn.addEventListener('click', startPayment);
+}
+</script>
+</body>
+</html>
+
+
