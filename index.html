@@ -2,41 +2,74 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>شركة الأمل - الرئيسية</title>
-    <link rel="stylesheet" href="style.css" />
-
-    <script>
-        window.onload = function() {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                alert("⚠️ يرجى تسجيل الدخول أولاً");
-                // التعديل هنا: استخدمنا اللينك الكامل والمباشر لصفحة اللوجين
-                window.location.href = "https://soba903.github.io/al-amal/frontend/"; 
-            }
-        };
-    </script>
+    <style>
+        /* ستايل داخلي عشان نضمن إن الشكل يظبط فوراً */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            background-color: #0077b6;
+            color: white;
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .main-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 40px;
+            max-width: 1200px;
+        }
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            width: 320px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .card:hover { transform: translateY(-10px); }
+        .card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        .card-text {
+            padding: 20px;
+            text-align: center;
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #023e8a;
+        }
+    </style>
 </head>
 <body>
-    <header style="background:#0077b6; color:white; padding:20px; text-align:center;">
+    <header>
         <h1>الأمل للمستلزمات الطبية</h1>
     </header>
 
-    <main class="container">
-        <div class="home-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px;">
-            
-            <div class="grid-card" onclick="window.location.href='medical.html'" style="cursor:pointer; width: 300px; border: 1px solid #ddd; border-radius: 15px; overflow: hidden; background: #fff; text-align: center;">
-                <img src="cosmetics-images/mostalzamat.webp" alt="مستلزمات" style="width: 100%; height: 200px; object-fit: cover;">
-                <div style="padding: 15px; font-weight: bold; color: #023e8a;">مستلزمات طبية</div>
-            </div>
-
-            <div class="grid-card" onclick="window.location.href='cosmetics.html'" style="cursor:pointer; width: 300px; border: 1px solid #ddd; border-radius: 15px; overflow: hidden; background: #fff; text-align: center;">
-                <img src="cosmetics-images/mostahdarat-tgmil.jpeg" alt="تجميل" style="width: 100%; height: 200px; object-fit: cover;">
-                <div style="padding: 15px; font-weight: bold; color: #023e8a;">مستحضرات تجميل</div>
-            </div>
-
+    <div class="main-container">
+        <div class="card" onclick="location.href='medical.html'">
+            <img src="cosmetics-images/mostalzamat.webp" alt="مستلزمات طبية" onerror="this.src='https://via.placeholder.com/300x220?text=Medical+Supplies'">
+            <div class="card-text">مستلزمات طبية</div>
         </div>
-    </main>
+
+        <div class="card" onclick="location.href='cosmetics.html'">
+            <img src="cosmetics-images/mostahdarat-tgmil.jpeg" alt="مستحضرات تجميل" onerror="this.src='https://via.placeholder.com/300x220?text=Cosmetics'">
+            <div class="card-text">مستحضرات تجميل</div>
+        </div>
+    </div>
 </body>
 </html>
 
