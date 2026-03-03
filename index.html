@@ -1,72 +1,52 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>الأمل للمستلزمات الطبية</title>
-  <link rel="stylesheet" href="style.css" />
+    <script>
+        const token = localStorage.getItem('token');
+        if (!token) {
+            alert("⚠️ عذراً، يجب تسجيل الدخول أولاً!");
+            window.location.href = "https://soba903.github.io/al-amal/frontend/"; 
+        }
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>الأمل للمستلزمات الطبية</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <div class="brand">الأمل للمستلزمات الطبية</div>
-      <nav class="main-nav">
-        <a href="index.html" class="nav-link">الرئيسية</a>
-        <a href="contact.html" class="nav-link">اتصل بنا</a>
-        <button onclick="logout()" style="background: #e94560; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-family: inherit; font-weight: bold; margin-right: 15px;">
-          تسجيل خروج 🚪
-        </button>
-      </nav>
-    </div>
-  </header>
+    <header class="site-header">
+        <div class="container header-inner">
+            <div class="brand">الأمل للمستلزمات الطبية</div>
+            <nav class="main-nav">
+                <a href="index.html" class="nav-link">الرئيسية</a>
+                <button onclick="logout()" style="background: #e94560; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer;">تسجيل خروج 🚪</button>
+            </nav>
+        </div>
+    </header>
 
-  <script>
-    function logout() {
-        localStorage.removeItem('token');
-        alert("تم تسجيل الخروج بنجاح 👋");
-        // بدل ما يرجع لـ localhost هيرجعه لنفس الصفحة كأنه خرج
-        window.location.reload(); 
-    }
-  </script>
-
-  <header class="site-header">
-    <div class="cart-wrapper" style="position:relative;">
-      <button id="openCartBtn" onclick="window.location.href='cart.html'" 
-              style="background:#2f1ee9;color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;">
-        السلة 🛒 <span id="cartCount" style="background:#fff;color:black;border-radius:50%;padding:2px 8px;margin-top:8px;">0</span>
-      </button>
-    </div>
-  </header>
-
-  <main class="container">
-    <section class="home-intro">
-      <h1>مرحبًا بك في شركة الأمل</h1>
-      <b>نوفر لك مستلزمات طبية، مستحضرات تجميل، ومعدات معامل — جودة موثوقة وخدمة سريعة بأسعار مميزة والبيع للقطاعي وأسعار خاصة للجملة.</b>
-    </section>
-
-    <section class="home-grid">
-      <div class="grid-row">
-        <div class="grid-card" onclick="window.location.href='old-design/medical.html'" role="button" tabindex="0">
-          <img src="صور مستحضرات التجميل/مستلزمات طبيه.webp" alt="مستلزمات طبية" onerror="this.src='https://via.placeholder.com/800x500?text=مستلزمات+طبية'">
-          <div class="card-caption">مستلزمات طبية</div>
+    <main class="container">
+        <div class="main-banner">
+            <img src="cosmetics-images/mostalzamat.webp" alt="صورة رئيسية" style="width:100%; border-radius:15px;" onerror="this.src='https://via.placeholder.com/800x400?text=Image+Not+Found'">
         </div>
 
-        <div class="grid-card" onclick="window.location.href='old-design/skin-care.html'" role="button" tabindex="0">
-          <img src="صور مستحضرات التجميل/مستحضرات تجميل.jpeg" alt="مستحضرات تجميل" onerror="this.src='https://via.placeholder.com/800x500?text=مستحضرات+تجميل'">
-          <div class="card-caption">مستحضرات تجميل</div>
-        </div>
-      </div>
-    </section>
-  </main>
+        <section class="home-grid">
+            <div class="grid-row">
+                <div class="grid-card" onclick="window.location.href='cosmetics.html'" style="cursor:pointer;">
+                    <img src="cosmetics-images/mostahdarat-tgmil.jpeg" alt="مستحضرات تجميل">
+                    <div class="card-caption">مستحضرات تجميل</div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-  <footer class="site-footer">
-    <div class="container">© 2025 الأمل للمستلزمات الطبية — جميع الحقوق محفوظة</div>
-  </footer>
-
-  <script src="int.js"></script>
+    <script>
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = "https://soba903.github.io/al-amal/frontend/";
+        }
+    </script>
 </body>
 </html>
-
 
 
 
