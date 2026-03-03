@@ -1,57 +1,30 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <script>
-        const token = localStorage.getItem('token');
-        if (!token) {
-            alert("⚠️ عذراً، يجب تسجيل الدخول أولاً!");
-            window.location.href = "https://soba903.github.io/al-amal/frontend/"; 
-        }
-    </script>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>الأمل للمستلزمات الطبية</title>
+    <title>شركة الأمل - الرئيسية</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
     <header class="site-header">
-        <div class="container header-inner">
-            <div class="brand">الأمل للمستلزمات الطبية</div>
-            <nav class="main-nav">
-                <a href="index.html" class="nav-link">الرئيسية</a>
-                <button onclick="logout()" style="background: #e94560; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer;">تسجيل خروج 🚪</button>
-            </nav>
-        </div>
+        <div class="brand">الأمل للمستلزمات الطبية</div>
     </header>
 
     <main class="container">
-        <div class="main-banner">
-            <img src="cosmetics-images/mostalzamat.webp" alt="صورة رئيسية" style="width:100%; border-radius:15px;" onerror="this.src='https://via.placeholder.com/800x400?text=Banner+Image'">
-        </div>
-
-        <section class="home-grid">
-            <div class="grid-row" style="display: flex; gap: 20px; justify-content: center;">
-                
-                <div class="grid-card" onclick="window.location.href='medical.html'" style="cursor:pointer; border: 1px solid #ccc; padding: 10px; border-radius: 15px;">
-                    <img src="cosmetics-images/mostalzamat.webp" alt="مستلزمات طبية" style="width: 200px;">
-                    <div class="card-caption">مستلزمات طبية</div>
-                </div>
-
-                <div class="grid-card" onclick="window.location.href='cosmetics.html'" style="cursor:pointer; border: 1px solid #ccc; padding: 10px; border-radius: 15px;">
-                    <img src="cosmetics-images/mostahdarat-tgmil.jpeg" alt="مستحضرات تجميل" style="width: 200px;">
-                    <div class="card-caption">مستحضرات تجميل</div>
-                </div>
-
+        <div class="home-grid" style="display: flex; justify-content: center; gap: 30px; margin-top: 50px;">
+            
+            <div class="grid-card" onclick="window.location.href='medical.html'" style="cursor:pointer; text-align:center;">
+                <img src="cosmetics-images/mostalzamat.webp" alt="مستلزمات طبية" style="width:250px; border-radius:15px;">
+                <div class="card-caption">مستلزمات طبية</div>
             </div>
-        </section>
-    </main>
 
-    <script>
-        function logout() {
-            localStorage.removeItem('token');
-            window.location.href = "https://soba903.github.io/al-amal/frontend/";
-        }
-    </script>
+            <div class="grid-card" onclick="window.location.href='cosmetics.html'" style="cursor:pointer; text-align:center;">
+                <img src="cosmetics-images/mostahdarat-tgmil.jpeg" alt="مستحضرات تجميل" style="width:250px; border-radius:15px;">
+                <div class="card-caption">مستحضرات تجميل</div>
+            </div>
+
+        </div>
+    </main>
 </body>
 </html>
 
