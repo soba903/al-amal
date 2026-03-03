@@ -26,15 +26,22 @@
 
     <main class="container">
         <div class="main-banner">
-            <img src="cosmetics-images/mostalzamat.webp" alt="صورة رئيسية" style="width:100%; border-radius:15px;" onerror="this.src='https://via.placeholder.com/800x400?text=Image+Not+Found'">
+            <img src="cosmetics-images/mostalzamat.webp" alt="صورة رئيسية" style="width:100%; border-radius:15px;" onerror="this.src='https://via.placeholder.com/800x400?text=Banner+Image'">
         </div>
 
         <section class="home-grid">
-            <div class="grid-row">
-                <div class="grid-card" onclick="window.location.href='cosmetics.html'" style="cursor:pointer;">
-                    <img src="cosmetics-images/mostahdarat-tgmil.jpeg" alt="مستحضرات تجميل">
+            <div class="grid-row" style="display: flex; gap: 20px; justify-content: center;">
+                
+                <div class="grid-card" onclick="window.location.href='medical.html'" style="cursor:pointer; border: 1px solid #ccc; padding: 10px; border-radius: 15px;">
+                    <img src="cosmetics-images/mostalzamat.webp" alt="مستلزمات طبية" style="width: 200px;">
+                    <div class="card-caption">مستلزمات طبية</div>
+                </div>
+
+                <div class="grid-card" onclick="window.location.href='cosmetics.html'" style="cursor:pointer; border: 1px solid #ccc; padding: 10px; border-radius: 15px;">
+                    <img src="cosmetics-images/mostahdarat-tgmil.jpeg" alt="مستحضرات تجميل" style="width: 200px;">
                     <div class="card-caption">مستحضرات تجميل</div>
                 </div>
+
             </div>
         </section>
     </main>
