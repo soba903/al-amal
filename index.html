@@ -5,75 +5,38 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>شركة الأمل - الرئيسية</title>
     
-    <script>
-        (function() {
-            const token = localStorage.getItem('token');
-            // لو مفيش توكن، هيرميه فوراً لصفحة اللوجين اللي جوه فولدر frontend
-            if (!token) {
-                window.location.replace("https://soba903.github.io/al-amal/frontend/"); 
-            }
-        })();
-    </script>
-
     <link rel="stylesheet" href="style.css" />
-    
-    <style>
-        /* ستايل سريع عشان نلغي "الشكل الخرا" لحد ما الـ CSS يقرأ */
-        .home-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
-        }
-        .grid-card {
-            width: 300px;
-            background: #fff;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            overflow: hidden;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .grid-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        .card-caption {
-            padding: 15px;
-            text-align: center;
-            font-weight: bold;
-            color: #0077b6;
-        }
-    </style>
+
+    <script>
+        // الطريقة المضمونة: بنفحص التوكن أول ما الصفحة تبدأ
+        window.onload = function() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert("⚠️ يرجى تسجيل الدخول أولاً");
+                // بنستخدم اللينك المباشر لصفحة اللوجين
+                window.location.href = "https://soba903.github.io/al-amal/frontend/"; 
+            }
+        };
+    </script>
 </head>
 <body>
-    <header style="background:#0077b6; color:white; padding:20px; text-align:center;">
-        <h1>الأمل للمستلزمات الطبية</h1>
-        <button onclick="logout()" style="background:#e94560; color:white; border:none; padding:10px 20px; border-radius:8px; cursor:pointer;">تسجيل خروج 🚪</button>
-    </header>
+    <div class="main-wrapper" style="padding: 20px; text-align: center;">
+        <header style="background:#0077b6; color:white; padding:20px; border-radius: 10px;">
+            <h1>الأمل للمستلزمات الطبية</h1>
+        </header>
 
-    <main class="container">
-        <div class="home-grid">
-            <div class="grid-card" onclick="window.location.href='medical.html'">
-                <img src="cosmetics-images/mostalzamat.webp" alt="مستلزمات طبية" onerror="this.src='https://via.placeholder.com/300'">
-                <div class="card-caption">مستلزمات طبية</div>
+        <div class="home-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 20px;">
+            <div class="grid-card" onclick="window.location.href='medical.html'" style="cursor:pointer; width: 280px; border: 1px solid #ddd; border-radius: 15px; overflow: hidden; background: #fff;">
+                <img src="cosmetics-images/mostalzamat.webp" alt="مستلزمات" style="width: 100%; height: 200px; object-fit: cover;">
+                <div style="padding: 15px; font-weight: bold;">مستلزمات طبية</div>
             </div>
 
-            <div class="grid-card" onclick="window.location.href='cosmetics.html'">
-                <img src="cosmetics-images/mostahdarat-tgmil.jpeg" alt="مستحضرات تجميل" onerror="this.src='https://via.placeholder.com/300'">
-                <div class="card-caption">مستحضرات تجميل</div>
+            <div class="grid-card" onclick="window.location.href='cosmetics.html'" style="cursor:pointer; width: 280px; border: 1px solid #ddd; border-radius: 15px; overflow: hidden; background: #fff;">
+                <img src="cosmetics-images/mostahdarat-tgmil.jpeg" alt="تجميل" style="width: 100%; height: 200px; object-fit: cover;">
+                <div style="padding: 15px; font-weight: bold;">مستحضرات تجميل</div>
             </div>
         </div>
-    </main>
-
-    <script>
-        function logout() {
-            localStorage.removeItem('token');
-            window.location.href = "https://soba903.github.io/al-amal/frontend/";
-        }
-    </script>
+    </div>
 </body>
 </html>
 
