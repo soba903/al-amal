@@ -4,39 +4,39 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>شركة الأمل - الرئيسية</title>
-    
     <link rel="stylesheet" href="style.css" />
 
     <script>
-        // الطريقة المضمونة: بنفحص التوكن أول ما الصفحة تبدأ
         window.onload = function() {
             const token = localStorage.getItem('token');
             if (!token) {
                 alert("⚠️ يرجى تسجيل الدخول أولاً");
-                // بنستخدم اللينك المباشر لصفحة اللوجين
+                // التعديل هنا: استخدمنا اللينك الكامل والمباشر لصفحة اللوجين
                 window.location.href = "https://soba903.github.io/al-amal/frontend/"; 
             }
         };
     </script>
 </head>
 <body>
-    <div class="main-wrapper" style="padding: 20px; text-align: center;">
-        <header style="background:#0077b6; color:white; padding:20px; border-radius: 10px;">
-            <h1>الأمل للمستلزمات الطبية</h1>
-        </header>
+    <header style="background:#0077b6; color:white; padding:20px; text-align:center;">
+        <h1>الأمل للمستلزمات الطبية</h1>
+    </header>
 
-        <div class="home-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 20px;">
-            <div class="grid-card" onclick="window.location.href='medical.html'" style="cursor:pointer; width: 280px; border: 1px solid #ddd; border-radius: 15px; overflow: hidden; background: #fff;">
+    <main class="container">
+        <div class="home-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px;">
+            
+            <div class="grid-card" onclick="window.location.href='medical.html'" style="cursor:pointer; width: 300px; border: 1px solid #ddd; border-radius: 15px; overflow: hidden; background: #fff; text-align: center;">
                 <img src="cosmetics-images/mostalzamat.webp" alt="مستلزمات" style="width: 100%; height: 200px; object-fit: cover;">
-                <div style="padding: 15px; font-weight: bold;">مستلزمات طبية</div>
+                <div style="padding: 15px; font-weight: bold; color: #023e8a;">مستلزمات طبية</div>
             </div>
 
-            <div class="grid-card" onclick="window.location.href='cosmetics.html'" style="cursor:pointer; width: 280px; border: 1px solid #ddd; border-radius: 15px; overflow: hidden; background: #fff;">
+            <div class="grid-card" onclick="window.location.href='cosmetics.html'" style="cursor:pointer; width: 300px; border: 1px solid #ddd; border-radius: 15px; overflow: hidden; background: #fff; text-align: center;">
                 <img src="cosmetics-images/mostahdarat-tgmil.jpeg" alt="تجميل" style="width: 100%; height: 200px; object-fit: cover;">
-                <div style="padding: 15px; font-weight: bold;">مستحضرات تجميل</div>
+                <div style="padding: 15px; font-weight: bold; color: #023e8a;">مستحضرات تجميل</div>
             </div>
+
         </div>
-    </div>
+    </main>
 </body>
 </html>
 
