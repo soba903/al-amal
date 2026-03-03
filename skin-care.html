@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>العناية بالبشرة</title>
+<style>
+  body {
+    font-family: "Cairo", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff5f7;
+    color: #333;
+  }
+
+  header {
+    background-color: #d81ee9;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+
+  .search-bar {
+    text-align: center;
+    margin: 15px 0;
+  }
+
+  .search-bar input {
+    width: 60%;
+    max-width: 400px;
+    padding: 10px;
+    border: 2px solid #d81ee9;
+    border-radius: 25px;
+    outline: none;
+    font-size: 1rem;
+  }
+
+  .products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+/* للأجهزة المتوسطة زي التابلت */
+@media (max-width: 1024px) {
+  .products {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* للموبايلات */
+@media (max-width: 768px) {
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* للموبايلات الصغيرة جدًا */
+@media (max-width: 480px) {
+  .products {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+  .product {
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .product:hover {
+    transform: translateY(-5px);
+  }
+
+  .product img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 15px;
+  }
+
+  .product h3 {
+    color: #e91e63;
+    font-size: 1.2rem;
+    margin: 10px 0 5px;
+  }
+
+  .product p {
+    font-size: 0.95rem;
+    color: #555;
+  }
+
+  .product .price {
+    font-size: 1.1rem;
+    color: #444;
+    margin: 5px 0 10px;
+  }
+
+  .product button {
+    background-color: #e91e63;
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 25px;
+    cursor: pointer;
+    margin: 5px;
+    transition: 0.3s;
+  }
+
+  .product button:hover {
+    background-color: #c2185b;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #4caf50;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 25px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: 0.4s ease;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<header> قسم العنايه بالبشرة</header>
+
+<div class="search-bar">
+  <input type="text" id="searchInput" placeholder="ابحث عن منتج...">
+</div>
+
+<div class="products" id="productList">
+    <!-- مثال منتج -->
+    <div class="product" data-name="ايفا بالجلسرين كريم بشره 170 جرام">
+  <img src="cosmetics-images/eva-glerin-cream-bshra-170-gram.jpg" alt="">
+    <h3>ايفا بالجلسرين كريم بشره 170 جرام</h3>
+    <p>مرطب مكثف للبشرة الجافة، يعمل على ترطيبها بعمق وحمايتها من الجفاف بفضل تركيبته الغنية بالجلسرين</p>
+    <div class="price">50.00 جنيه</div>
+    <input type="number" id="qty-1" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا بالجلسرين كريم بشره 170 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا بالجلسرين كريم بشره 170 جرام', 'qty-1')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="ايفا بالجلسرين كريم بشره 55 جرام">
+  <img src="cosmetics-images/eva-glerin-cream-bshra-170-gram.jpg" alt="">
+    <h3>ايفا بالجلسرين كريم بشره 55 جرام</h3>
+    <p>مرطب مكثف للبشرة الجافة، يعمل على ترطيبها بعمق وحمايتها من الجفاف بفضل تركيبته الغنية بالجلسرين</p>
+    <div class="price">27.00 جنيه</div>
+    <input type="number" id="qty-2" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا بالجلسرين كريم بشره 55 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا بالجلسرين كريم بشره 55 جرام', 'qty-2')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="ايفا بالجلسرين كريم بشره 20 جرام">
+  <img src="cosmetics-images/eva-glerin-cream-bshra-170-gram.jpg" alt="">
+    <h3>ايفا بالجلسرين كريم بشره 20 جرام</h3>
+    <p>مرطب مكثف للبشرة الجافة، يعمل على ترطيبها بعمق وحمايتها من الجفاف بفضل تركيبته الغنية بالجلسرين</p>
+    <div class="price">14.00 جنيه</div>
+    <input type="number" id="qty-3" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا بالجلسرين كريم بشره 20 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا بالجلسرين كريم بشره 20 جرام', 'qty-3')">اشترِ الآن</button>
+  </div>
+    <div class="product" data-name="ايفا بالعسل كريم بشره 170 جرام">
+  <img src="cosmetics-images/eva-bel3sl-cream-bshra-170-gram.jpg" alt="">
+    <h3>ايفا بالعسل كريم بشره 170 جرام</h3>
+    <p>مرطب مكثف للبشرة الجافة، يعمل على ترطيبها بعمق وحمايتها من الجفاف بفضل تركيبته الغنية بالعسل</p>
+    <div class="price">50.00 جنيه</div>
+    <input type="number" id="qty-4" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا بالعسل كريم بشره 170 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا بالعسل كريم بشره 170 جرام', 'qty-4')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="ايفا بالعسل كريم بشره 55 جرام">
+  <img src="cosmetics-images/eva-bel3sl-cream-bshra-170-gram.jpg" alt="">
+    <h3>ايفا بالعسل كريم بشره 55 جرام</h3>
+    <p>مرطب مكثف للبشرة الجافة، يعمل على ترطيبها بعمق وحمايتها من الجفاف بفضل تركيبته الغنية بالعسل</p>
+    <div class="price">24.00 جنيه</div>
+    <input type="number" id="qty-5" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا بالعسل كريم بشره 55 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا بالعسل كريم بشره 55 جرام', 'qty-5')">اشترِ الآن</button>
+  </div>
+    <div class="product" data-name="ايفا بالعسل كريم بشره 20 جرام">
+  <img src="cosmetics-images/eva-bel3sl-cream-bshra-170-gram.jpg" alt="">
+    <h3>ايفا بالعسل كريم بشره 20 جرام</h3>
+    <p>مرطب مكثف للبشرة الجافة، يعمل على ترطيبها بعمق وحمايتها من الجفاف بفضل تركيبته الغنية بالعسل</p>
+    <div class="price">14.00 جنيه</div>
+    <input type="number" id="qty-6" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا بالعسل كريم بشره 20 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا بالعسل كريم بشره 20 جرام', 'qty-6')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="ايفا بالزبادي و الخيار كريم بشره 170 جرام">
+    <img src="cosmetics-images/eva-zbadi-5yar-cream-bashra-170-gram.avif" alt="">
+    <h3>ايفا بالزبادي و الخيار كريم بشره 170 جرام</h3>
+    <p>مرطب مكثف للبشرة الجافة، يعمل على ترطيبها بعمق وحمايتها من الجفاف بفضل تركيبته الغنية بالزبادي و الخيار</p>
+    <div class="price">50.00 جنيه</div>
+    <input type="number" id="qty-7" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا بالزبادي و الخيار كريم بشره 170 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا بالزبادي و الخيار كريم بشره 170 جرام', 'qty-7')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفا بالزبادي و الخيار كريم بشره 55 جرام">
+    <img src="cosmetics-images/eva-zbadi-5yar-cream-bashra-170-gram.avif" alt="">
+    <h3>ايفا بالزبادي و الخيار كريم بشره 55 جرام</h3>
+    <p>مرطب مكثف للبشرة الجافة، يعمل على ترطيبها بعمق وحمايتها من الجفاف بفضل تركيبته الغنية بالزبادي و الخيار</p>
+    <div class="price">25.00 جنيه</div>
+    <input type="number" id="qty-8" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا بالزبادي و الخيار كريم بشره 55 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا بالزبادي و الخيار كريم بشره 55 جرام', 'qty-8')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفا بالزبادي و الخيار كريم بشره 20 جرام">
+    <img src="cosmetics-images/eva-zbadi-5yar-cream-bashra-170-gram.avif" alt="">
+    <h3>ايفا بالزبادي و الخيار كريم بشره 20 جرام</h3>
+    <p>مرطب مكثف للبشرة الجافة، يعمل على ترطيبها بعمق وحمايتها من الجفاف بفضل تركيبته الغنية بالزبادي و الخيار</p>
+    <div class="price">14.00 جنيه</div>
+    <input type="number" id="qty-9" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا بالزبادي و الخيار كريم بشره 20 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا بالزبادي و الخيار كريم بشره 20 جرام', 'qty-9')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="كريم نيفيا ازرق 150 مللي">
+    <img src="cosmetics-images/cream-nivea-blue-150-mili.jpg" alt="">
+    <h3>كريم نيفيا ازرق 150 مللي</h3>
+    <p>مرطب غني ومغذي للبشرة</p>
+    <div class="price">170.00 جنيه</div>
+    <input type="number" id="qty-10" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كريم نيفيا ازرق 150 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('كريم نيفيا ازرق 150 مللي', 'qty-10')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كريم نيفيا ازرق 60 مللي">
+    <img src="cosmetics-images/cream-nivea-blue-150-mili.jpg" alt="">
+    <h3>كريم نيفيا ازرق 60 مللي</h3>
+    <p>مرطب غني ومغذي للبشرة</p>
+    <div class="price">60.00 جنيه</div>
+    <input type="number" id="qty-11" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كريم نيفيا ازرق 60 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('كريم نيفيا ازرق 60 مللي', 'qty-11')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كريم نيفيا ازرق 30 مللي">
+    <img src="cosmetics-images/cream-nivea-blue-150-mili.jpg" alt="">
+    <h3>كريم نيفيا ازرق 30 مللي</h3>
+    <p>مرطب غني ومغذي للبشرة</p>
+    <div class="price">32.00 جنيه</div>
+    <input type="number" id="qty-12" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كريم نيفيا ازرق 30 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('كريم نيفيا ازرق 30 مللي', 'qty-12')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="كريم نيفيا صغير بزبده الكاكاو 50 مللي">
+    <img src="cosmetics-images/cream-nivea-small-bzbda-cacau-50-mili.jpg" alt="">
+    <h3>كريم نيفيا صغير بزبده الكاكاو 50 مللي</h3>
+    <p>مرطب غني ومغذي للبشرة</p>
+    <div class="price">32.00 جنيه</div>
+    <input type="number" id="qty-13" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كريم نيفيا صغير بزبده الكاكاو 50 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('كريم نيفيا صغير بزبده الكاكاو 50 مللي', 'qty-13')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="كريم نيفيا سوفت 50 مللي">
+    <img src="cosmetics-images/cream-nivea-soft-50-mili.jpg" alt="">
+    <h3>كريم نيفيا سوفت 50 مللي</h3>
+    <p>مرطب غني ومغذي للبشرة</p>
+    <div class="price">35.00 جنيه</div>
+    <input type="number" id="qty-14" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كريم نيفيا سوفت 50 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('كريم نيفيا سوفت 50 مللي', 'qty-14')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كريم نيفيا سوفت 100 مللي">
+    <img src="cosmetics-images/cream-nivea-soft-50-mili.jpg" alt="">
+    <h3>كريم نيفيا سوفت 100 مللي</h3>
+    <p>مرطب غني ومغذي للبشرة</p>
+    <div class="price">52.00 جنيه</div>
+    <input type="number" id="qty-15" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كريم نيفيا سوفت 100 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('كريم نيفيا سوفت 100 مللي', 'qty-15')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كريم نيفيا سوفت 200 مللي">
+    <img src="cosmetics-images/cream-nivea-soft-50-mili.jpg" alt="">
+    <h3>كريم نيفيا سوفت 200 مللي</h3>
+    <p>مرطب غني ومغذي للبشرة</p>
+    <div class="price">71.00 جنيه</div>
+    <input type="number" id="qty-16" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كريم نيفيا سوفت 200 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('كريم نيفيا سوفت 200 مللي', 'qty-16')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="كريم تفتيح فرايند لفلي 40 جرام">
+    <img src="cosmetics-images/cream-tfteh-fraind-lovely-40-gram.jpg" alt="">
+    <h3>كريم تفتيح فرايند لفلي 40 جرام</h3>
+    <p>صور للعنايه بالبشره</p>
+    <div class="price">32.00 جنيه</div>
+    <input type="number" id="qty-17" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كريم تفتيح فرايند اند لفلي 40 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('كريم تفتيح فرايند اند لفلي 40 جرام', 'qty-17')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كريم تفتيح فرايند لفلي 18 مللي">
+    <img src="cosmetics-images/cream-tfteh-fraind-lovely-40-gram.jpg" alt="">
+    <h3>كريم تفتيح فرايند لفلي 18 مللي</h3>
+    <p>صور للعنايه بالبشره</p>
+    <div class="price">18.00 جنيه</div>
+    <input type="number" id="qty-18" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كريم تفتيح فرايند اند لفلي 18 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('كريم تفتيح فرايند اند لفلي 18 مللي', 'qty-18')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="كريم تفتيح غارنيه 50 مللي">
+    <img src="cosmetics-images/cream-tfteh-gharnea-50-mili.avif" alt="">
+    <h3>كريم تفتيح غارنيه 50 مللي</h3>
+    <p>صور للعنايه بالبشره</p>
+    <div class="price">105.00 جنيه</div>
+    <input type="number" id="qty-19" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كريم تفتيح غارنيه 50 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('كريم تفتيح غارنيه 50 مللي', 'qty-19')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كريم تفتيح غارنيه 25 مللي">
+    <img src="cosmetics-images/cream-tfteh-gharnea-50-mili.avif" alt="">
+    <h3>كريم تفتيح غارنيه 25 مللي</h3>
+    <p>صور للعنايه بالبشره</p>
+    <div class="price">68.00 جنيه</div>
+    <input type="number" id="qty-20" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كريم تفتيح غارنيه 25 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('كريم تفتيح غارنيه 25 مللي', 'qty-20')">اشترِ الآن</button>
+  </div>
+
+      <div class="product" data-name="كير اند مورسوفت 125 مللي">
+    <img src="cosmetics-images/cear-and-more-soft-125-mili.jpg" alt="">
+    <h3>كير اند مور سوفت بالفراوله 125 مللي</h3>
+    <p>عالي الجودة للحفاظ على ترطيب بشرتك بعمق لفترة طويلة</p>
+    <div class="price">37.00 جنيه</div>
+    <input type="number" id="qty-22" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كير اند مور سوفت 125 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('كير اند مور سوفت 125 مللي', 'qty-22')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كير اند مورسوفت 75 مللي">
+    <img src="cosmetics-images/cear-and-more-soft-125-mili.jpg" alt="">
+    <h3>كير اند مور سوفت بالفاروله 75 مللي</h3>
+    <p>عالي الجودة للحفاظ على ترطيب بشرتك بعمق لفترة طويلة</p>
+    <div class="price">جنيه35.00</div>
+    <input type="number" id="qty-23" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كير اند مور سوفت 75 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('كير اند مور سوفت 75 مللي', 'qty-23')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="ايفا غسول للبشره الدهنيه / البشره المختلطه">
+    <img src="cosmetics-images/eva-gasol-lelbashra-eldohnia-elbashra-elm5talta.webp" alt="">
+    <h3>ايفا غسول للبشره الدهنيه / البشره المختلطه</h3>
+    <p>هو منتج ينظف البشرة بعمق، ويزيل الزيوت والشوائب دون تجفيفها</p>
+    <div class="price">52.00 جنيه</div>
+    <input type="number" id="qty-24" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا غسول للبشره الدهنيه / البشره المختلطه')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا غسول للبشره الدهنيه / البشره المختلطه', 'qty-24')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="لونا مرطب شفاه فراوله ">
+    <img src="cosmetics-images/luna-moratb-shfa-fraula.avif" alt="">
+    <h3>لونا مرطب شفاه فراوله</h3>
+    <p>يهدف إلى ترطيب الشفاه وحمايتها من الجفاف والتشقق</p>
+    <div class="price">13.75 جنيه</div>
+    <input type="number" id="qty-25" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لونا مرطب شفاه فراوله')">أضف إلى السلة</button>
+    <button onclick="buyNow('لونا مرطب شفاه فراوله', 'qty-25')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="لونا مرطب شفاه جوز هند">
+    <img src="cosmetics-images/luna-moratb-shfa-gouz-hend.jpg" alt="">
+    <h3>لونا مرطب شفاه جوز هند</h3>
+    <p>يهدف إلى ترطيب الشفاه وحمايتها من الجفاف والتشقق</p>
+    <div class="price">3.75 جنيه</div>
+    <input type="number" id="qty-26" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لونا مرطب شفاه جوز هند')">أضف إلى السلة</button>
+    <button onclick="buyNow('لونا مرطب شفاه جوز هند', 'qty-26')">اشترِ الآن</button>
+  </div>
+   
+      <div class="product" data-name="صابون دوف بالرمان 90 جرام">
+    <img src="cosmetics-images/sapon-dove-belroman-90-gram.jpg" alt="">
+    <h3>صابون دوف بالرمان 90 جرام</h3>
+    <p>صابون تجميلي لطيف يحتوي على ¼ كريم مرطب، مما يجعله يرطب البشرة وينعمها</p>
+    <div class="price">27.94 جنيه</div>
+    <input type="number" id="qty-27" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('صابون دوف بالرمان 90 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('صابون دوف بالرمان 90 جرام', 'qty-27')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="صابون دوف الابيض 90 جرام">
+      <img src="cosmetics-images/sapon-dove-white-90-gram.jpg" alt="">
+        <h3>صابون دوف الابيض 90 جرام</h3>
+    <p>صابون تجميلي لطيف يحتوي على ¼ كريم مرطب، مما يجعله يرطب البشرة وينعمها</p>
+    <div class="price">27.67 جنيه</div>
+    <input type="number" id="qty-28" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('صابون دوف الابيض 90 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('صابون دوف الابيض 90 جرام', 'qty-28')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفا غسول مقشر للوجه بالجلسرين 150 مللي">
+      <img src="cosmetics-images/eva-gasol-mqshar-lelwageh-belglesren-150-mili.avif" alt="">
+    <h3>ايفا غسول مقشر للوجه بالجلسرين 150 مللي</h3>
+    <div class="price"> جنيه 52.00</div>
+    <input type="number" id="qty-31" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا غسول مقشر للوجه بالجلسرين 150 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا غسول مقشر للوجه بالجلسرين 150 مللي', 'qty-31')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفا كريم كولاجين للخطوط الرفيعه 50 مللي + 30">
+        <img src="cosmetics-images/eva-cream-collagen-lel5otot-elrafe3a-50-mili-30.jpg" alt="">
+          <h3>ايفا كريم كولاجين للخطوط الرفيعه 50 مللي + 30</h3>
+    <div class="price"> جنيه 180.00</div>
+    <input type="number" id="qty-32" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا كريم كولاجين للخطوط الرفيعه 50 مللي + 30')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا كريم كولاجين للخطوط الرفيعه 50 مللي + 30', 'qty-32')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفا كريم كولاجين للخطوط العميقه 50 مللي+ 40">
+        <img src="cosmetics-images/eva-cream-collagen-lel5otot-el3amcha-50-mili-40.jpg" alt="">
+          <h3>ايفا كريم كولاجين للخطوط العميقه 50 مللي+ 40</h3>
+    <div class="price"> جنيه 181.00</div>
+    <input type="number" id="qty-33" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا كريم كولاجين للخطوط العميقه 50 مللي+ 40')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا كريم كولاجين للخطوط العميقه 50 مللي+ 40', 'qty-33')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بوبانا طمي مغربي 400 جرام">
+      <img src="cosmetics-images/bobana-tamy-mgraby-400-gram.jpg" alt="">
+    <h3>بوبانا طمي مغربي 400 جرام</h3>
+    <div class="price"> جنيه 49.00</div>
+    <input type="number" id="qty-34" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بوبانا طمي مغربي 400 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('بوبانا طمي مغربي 400 جرام', 'qty-34')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بوبانا قناع وجه بارمان (الاحمر)">
+      <img src="cosmetics-images/bobana-kena3-wagh-belroman-red.jpg" alt="">
+    <h3>بوبانا قناع وجه بالرمان (الاحمر)</h3>
+    <div class="price"> جنيه 27.00</div>
+    <input type="number" id="qty-35" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بوبانا قناع وجه بالرمان (الاحمر)')">أضف إلى السلة</button>
+    <button onclick="buyNow('بوبانا قناع وجه بالرمان (الاحمر)', 'qty-35')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بوبانا قناع وجه بالكولاجين و فيتامين C">
+        <img src="cosmetics-images/bobana-kena3-wagh-belcolagen-w-vaitamin.jpg" alt="">
+          <h3>بوبانا قناع وجه بالكولاجين و فيتامين C</h3>
+    <div class="price"> جنيه 27.00</div>
+    <input type="number" id="qty-36" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بوبانا قناع وجه بالكولاجين و فيتامين C')">أضف إلى السلة</button>
+    <button onclick="buyNow('بوبانا قناع وجه بالكولاجين و فيتامين C', 'qty-36')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="جليسوليد كريم 40 جرام">
+        <img src="cosmetics-images/glisolid-cream-40-gram.jpg" alt="">
+          <h3>جليسوليد كريم 40 جرام</h3>
+    <div class="price"> جنيه 27.00</div>
+    <input type="number" id="qty-37" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('جليسوليد كريم 40 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('جليسوليد كريم 40 جرام', 'qty-37')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="جليسوليد كريم 80 جرام">
+        <img src="cosmetics-images/glisolid-cream-40-gram.jpg" alt="">
+    <h3>جليسوليد كريم 80 جرام</h3>
+    <div class="price"> جنيه 47.00</div>
+    <input type="number" id="qty-38" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('جليسوليد كريم 80 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('جليسوليد كريم 80 جرام', 'qty-38')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ويزر صابون جليسرين 72 جرام">
+      <img src="cosmetics-images/wizr-sapon-glisren-72-gram.jfif" alt="">
+    <h3>ويزر صابون جليسرين 72 جرام</h3>
+    <div class="price"> جنيه 37.00</div>
+    <input type="number" id="qty-39" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ويزر صابون جليسرين 72 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('ويزر صابون جليسرين 72 جرام', 'qty-39')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كريم كير اند مور سوفت بالجلسرين 125 مللي الفانيليا">
+        <img src="cosmetics-images/cream-car-and-more-soft-blglesrin-125-mili-vanilla.jpg" alt="">
+          <h3>كريم كير اند مور سوفت بالجلسرين 125 مللي الفانيليا</h3>
+    <div class="price"> جنيه 37.00</div>
+    <input type="number" id="qty-40" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كريم كير اند مور سوفت بالجلسرين 125 مللي الفانيليا')">أضف إلى السلة</button>
+    <button onclick="buyNow('كريم كير اند مور سوفت بالجلسرين 125 مللي الفانيليا', 'qty-40')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كريم كير اند مور سوفت بالجلسرين 75 مللي الفانيليا">
+        <img src="cosmetics-images/cream-car-and-more-soft-blglesrin-125-mili-vanilla.jpg" alt="">
+    <h3>كريم كير اند مور سوفت بالجلسرين 75 مللي الفانيليا</h3>
+    <div class="price"> جنيه 35.00</div>
+    <input type="number" id="qty-41" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كريم كير اند مور سوفت بالجلسرين 75 مللي الفانيليا')">أضف إلى السلة</button>
+    <button onclick="buyNow('كريم كير اند مور سوفت بالجلسرين 75 مللي الفانيليا', 'qty-41')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كريم كير اند مور سوفت بالجلسرين 125 مللي جوز الهند">
+        <img src="cosmetics-images/cream-car-and-more-soft-blglesrin-125-mili-gouz-hend.avif" alt="">
+          <h3>كريم كير اند مور سوفت بالجلسرين 125 مللي جوز الهند</h3>
+    <div class="price"> جنيه 37.00</div>
+    <input type="number" id="qty-42" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كريم كير اند مور سوفت بالجلسرين 125 مللي جوز الهند')">أضف إلى السلة</button>
+    <button onclick="buyNow('كريم كير اند مور سوفت بالجلسرين 125 مللي جوز الهند', 'qty-42')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كريم كير اند مور سوفت بالجلسرين 75 مللي جوز الهند">
+        <img src="cosmetics-images/cream-car-and-more-soft-blglesrin-125-mili-gouz-hend.avif" alt="">
+    <h3>كريم كير اند مور سوفت بالجلسرين 75 مللي جوز الهند</h3>
+    <div class="price"> جنيه 35.00</div>
+    <input type="number" id="qty-43" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كريم كير اند مور سوفت بالجلسرين 75 مللي جوز الهند')">أضف إلى السلة</button>
+    <button onclick="buyNow('كريم كير اند مور سوفت بالجلسرين 75 مللي جوز الهند', 'qty-43')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="لونا كريم تشققات بالجلسرين 20 جرام">
+      <img src="cosmetics-images/luna-cream-tshquqat-blglesrin-20-gram.jpg" alt="">
+    <h3>لونا كريم تشققات بالجلسرين 20 جرام</h3>
+    <div class="price"> جنيه 220.00</div>
+    <input type="number" id="qty-44" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لونا كريم تشققات بالجلسرين 20 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('لونا كريم تشققات بالجلسرين 20 جرام', 'qty-44')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="لونا مجموعه كريم تشققات">
+      <img src="cosmetics-images/luna-magmu3a-cream-tshquqat.jpg" alt="">
+    <h3>لونا مجموعه كريم تشققات</h3>
+    <div class="price"> جنيه 54.00</div>
+    <input type="number" id="qty-45" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لونا مجموعه كريم تشققات')">أضف إلى السلة</button>
+    <button onclick="buyNow('لونا مجموعه كريم تشققات', 'qty-45')">اشترِ الآن</button>
+  </div>
+  
+  <!-- باقي المنتجات هتكون بنفس الشكل -->
+  <!-- انسخ الكارت وغير الاسم والسعر والوصف -->
+</div>
+<div class="toast" id="toast">تمت الإضافة إلى السلة 🛒</div>
+
+    <script>
+  const searchInput = document.getElementById('searchInput');
+  const products = document.querySelectorAll('.product');
+  const toast = document.getElementById('toast');
+
+  searchInput.addEventListener('keyup', function() {
+    const value = this.value.toLowerCase();
+    products.forEach(product => {
+      const name = product.getAttribute('data-name').toLowerCase();
+      product.style.display = name.includes(value) ? "block" : "none";
+    });
+  });
+
+  function addToCart(productName) {
+    toast.textContent = `تمت إضافة ${productName} إلى السلة 🛒`;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+  }
+  function buyNow(productName) {
+  // حفظ اسم المنتج في localStorage
+  localStorage.setItem("selectedProduct", productName);
+  // التحويل لصفحة الدفع
+  window.location.href = "checkout.html";
+}
+</script>
+<script>
+  function buyNow(productName) {
+    const quantity = 1; // تقدر تخليها متغيرة لو عندك اختيار كمية
+    const url = `checkout.html?product=${encodeURIComponent(productName)}&quantity=${quantity}`;
+    window.location.href = url;
+  }
+</script>
+<script>
+  function buyNow(productName, qtyId) {
+    const quantity = document.getElementById(qtyId).value || 1;
+    const url = `checkout.html?product=${encodeURIComponent(productName)}&quantity=${encodeURIComponent(quantity)}`;
+    window.location.href = url;
+  }
+</script>
+</body>
+<script src="Cart.js"></script>
+</html>

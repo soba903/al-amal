@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المستلزمات الطبية</title>
+<style>
+  body {
+    font-family: "Cairo", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff5f7;
+    color: #333;
+  }
+
+  header {
+    background-color: #1e43e9;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+
+  .search-bar {
+    text-align: center;
+    margin: 15px 0;
+  }
+
+  .search-bar input {
+    width: 60%;
+    max-width: 400px;
+    padding: 10px;
+    border: 2px solid  #1e43e9;
+    border-radius: 25px;
+    outline: none;
+    font-size: 1rem;
+  }
+
+  .products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+/* للأجهزة المتوسطة زي التابلت */
+@media (max-width: 1024px) {
+  .products {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* للموبايلات */
+@media (max-width: 768px) {
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* للموبايلات الصغيرة جدًا */
+@media (max-width: 480px) {
+  .products {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+  .product {
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .product:hover {
+    transform: translateY(-5px);
+  }
+
+  .product img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 15px;
+  }
+
+  .product h3 {
+    color: #e91e63;
+    font-size: 1.2rem;
+    margin: 10px 0 5px;
+  }
+
+  .product p {
+    font-size: 0.95rem;
+    color: #555;
+  }
+
+  .product .price {
+    font-size: 1.1rem;
+    color: #444;
+    margin: 5px 0 10px;
+  }
+
+  .product button {
+    background-color: #e91e63;
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 25px;
+    cursor: pointer;
+    margin: 5px;
+    transition: 0.3s;
+  }
+
+  .product button:hover {
+    background-color: #c2185b;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #4caf50;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 25px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: 0.4s ease;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<header> قسم المسلتزمات طبية</header>
+
+<div class="search-bar">
+  <input type="text" id="searchInput" placeholder="ابحث عن منتج...">
+</div>
+
+<div class="products" id="productList">
+    <!-- مثال منتج -->
+    <div class="product" data-name="جهاز نيبو لايزر WE CARE">
+    <img src="cosmetics-images/nepo-layzer-we-care.webp" alt="">
+      <h3>جهاز نيبو لايزر WE CARE</h3>
+    <input type="number" id="qty-1" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('جهاز نيبو لايزر WE CARE')">أضف إلى السلة</button>
+    <button onclick="buyNow('جهاز نيبو لايزر WE CARE', 'qty-1')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="جهاز نيبو لايزر ICONE">
+      <img src="cosmetics-images/nepo-layzer-icone.jpg" alt="">
+        <h3>جهاز نيبو لايزر ICONE</h3>
+    <input type="number" id="qty-2" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('جهاز نيبو لايزر ICONE')">أضف إلى السلة</button>
+    <button onclick="buyNow('جهاز نيبو لايزر ICONE', 'qty-2')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="جهاز نيبولايزر ايطالي ACTIVE">
+      <img src="cosmetics-images/nepo-layzer-active-italy.jpg" alt="">
+        <h3>جهاز نيبولايزر ايطالي ACTIVE</h3>
+    <input type="number" id="qty-3" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('جهاز نيبولايزر ايطالي ACTIVE')">أضف إلى السلة</button>
+    <button onclick="buyNow('جهاز نيبولايزر ايطالي ACTIVE', 'qty-3')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="جوانتي لاتكس ميديم (كوالي تكس / جلافزي)">
+      <img src="cosmetics-images/guanty-latex-medium-(qually-tax-glavzy).jpg" alt="">
+        <h3>جوانتي لاتكس ميديم (كوالي تكس / جلافزي)</h3>
+    <input type="number" id="qty-4" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('جوانتي لاتكس ميديم (كوالي تكس / جلافزي)')">أضف إلى السلة</button>
+    <button onclick="buyNow('جوانتي لاتكس ميديم (كوالي تكس / جلافزي)', 'qty-4')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="جوانتي لاتكس لارج (كوالي تكس / جلافزي)">
+      <img src="cosmetics-images/guanty-latex-medium-(qually-tax-glavzy).jpg" alt="">
+    <h3>جوانتي لاتكس لارج (كوالي تكس / جلافزي)</h3>
+    <input type="number" id="qty-5" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('جوانتي لاتكس لارج (كوالي تكس / جلافزي)')">أضف إلى السلة</button>
+    <button onclick="buyNow('جوانتي لاتكس لارج (كوالي تكس / جلافزي)', 'qty-5')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="قطن المحله 100 جرام بالكيلو">
+    <img src="cosmetics-images/cotton-elmahla-100-gram-belqello.webp" alt="">
+    <h3>قطن المحله 100 جرام بالكيلو</h3>
+    <input type="number" id="qty-6" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('قطن المحله 100 جرام بالكيلو')">أضف إلى السلة</button>
+    <button onclick="buyNow('قطن المحله 100 جرام بالكيلو', 'qty-6')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="قطن المحله 50 جرام بالكيلو">
+      <img src="cosmetics-images/cotton-elmahla-100-gram-belqello.webp" alt="">
+    <h3>قطن المحله 50 جرام بالكيلو</h3>
+    <input type="number" id="qty-7" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('قطن المحله 50 جرام بالكيلو')">أضف إلى السلة</button>
+    <button onclick="buyNow('قطن المحله 50 جرام بالكيلو', 'qty-7')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="جهاز ضغط زئبقي">
+    <img src="cosmetics-images/gehaz-dgt-zabqy.jpg" alt="">
+    <h3>جهاز ضغط زئبقي</h3>
+    <input type="number" id="qty-8" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('جهاز ضغط زئبقي')">أضف إلى السلة</button>
+    <button onclick="buyNow('جهاز ضغط زئبقي', 'qty-8')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="جهاز سكر وان كول بلس">
+    <img src="cosmetics-images/ghaz-sugar-one-call-plus.png" alt="">
+    <h3>جهاز سكر وان كول بلس</h3>
+    <input type="number" id="qty-9" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('جهاز سكر وان كول بلس')">أضف إلى السلة</button>
+    <button onclick="buyNow('جهاز سكر وان كول بلس', 'qty-9')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="جهاز وريد gms">
+    <img src="cosmetics-images/gehaz-wared-gms.webp" alt="">
+    <h3>جهاز وريد gms</h3>
+    <input type="number" id="qty-10" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('جهاز وريد gms')">أضف إلى السلة</button>
+    <button onclick="buyNow('جهاز وريد gms', 'qty-10')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="حقنه شراجيه (جولف)">
+    <img src="cosmetics-images/hoqna-shragya-(golf).jfif" alt="">
+    <h3>حقنه شراجيه (جولف)</h3>
+    <input type="number" id="qty-11" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('حقنه شراجيه (جولف)')">أضف إلى السلة</button>
+    <button onclick="buyNow('حقنه شراجيه (جولف)', 'qty-11')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="حقنه شراجيه (بوتنازا)">
+    <img src="cosmetics-images/hoqna-shragya-(potnaza).png" alt="">
+    <h3>حقنه شراجيه (بوتنازا)</h3>
+    <input type="number" id="qty-12" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('حقنه شراجيه (بوتنازا)')">أضف إلى السلة</button>
+    <button onclick="buyNow('حقنه شراجيه (بوتنازا)', 'qty-12')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كيس جمع بول كبار Gms">
+    <img src="cosmetics-images/kess-pool-kobar-gms.webp" alt="">
+    <h3>كيس جمع بول كبار Gms</h3>
+    <input type="number" id="qty-13" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كيس جمع بول كبار Gms')">أضف إلى السلة</button>
+    <button onclick="buyNow('كيس جمع بول كبار Gms', 'qty-13')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="جوانتي لاتكس الوسام xl">
+    <img src="cosmetics-images/guanti-latix-elwsam-xl.webp" alt="">
+    <h3>جوانتي لاتكس الوسام xl</h3>
+    <input type="number" id="qty-14" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('جوانتي لاتكس الوسام xl')">أضف إلى السلة</button>
+    <button onclick="buyNow('جوانتي لاتكس الوسام xl', 'qty-14')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="سماعه طبيب (جرانزيا)">
+<img src="cosmetics-images/sma3a-doctor-granzia.jpg" alt="">
+    <h3>سماعه طبيب (جرانزيا)</h3>
+    <input type="number" id="qty-15" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('سماعه طبيب (جرانزيا)')">أضف إلى السلة</button>
+    <button onclick="buyNow('سماعه طبيب (جرانزيا)', 'qty-15')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كحول 70% الترا بيرفكت">
+    <img src="cosmetics-images/kohol-70-ultra-perfect.png" alt="">
+    <h3>كحول 70% الترا بيرفكت</h3>
+    <input type="number" id="qty-16" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كحول 70% الترا بيرفكت')">أضف إلى السلة</button>
+    <button onclick="buyNow('كحول 70% الترا بيرفكت', 'qty-16')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رست هاي ميديك مقاس xxl">
+    <img src="cosmetics-images/rest-hay-midec-mqas-xxl.jpeg" alt="">
+    <h3>رست هاي ميديك مقاس xxl</h3>
+    <input type="number" id="qty-17" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رست هاي ميديك مقاس xxl')">أضف إلى السلة</button>
+    <button onclick="buyNow('رست هاي ميديك مقاس xxl', 'qty-17')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رست support مقاس m">
+    <img src="cosmetics-images/rest-support-maqas-m.jfif" alt="">
+    <h3>رست support مقاس m</h3>
+    <input type="number" id="qty-18" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رست support مقاس m')">أضف إلى السلة</button>
+    <button onclick="buyNow('رست support مقاس m', 'qty-18')">اشترِ الآن</button>
+  </div>
+          <div class="product" data-name="رست support مقاس l">
+    <img src="cosmetics-images/rest-support-maqas-m.jfif" alt="">
+    <h3>رست support مقاس l</h3>
+    <input type="number" id="qty-19" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رست support مقاس l')">أضف إلى السلة</button>
+    <button onclick="buyNow('رست support مقاس l', 'qty-19')">اشترِ الآن</button>
+  </div>
+          <div class="product" data-name="رست support مقاس xl">
+    <img src="cosmetics-images/rest-support-maqas-m.jfif" alt="">
+    <h3>رست support مقاس xl</h3>
+    <input type="number" id="qty-20" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رست support مقاس xl')">أضف إلى السلة</button>
+    <button onclick="buyNow('رست support مقاس xl', 'qty-20')">اشترِ الآن</button>
+  </div>
+          <div class="product" data-name="رست support مقاس xxl">
+    <img src="cosmetics-images/rest-support-maqas-m.jfif" alt="">
+    <h3>رست support مقاس xxl</h3>
+    <input type="number" id="qty-21" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رست support مقاس xxl')">أضف إلى السلة</button>
+    <button onclick="buyNow('رست support مقاس xxl', 'qty-21')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رقبه سوفت هاي ميديك مقاس m">
+        <img src="cosmetics-images/raqba-soft-hay-medic-maqas-m.jpeg" alt="">
+          <h3>رقبه سوفت هاي ميديك مقاس m</h3>
+    <input type="number" id="qty-22" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رقبه سوفت هاي ميديك مقاس m')">أضف إلى السلة</button>
+    <button onclick="buyNow('رقبه سوفت هاي ميديك مقاس m', 'qty-22')">اشترِ الآن</button>
+  </div>
+          <div class="product" data-name="رقبه سوفت هاي ميديك مقاس l">
+        <img src="cosmetics-images/raqba-soft-hay-medic-maqas-m.jpeg" alt="">
+    <h3>رقبه سوفت هاي ميديك مقاس l</h3>
+    <input type="number" id="qty-23" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رقبه سوفت هاي ميديك مقاس l')">أضف إلى السلة</button>
+    <button onclick="buyNow('رقبه سوفت هاي ميديك مقاس l', 'qty-23')">اشترِ الآن</button>
+  </div>
+          <div class="product" data-name="رقبه سوفت هاي ميديك مقاس xl">
+        <img src="cosmetics-images/raqba-soft-hay-medic-maqas-m.jpeg" alt="">
+    <h3>رقبه سوفت هاي ميديك مقاس xl</h3>
+    <input type="number" id="qty-24" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رقبه سوفت هاي ميديك مقاس xl')">أضف إلى السلة</button>
+    <button onclick="buyNow('رقبه سوفت هاي ميديك مقاس xl', 'qty-24')">اشترِ الآن</button>
+  </div>
+          <div class="product" data-name="رقبه سوفت هاي ميديك مقاس xxl">
+        <img src="cosmetics-images/raqba-soft-hay-medic-maqas-m.jpeg" alt="">
+    <h3>رقبه سوفت هاي ميديك مقاس xxl</h3>
+    <input type="number" id="qty-25" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رقبه سوفت هاي ميديك مقاس xxl')">أضف إلى السلة</button>
+    <button onclick="buyNow('رقبه سوفت هاي ميديك مقاس xxl', 'qty-25')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رقبه هارد هاي ميديك مقاس m">
+        <img src="cosmetics-images/raqba-soft-hay-medic-maqas-m.jpeg" alt="">
+    <h3>رقبه هارد هاي ميديك مقاس m</h3>
+    <input type="number" id="qty-26" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رقبه هارد هاي ميديك مقاس m')">أضف إلى السلة</button>
+    <button onclick="buyNow('رقبه هارد هاي ميديك مقاس m', 'qty-26')">اشترِ الآن</button>
+  </div>
+          <div class="product" data-name="رقبه هارد هاي ميديك مقاس l">
+        <img src="cosmetics-images/raqba-soft-hay-medic-maqas-m.jpeg" alt="">
+    <h3>رقبه هارد هاي ميديك مقاس l</h3>
+    <input type="number" id="qty-27" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رقبه هارد هاي ميديك مقاس l')">أضف إلى السلة</button>
+    <button onclick="buyNow('رقبه هارد هاي ميديك مقاس l', 'qty-27')">اشترِ الآن</button>
+  </div>
+          <div class="product" data-name="رقبه هارد هاي ميديك مقاس xl">
+        <img src="cosmetics-images/raqba-soft-hay-medic-maqas-m.jpeg" alt="">
+    <h3>رقبه هارد هاي ميديك مقاس xl</h3>
+    <input type="number" id="qty-28" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رقبه هارد هاي ميديك مقاس xl')">أضف إلى السلة</button>
+    <button onclick="buyNow('رقبه هارد هاي ميديك مقاس xl', 'qty-28')">اشترِ الآن</button>
+  </div>
+          <div class="product" data-name="رقبه هارد هاي ميديك مقاس xxl">
+        <img src="cosmetics-images/raqba-soft-hay-medic-maqas-m.jpeg" alt="">
+    <h3>رقبه هارد هاي ميديك مقاس xxl</h3>
+    <input type="number" id="qty-29" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رقبه هارد هاي ميديك مقاس xxl')">أضف إلى السلة</button>
+    <button onclick="buyNow('رقبه هارد هاي ميديك مقاس xxl', 'qty-29')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كانيولا مقاس 24 بروفين">
+    <img src="cosmetics-images/caneola-maqas-24-profen.jpg" alt="">
+    <h3>كانيولا مقاس 24 بروفين</h3>
+    <input type="number" id="qty-30" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كانيولا مقاس 24 بروفين')">أضف إلى السلة</button>
+    <button onclick="buyNow('كانيولا مقاس 24 بروفين', 'qty-30')">اشترِ الآن</button>
+  </div>
+          <div class="product" data-name="كانيولا مقاس 26 بروفين">
+    <img src="cosmetics-images/caneola-maqas-24-profen.jpg" alt="">
+    <h3>كانيولا مقاس 26 بروفين</h3>
+    <input type="number" id="qty-31" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كانيولا مقاس 26 بروفين')">أضف إلى السلة</button>
+    <button onclick="buyNow('كانيولا مقاس 26 بروفين', 'qty-31')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="حزام ضهر هاي ميديك مقاس l">
+        <img src="cosmetics-images/hzam-dahr-hay-medic-maqas-l.jpeg" alt="">
+          <h3>حزام ضهر هاي ميديك مقاس l</h3>
+    <input type="number" id="qty-32" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('حزام ضهر هاي ميديك مقاس l')">أضف إلى السلة</button>
+    <button onclick="buyNow('حزام ضهر هاي ميديك مقاس l', 'qty-32')">اشترِ الآن</button>
+  </div>
+          <div class="product" data-name="حزام ضهر هاي ميديك مقاس xl">
+        <img src="cosmetics-images/hzam-dahr-hay-medic-maqas-l.jpeg" alt="">
+    <h3>حزام ضهر هاي ميديك مقاس xl</h3>
+    <input type="number" id="qty-33" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('حزام ضهر هاي ميديك مقاس xl')">أضف إلى السلة</button>
+    <button onclick="buyNow('حزام ضهر هاي ميديك مقاس xl', 'qty-33')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="حزام ضهر هاي ميديك مقاس 2 xl">
+        <img src="cosmetics-images/hzam-dahr-hay-medic-maqas-l.jpeg" alt="">
+    <h3>حزام ضهر هاي ميديك مقاس 2 xl </h3>
+    <input type="number" id="qty-34" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('حزام ضهر هاي ميديك مقاس 2 xl')">أضف إلى السلة</button>
+    <button onclick="buyNow('حزام ضهر هاي ميديك مقاس 2 xl', 'qty-34')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="حزام ضهر هاي ميديك مقاس 3 xl">
+        <img src="cosmetics-images/hzam-dahr-hay-medic-maqas-l.jpeg" alt="">
+        <h3>حزام ضهر هاي ميديك مقاس 3 xl </h3>
+    <input type="number" id="qty-35" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('حزام ضهر هاي ميديك مقاس 3 xl')">أضف إلى السلة</button>
+    <button onclick="buyNow('حزام ضهر هاي ميديك مقاس 3 xl', 'qty-35')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="حزام ضهر هاي ميديك مقاس 4 xl">
+        <img src="cosmetics-images/hzam-dahr-hay-medic-maqas-l.jpeg" alt="">
+    <h3>حزام ضهر هاي ميديك مقاس 4 xl </h3>
+    <input type="number" id="qty-36" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('حزام ضهر هاي ميديك مقاس 4 xl')">أضف إلى السلة</button>
+    <button onclick="buyNow('حزام ضهر هاي ميديك مقاس 4 xl', 'qty-36')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="حزام بطن مقاس 3 xl">
+    <img src="cosmetics-images/hzam-batn-maqas-3-xl.jpg" alt="">
+    <h3>حزام بطن مقاس 3 xl</h3>
+    <input type="number" id="qty-37" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('حزام بطن مقاس 3 xl')">أضف إلى السلة</button>
+    <button onclick="buyNow('حزام بطن مقاس 3 xl', 'qty-37')">اشترِ الآن</button>
+  </div>
+          <div class="product" data-name="حزام بطن مقاس 4 xl">
+    <img src="cosmetics-images/hzam-batn-maqas-3-xl.jpg" alt="">
+    <h3>حزام بطن مقاس 4 xl</h3>
+    <input type="number" id="qty-38" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('حزام بطن مقاس 4 xl')">أضف إلى السلة</button>
+    <button onclick="buyNow('حزام بطن مقاس 4 xl', 'qty-38')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="قربه ميه سخنه">
+    <img src="cosmetics-images/qrba-water-hot.jpg" alt="">
+    <h3>قربه ميه سخنه</h3>
+   <input type="number" id="qty-39" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('قربه ميه سخنه')">أضف إلى السلة</button>
+    <button onclick="buyNow('قربه ميه سخنه', 'qty-39')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="سرنجه انسولين كوري (10 قطع في الكيس)">
+        <img src="cosmetics-images/sernga-encolen-corea-10-pice-in-kess.webp" alt="">
+          <h3>سرنجه انسولين كوري (10 قطع في الكيس)</h3>
+    <input type="number" id="qty-40" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('سرنجه انسولين كوري (10 قطع في الكيس)')">أضف إلى السلة</button>
+    <button onclick="buyNow('سرنجه انسولين كوري (10 قطع في الكيس)', 'qty-40')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ساند اصبع هاي ميديك مقاس m">
+        <img src="cosmetics-images/saned-asp3-hay-medic-maqas-m.webp" alt="">
+        <h3>ساند اصبع هاي ميديك مقاس m</h3>
+    <input type="number" id="qty-41" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ساند اصبع هاي ميديك مقاس m')">أضف إلى السلة</button>
+    <button onclick="buyNow('ساند اصبع هاي ميديك مقاس m', 'qty-41')">اشترِ الآن</button>
+  </div>
+          <div class="product" data-name="ساند اصبع هاي ميديك مقاس l">
+         <img src="cosmetics-images/saned-asp3-hay-medic-maqas-m.webp" alt="">
+         <h3>ساند اصبع هاي ميديك مقاس l</h3>
+    <input type="number" id="qty-42" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ساند اصبع هاي ميديك مقاس l')">أضف إلى السلة</button>
+    <button onclick="buyNow('ساند اصبع هاي ميديك مقاس l', 'qty-42')">اشترِ الآن</button>
+  </div>
+          <div class="product" data-name="ساند اصبع هاي ميديك مقاس xl">
+          <img src="cosmetics-images/saned-asp3-hay-medic-maqas-m.webp" alt="">
+          <h3>ساند اصبع هاي ميديك مقاس xl</h3>
+    <input type="number" id="qty-43" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ساند اصبع هاي ميديك مقاس xl')">أضف إلى السلة</button>
+    <button onclick="buyNow('ساند اصبع هاي ميديك مقاس xl', 'qty-43')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="ساند اصبع هاي ميديك مقاس 2 xl">
+<img src="cosmetics-images/saned-asp3-hay-medic-maqas-m.webp" alt="">
+    <h3>ساند اصبع هاي ميديك مقاس 2 xl</h3>
+    <input type="number" id="qty-44" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ساند اصبع هاي ميديك مقاس 2 xl')">أضف إلى السلة</button>
+    <button onclick="buyNow('ساند اصبع هاي ميديك مقاس 2 xl', 'qty-44')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="جهاز وريد الترا بكاوتشه">
+    <img src="cosmetics-images/gihaz-wared-ultra-bkawetch.webp" alt="شامبو لوريال">
+    <h3>جهاز وريد الترا بكاوتشه</h3>
+        <input type="number" id="qty-45" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('جهاز وريد الترا بكاوتشه')">أضف إلى السلة</button>
+    <button onclick="buyNow('جهاز وريد الترا بكاوتشه', 'qty-45')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ماء اكسجين 10% بيرفكت">
+      <img src="cosmetics-images/water-oxgen-10-perfect.jpg" alt="">
+    <h3>ماء اكسجين 10% بيرفكت</h3>
+    <input type="number" id="qty-46" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ماء اكسجين 10% بيرفكت')">أضف إلى السلة</button>
+    <button onclick="buyNow('ماء اكسجين 10% بيرفكت', 'qty-46')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بيتادين 50 مللي احمر اكما">
+      <img src="cosmetics-images/bitaden-50-mili-red-ackma.jfif" alt="">
+      <h3>بيتادين 50 مللي احمر اكما</h3>
+    <input type="number" id="qty-47" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بيتادين 50 مللي احمر اكما')">أضف إلى السلة</button>
+    <button onclick="buyNow('بيتادين 50 مللي احمر اكما', 'qty-47')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ماسك نيبوليزر كبار OXI">
+      <img src="cosmetics-images/mask-nebolizer-OXI-kobar.jpg" alt="">
+    <h3>ماسك نيبوليزر كبار OXI</h3>
+    <input type="number" id="qty-48" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ماسك نيبوليزر كبار OXI')">أضف إلى السلة</button>
+    <button onclick="buyNow('ماسك نيبوليزر كبار OXI', 'qty-48')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ماسك نيبوليزر اطفال OXI">
+      <img src="cosmetics-images/mask-nebolizer-OXI-atfal.jfif" alt="">
+    <h3>ماسك نيبوليزر اطفال OXI</h3>
+    <input type="number" id="qty-49" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ماسك نيبوليزر اطفال OXI')">أضف إلى السلة</button>
+    <button onclick="buyNow('ماسك نيبوليزر اطفال OXI', 'qty-49')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ماسك اكسجين كبار OXI">
+      <img src="cosmetics-images/mask-oxgen-OXI-kobar.jpg" alt="">
+    <h3>ماسك اكسجين كبار OXI</h3>
+    <input type="number" id="qty-50" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ماسك اكسجين كبار OXI')">أضف إلى السلة</button>
+    <button onclick="buyNow('ماسك اكسجين كبار OXI', 'qty-50')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ماسك اكسجين اطفال OXI">
+      <img src="cosmetics-images/mask-oxgen-OXI-atfal.jpg" alt="">
+    <h3>ماسك اكسجين اطفال OXI</h3>
+    <input type="number" id="qty-51" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ماسك اكسجين اطفال OXI')">أضف إلى السلة</button>
+    <button onclick="buyNow('ماسك اكسجين اطفال OXI', 'qty-51')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ماء اكسجين 20% بيرفكت">
+      <img src="cosmetics-images/water-oxgen-20-perfect.jpg" alt="">
+    <h3>ماء اكسجين 20% بيرفكت</h3>
+    <input type="number" id="qty-52" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ماء اكسجين 20% بيرفكت')">أضف إلى السلة</button>
+    <button onclick="buyNow('ماء اكسجين 20% بيرفكت', 'qty-52')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ماء اكسجين 30% بيرفكت">
+      <img src="cosmetics-images/water-oxgen-30-perfect.avif" alt="">
+    <h3>ماء اكسجين 30% بيرفكت</h3>
+    <input type="number" id="qty-53" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ماء اكسجين 30% بيرفكت')">أضف إلى السلة</button>
+    <button onclick="buyNow('ماء اكسجين 30% بيرفكت', 'qty-53')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="شرائط سكر سيرا تشيك">
+      <img src="cosmetics-images/sugar-sera-check.jpg" alt="">
+    <h3>شرائط سكر سيرا تشيك</h3>
+    <input type="number" id="qty-54" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شرائط سكر سيرا تشيك')">أضف إلى السلة</button>
+    <button onclick="buyNow('شرائط سكر سيرا تشيك', 'qty-54')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رست بدعامه هاي ميديك">
+      <img src="cosmetics-images/rest-bdo3ama-hay-medic.jpeg" alt="">
+    <h3>رست بدعامه هاي ميديك</h3>
+    <input type="number" id="qty-55" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رست بدعامه هاي ميديك')">أضف إلى السلة</button>
+    <button onclick="buyNow('رست بدعامه هاي ميديك', 'qty-55')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رباط شاش fm">
+      <img src="cosmetics-images/robat-shash-fm.webp" alt="">
+    <h3>رباط شاش fm</h3>
+    <input type="number" id="qty-56" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رباط شاش fm')">أضف إلى السلة</button>
+    <button onclick="buyNow('رباط شاش fm', 'qty-56')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بيبي تشيك اختبار حمل">
+      <img src="cosmetics-images/baby-check-exam-haml.webp" alt="">
+    <h3>بيبي تشيك اختبار حمل</h3>
+    <input type="number" id="qty-57" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بيبي تشيك اختبار حمل')">أضف إلى السلة</button>
+    <button onclick="buyNow('بيبي تشيك اختبار حمل', 'qty-57')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="اختبار حمل اوفيولا">
+      <img src="cosmetics-images/exam-haml-oviola.avif" alt="">
+    <h3>اختبار حمل اوفيولا</h3>
+    <input type="number" id="qty-58" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('اختبار حمل اوفيولا')">أضف إلى السلة</button>
+    <button onclick="buyNow('اختبار حمل اوفيولا', 'qty-58')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="رباط شاش fm 5 سم">
+    <img src="cosmetics-images/robat-shash-fm.webp" alt="">
+    <h3>رباط شاش fm 5 سم</h3>
+    <input type="number" id="qty-59" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رباط شاش fm 5 سم')">أضف إلى السلة</button>
+    <button onclick="buyNow('رباط شاش fm 5 سم', 'qty-59')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رباط شاش fm 7 سم">
+    <img src="cosmetics-images/robat-shash-fm.webp" alt="">
+    <h3>رباط شاش fm 7 سم</h3>
+    <input type="number" id="qty-60" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رباط شاش fm 7 سم')">أضف إلى السلة</button>
+    <button onclick="buyNow('رباط شاش fm 7 سم', 'qty-60')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رباط شاش fm 10 سم">
+    <img src="cosmetics-images/robat-shash-fm.webp" alt="">
+    <h3>رباط شاش fm 10 سم</h3>
+    <input type="number" id="qty-61" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رباط شاش fm 10 سم')">أضف إلى السلة</button>
+    <button onclick="buyNow('رباط شاش fm 10 سم', 'qty-61')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رباط شاش fm 15 سم">
+    <img src="cosmetics-images/robat-shash-fm.webp" alt="">
+    <h3>رباط شاش fm 15 سم</h3>
+    <input type="number" id="qty-62" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رباط شاش fm 15 سم')">أضف إلى السلة</button>
+    <button onclick="buyNow('رباط شاش fm 15 سم', 'qty-61')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رباط ضاغط ابيكس 6 سم">
+      <img src="cosmetics-images/robat-dagt-abix-6-cm.webp" alt="">
+    <h3>رباط ضاغط ابيكس 6 سم</h3>
+    <input type="number" id="qty-63" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رباط ضاغط ابيكس 6 سم')">أضف إلى السلة</button>
+    <button onclick="buyNow('رباط ضاغط ابيكس 6 سم', 'qty-63')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رباط ضاغط ابيكس 8 سم">
+      <img src="cosmetics-images/robat-dagt-abix-8-cm.webp" alt="">
+    <h3>رباط ضاغط ابيكس 8 سم</h3>
+    <input type="number" id="qty-64" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رباط ضاغط ابيكس 8 سم')">أضف إلى السلة</button>
+    <button onclick="buyNow('رباط ضاغط ابيكس 8 سم', 'qty-64')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رباط ضاغط ابيكس 10 سم">
+      <img src="cosmetics-images/robat-dagt-abix-10-cm.webp" alt="">
+    <h3>رباط ضاغط ابيكس 10 سم</h3>
+    <input type="number" id="qty-65" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رباط ضاغط ابيكس 10 سم')">أضف إلى السلة</button>
+    <button onclick="buyNow('رباط ضاغط ابيكس 10 سم', 'qty-65')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="رباط ضاغط ابيكس 15 سم">
+      <img src="cosmetics-images/robat-dagt-abix-15-cm.webp" alt="">
+    <h3>رباط ضاغط ابيكس 15 سم</h3>
+    <input type="number" id="qty-66" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('رباط ضاغط ابيكس 15 سم')">أضف إلى السلة</button>
+    <button onclick="buyNow('رباط ضاغط ابيكس 15 سم', 'qty-66')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="سنون انسولين مقاس 4 مللي">
+      <img src="cosmetics-images/snon-ensolen-maqas-4-mili.jpg" alt="">
+    <h3>سنون انسولين مقاس 4 مللي</h3>
+    <input type="number" id="qty-67" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('سنون انسولين مقاس 4 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('سنون انسولين مقاس 4 مللي', 'qty-67')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="سنون انسولين مقاس 3 مللي">
+      <img src="cosmetics-images/snon-ensolen-maqas-3-mili.jpg" alt="">
+    <h3>سنون انسولين مقاس 3 مللي</h3>
+    <input type="number" id="qty-68" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('سنون انسولين مقاس 3 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('سنون انسولين مقاس 3 مللي', 'qty-68')">اشترِ الآن</button>
+  </div>
+      <!-- باقي المنتجات هتكون بنفس الشكل -->
+  <!-- انسخ الكارت وغير الاسم والسعر والوصف -->
+</div>
+<div class="toast" id="toast">تمت الإضافة إلى السلة 🛒</div>
+
+    <script>
+  const searchInput = document.getElementById('searchInput');
+  const products = document.querySelectorAll('.product');
+  const toast = document.getElementById('toast');
+
+  searchInput.addEventListener('keyup', function() {
+    const value = this.value.toLowerCase();
+    products.forEach(product => {
+      const name = product.getAttribute('data-name').toLowerCase();
+      product.style.display = name.includes(value) ? "block" : "none";
+    });
+  });
+
+  function addToCart(productName) {
+    toast.textContent = `تمت إضافة ${productName} إلى السلة 🛒`;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+  }
+  function buyNow(productName) {
+  // حفظ اسم المنتج في localStorage
+  localStorage.setItem("selectedProduct", productName);
+  // التحويل لصفحة الدفع
+  window.location.href = "checkout.html";
+}
+</script>
+<script>
+  function buyNow(productName) {
+    const quantity = 1; // تقدر تخليها متغيرة لو عندك اختيار كمية
+    const url = `checkout.html?product=${encodeURIComponent(productName)}&quantity=${quantity}`;
+    window.location.href = url;
+  }
+</script>
+<script>
+  function buyNow(productName, qtyId) {
+    const quantity = document.getElementById(qtyId).value || 1;
+    const url = `checkout.html?product=${encodeURIComponent(productName)}&quantity=${encodeURIComponent(quantity)}`;
+    window.location.href = url;
+  }
+</script>
+</body>
+<script src="Cart.js"></script>
+</html>

@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>العناية بالشعر</title>
+<style>
+  body {
+    font-family: "Cairo", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff5f7;
+    color: #333;
+  }
+
+  header {
+    background-color: #e91e63;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+
+  .search-bar {
+    text-align: center;
+    margin: 15px 0;
+  }
+
+  .search-bar input {
+    width: 60%;
+    max-width: 400px;
+    padding: 10px;
+    border: 2px solid #e91e63;
+    border-radius: 25px;
+    outline: none;
+    font-size: 1rem;
+  }
+
+  .products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+/* للأجهزة المتوسطة زي التابلت */
+@media (max-width: 1024px) {
+  .products {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* للموبايلات */
+@media (max-width: 768px) {
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* للموبايلات الصغيرة جدًا */
+@media (max-width: 480px) {
+  .products {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+  .product {
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .product:hover {
+    transform: translateY(-5px);
+  }
+
+  .product img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 15px;
+  }
+
+  .product h3 {
+    color: #e91e63;
+    font-size: 1.2rem;
+    margin: 10px 0 5px;
+  }
+
+  .product p {
+    font-size: 0.95rem;
+    color: #555;
+  }
+
+  .product .price {
+    font-size: 1.1rem;
+    color: #444;
+    margin: 5px 0 10px;
+  }
+
+  .product button {
+    background-color: #e91e63;
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 25px;
+    cursor: pointer;
+    margin: 5px;
+    transition: 0.3s;
+  }
+
+  .product button:hover {
+    background-color: #c2185b;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #4caf50;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 25px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: 0.4s ease;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<header> قسم العناية بالشعر</header>
+
+<div class="search-bar">
+  <input type="text" id="searchInput" placeholder="ابحث عن منتج...">
+</div>
+
+<div class="products" id="productList">
+
+  <!-- مثال منتج -->
+  <div class="product" data-name="شامبو لوريال 400 مل أبيض">
+    <img src="cosmetics-images/shampoo-loryal-400-mili-white.webp" alt="">
+    <h3>شامبو لوريال 400 مل (أبيض)</h3>
+    <p>تركيبة مغذية تمنح الشعر نعومة ولمعانًا فائقًا.</p>
+    <div class="price">129.34 جنيه</div>
+<input type="number" id="qty-1" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو لوريال 400 مل أبيض')">أضف إلى السلة</button>
+   <button onclick="buyNow('شامبو لوريال 400 مل (أبيض)', 'qty-1')">اشترِ الآن</button>
+  </div>
+
+  <div class="product" data-name="شامبو دوف ضد التساقط">
+    <img src="cosmetics-images/shampoo-dove-dd-eltasakt.jpg" alt="">
+    <h3>شامبو دوف ضد التساقط 350 مل</h3>
+    <p>يقوي بصيلات الشعر من الجذور لتقليل التساقط بشكل واضح.</p>
+    <div class="price">104.31 جنيه</div>
+    <input type="number" id="qty-2" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو دوف ضد التساقط')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو دووف 350 ملي ضد التساقط', 'qty-2')">اشترِ الآن</button>
+
+  </div>
+
+  <div class="product" data-name="شامبو بانتين مصبوغ">
+    <img src="cosmetics-images/shampoo-panten-maspou5.webp" alt="">
+    <h3>شامبو بانتين للشعر المصبوغ 200 مل</h3>
+    <p>يحافظ على لون الشعر ويحميه من التلف.</p>
+    <div class="price">155.37 جنيه</div>
+    <input type="number" id="qty-3" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو بانتين مصبوغ')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو بانتين 400 مللي (الاحمر)عنايه الشعر المصبوغ', 'qty-3')">اشترِ الآن</button>
+  </div>
+
+  <div class="product" data-name="شامبو فاتيكا بالصبار">
+    <img src="cosmetics-images/shampoo-vaticka-balsapar.jpg" alt="">
+    <h3>شامبو فاتيكا بالصبار</h3>
+    <p>يغذي الشعر ويمنحه مظهرًا صحيًا وقويًا.</p>
+    <div class="price">35.11 جنيه</div>
+    <input type="number" id="qty-4" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو فاتيكا بالصبار')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا شامبو 600 مللي بالصبار', 'qty-4')">اشترِ الآن</button>
+  </div>
+  <div class="product" data-name="شامبو لوريال 400 مللي (ذهبي)">
+    <img src="cosmetics-images/shampoo-loreal-400-mili-gold.webp" alt="">
+    <h3>شامبو لوريال 400 مللي (ذهبي)</h3>
+    <p>ركيبة مغذية تمنح الشعر نعومة ولمعانًا فائقًاj</p>
+    <div class="price">129.34 جنيه</div>
+    <input type="number" id="qty-5" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو لوريال 400 مللي (ذهبي)')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو لوريال 400 مللي (ذهبي)', 'qty-5')">اشترِ الآن</button>
+  </div>
+   <div class="product" data-name="شامبو لوريال 400 مللي برتقالي">
+    <img src="cosmetics-images/shampoo-loreal-400-mili-orange.jpg" alt="">
+    <h3>شامبو لوريال 400 مللي (برتقالي)</h3>
+    <p>تركيبة مغذية تمنح الشعر نعومة ولمعانًا فائقًاj</p>
+    <div class="price">129.34 جنيه</div>
+    <input type="number" id="qty-6" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو لوريال 400 مللي برتقالي')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو لوريال 400 مللي (برتقالي)', 'qty-6')">اشترِ الآن</button>
+  </div>
+    <div class="product" data-name="شامبو لوريال 400 مللي (نبيتي) ">
+      <img src="cosmetics-images/shampoo-loreal-400-mili-nipity.jpg" alt="">
+    <h3>شامبو لوريال 400 مللي (نبيتي)</h3>
+    <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">129.34 جنيه</div>
+    <input type="number" id="qty-7" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو لوريال 400 مللي (نبيتي)')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو لوريال 400 مللي (نبيتي)', 'qty-7')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="شامبو لوريال 400 مللي (دريم لونج)">
+     <img src="cosmetics-images/shampoo-loreal-400-mili-orange.jpg" alt="">
+    <h3>شامبو لوريال 400 مللي (دريم لونج)</h3>
+     <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">129.34 جنيه</div>
+    <input type="number" id="qty-8" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو لوريال 40 مللي (دريم لونج)')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو لوريال 400 مللي (دريم لونج)', 'qty-8')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="شامبو لوريال 200 مللي (ابيض)">
+   <img src="cosmetics-images/shampoo-loryal-400-mili-white.webp" alt="">
+    <h3>شامبو لوريال 200 مللي (ابيض)</h3>
+     <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">95 جنيه</div>
+    <input type="number" id="qty-9" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو لوريال 200 مللي (ابيض)')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو لوريال 200 مللي (ابيض)', 'qty-6')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="شامبو لوريال 200 مللي (ذهبي)">
+   <img src="cosmetics-images/shampoo-loreal-400-mili-gold.webp" alt="">
+    <h3>شامبو لوريال 200 مللي (ذهبي)</h3>
+     <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">95 جنيه</div>
+    <input type="number" id="qty-10" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو لوريال 200 مللي (ذهبي)')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو لوريال 200 مللي (ذهبي)', 'qty-10')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="شامبو لوريال 200 مللي (نبيتي)">
+    <img src="cosmetics-images/shampoo-loreal-400-mili-nipity.jpg" alt="">
+    <h3>شامبو لوريال 200 مللي (نبيتي)</h3>
+     <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">95 جنيه</div>
+    <input type="number" id="qty-11" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو لوريال 200 مللي (نبيتي)')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو لوريال 200 مللي (نبيتي)', 'qty-11')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="شامبو لوريال 200 مللي بزيت الجوجوبا">
+        <img src="cosmetics-images/shampoo-loreal-200-mili-oil-gogoba-browen.webp" alt="">
+    <h3>شامبو لوريال 200 مللي بزيت الجوجوبا</h3>
+     <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">95جنيه</div>
+    <input type="number" id="qty-12" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو لوريال 200 مللي بزيت الجوجوبا')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو لوريال 200 مللي بزيت الجوجوبا', 'qty-12')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="شامبو لوريال 200 مللي (دريم لونج)">
+        <img src="cosmetics-images/shampoo-loreal-400-mili-orange.jpg" alt="">
+    <h3>شامبو لوريال 200 مللي (دريم لونج)</h3>
+     <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">95 جنيه</div>
+    <input type="number" id="qty-13" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو لوريال 200 مللي (دريم لونج)')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو لوريال 200 مللي (دريم لونج)', 'qty-13')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="شامبو لوريال 200 مللي (هيالورون)">
+        <img src="cosmetics-images/shampoo-loreal-200-mili-hayaloren.jpg" alt="">
+    <h3>شامبو لوريال 200 مللي (هيالورون)</h3>
+    <p></p>
+    <div class="price">95 جنيه</div>
+    <input type="number" id="qty-14" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو لوريال 200 مللي (هايالورون)')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو لوريال 200 مللي (هيالورون)', 'qty-14')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="شامبو لوريال 200 مللي (برتقالي)">
+        <img src="cosmetics-images/shampoo-loreal-400-mili-orange.jpg" alt="">
+    <h3>شامبو لوريال 200 مللي (برتقالي)</h3>
+     <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">95 جنيه</div>
+    <input type="number" id="qty-15" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو لوريال 200 مللي (برتقالي)')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو لوريال 200 مللي (برتقالي)', 'qty-15')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="شامبو لوريال 400 مللي (دريم لونج برو)">
+     <img src="cosmetics-images/shampoo-loreal-400-mili-orange.jpg" alt="">
+    <h3>شامبو لوريال 400 مللي (دريم لونج برو)</h3>
+    <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">129.34 جنيه</div>
+    <input type="number" id="qty-16" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو لوريال 400 مللي (دريم لونج برو)')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو لوريال 400 مللي (دريم لونج برو)', 'qty-16')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="شامبو دووف 350 مللي (ضد التساقط)">
+        <img src="cosmetics-images/shampoo-dove-dd-eltasakt.jpg" alt="">
+    <h3>شامبو دووف 350 مللي (ضد التساقط)</h3>
+    <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">104.31 جنيه</div>
+    <input type="number" id="qty-17" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو دووف 350 مللي (ضد التساقط)')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو دووف 350 مللي (ضد التساقط)', 'qty-17')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="شامبو دووف 350 مللي (عنايه يومية)">
+        <img src="cosmetics-images/shampoo-dove-350-mili-3naya-ywmya.avif" alt="">
+    <h3>شامبو دووف 350 مللي (عنايه يومية)</h3>
+    <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">104.31 جنيه</div>
+    <input type="number" id="qty-18" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو دووف 350 مللي (عناية يومية)')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو دووف 350 مللي (عناية يومية)', 'qty-18')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="شامبو دووف 180 مللي (ضد التساقط)">
+        <img src="cosmetics-images/shampoo-dove-dd-eltasakt.jpg" alt="">
+    <h3>شامبو دووف 180 مللي (ضد التساقط)</h3>
+    <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">72.32 جنيه</div>
+    <input type="number" id="qty-19" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو دووف 180 مللي (ضد التساقط)')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو دووف 180 مللي (ضد التساقط)', 'qty-19')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="شامبو بانتين 400 مللي (الاحمر) عناية الشعر المصبوغ">
+        <img src="cosmetics-images/shampoo-panten-maspou5.webp" alt="">
+    <h3>شامبو بانتين 400 مللي (الاحمر) عناية الشعر المصبوغ</h3>
+    <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">155.37 جنيه</div>
+    <input type="number" id="qty-20" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو بانتين 400 مللي (الاحمر) عناية الشعر المصبوغ')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو بانتين 400 مللي (الاحمر)عناية الشعر المصبوغ', 'qty-20')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="شامبو بانتين 400 مللي (الاصفر)ضد التساقط">
+        <img src="cosmetics-images/shampoo-panten-400-mili-ellow-dd-eltasakt.jpg" alt="">
+    <h3>شامبو بانتين 400 مللي (الاصفر) ضد التساقط</h3>
+    <p><p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p></p>
+    <div class="price">155.37 جنيه</div>
+    <input type="number" id="qty-21" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو بانتين 400 مللي (الاصفر)ضد التساقط')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو بانتين 400 مللي (الاصفر)ضد التساقط', 'qty-21')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="شامبو بانتين 400 مللي (الاخضر) انسيابي">
+        <img src="cosmetics-images/shampoo-panten-400-mili-green-ensiapy.jpg" alt="">
+    <h3>شامبو بانتين 400 مللي (الاخضر) انسيابي</h3>
+    <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">155.37 جنيه</div>
+    <input type="number" id="qty-22" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو بانتين 400 مللي (الاخضر) انسيابي')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو بانتين 400 مللي (الاخضر) انسيابي', 'qty-22')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="شامبو بانتين 200 مللي عادي">
+        <img src="cosmetics-images/shampoo-panten-200-mili-3adi.jpg_480Wx480H" alt="">
+    <h3>شامبو بانتين 200 مللي عادي</h3>
+    <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">82.00 جنيه</div>
+    <input type="number" id="qty-23" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو بانتين 200 مللي عادي')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو بانتين 200 مللي عادي', 'qty-23')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا شامبو 600 مللي بالصبار">
+        <img src="cosmetics-images/shampoo-vaticka-balsapar.jpg" alt="">
+    <h3>فاتيكا شامبو 600 مللي بالصبار</h3>
+    <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">101.00 جنيه</div>
+    <input type="number" id="qty-24" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا شامبو 600 مللي بالصبار')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا شامبو 600 مللي بالصبار', 'qty-24')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا شامبو 600 مللي بالعسل و اللوز">
+        <img src="cosmetics-images/shampoo-vaticka-600-mili-bal3sl-w-elouz.avif" alt="">
+    <h3>فاتيكا شامبو 600 مللي بالعسل و اللوز</h3>
+    <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p><p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">101.00 جنيه</div>
+    <input type="number" id="qty-25" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا شامبو 600 مللي بالعسل و اللوز')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا شامبو 600 مللي بالعسل و اللوز', 'qty-25')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا شامبو 600 مللي بالجرجير">
+        <img src="cosmetics-images/shampoo-vaticka-360-mili-balgrgir-w-elzaitoun.webp" alt="">
+    <h3>فاتيكا شامبو 600 مللي بالجرجير</h3>
+    <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">101.00 جنيه</div>
+    <input type="number" id="qty-26" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو فاتيكا 600 مللي بالجرجير')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو فاتيكا 600 مللي بالجرجير', 'qty-26')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا شامبو 600 مللي بالعسل و البيض">
+        <img src="cosmetics-images/shampoo-vaticka-600-mili-fhg3asl-w-elbed.jpg" alt="">
+    <h3>فاتيكا شامبو 600 مللي بالعسل و البيض</h3>
+    <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">101.00 جنيه</div>
+    <input type="number" id="qty-27" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا شامبو 600 مللي بالعسل و البيض')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا شامبو 600 مللي بالعسل و البيض', 'qty-27')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا شامبو 360 مللي بالارجان ">
+        <img src="cosmetics-images/shampoo-vaticka-360-mili-balargan.webp" alt="">
+    <h3>فاتيكا شامبو 360 مللي بالارجان</h3>
+    <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">55.30 جنيه</div>
+    <input type="number" id="qty-28" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا شامبو 360 مللي بالارجان')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا شامبو 360 مللي بالارجان ', 'qty-28')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا شامبو 360 مللي بالجرجير و الزيتون ">
+        <img src="cosmetics-images/shampoo-vaticka-360-mili-balgrgir-w-elzaitoun.webp" alt="">
+    <h3>فاتيكا شامبو 360 مللي بالجرجير و الزيتون </h3>
+    <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">55.30 جنيه</div>
+    <input type="number" id="qty-29" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا شامبو 360 مللي بالجريرو الزيتون ')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا شامبو 360 مللي بالجرجير و الزيتون', 'qty-29')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا شامبو 180 مللي بالزيتون ">
+        <img src="cosmetics-images/shampoo-vaticka-180-mili-blzaytoun.jpg" alt="">
+    <h3>شامبو فاتيكا 180 مللي بالزيتون</h3>
+    <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">35.11 جنيه</div>
+    <input type="number" id="qty-30" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا شامبو 180 مللي بالزيتون')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا شامبو 180 مللي بالزيتون', 'qty-30')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا شامبو 180 مللي بالثوم ">
+        <img src="cosmetics-images/shampoo-vaticka-180-mili-bltoum.jpg" alt="">
+    <h3>فاتيكا شامبو 180 مللي بالثوم </h3>
+    <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">35.11 جنيه</div>
+    <input type="number" id="qty-31" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا شامبو 180 مللي بالثوم')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا شامبو 180 مللي بالثوم', 'qty-31')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فايتكا شامبو 180 مللي بالليمون">
+        <img src="cosmetics-images/shampoo-vaticka-180-mili-lemon.jpg" alt="">
+    <h3>فاتيكا شامبو 180 مللي بالليمون</h3>
+    <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">35.11 جنيه</div>
+    <input type="number" id="qty-32" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا شامبو 180 مللي بالليمون')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا شامبو 180 مللي بالليمون', 'qty-32')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فايتكا شامبو 180 مللي بجوز الهند">
+        <img src="cosmetics-images/shampoo-vaticka-180-mili-bgouzelhend.jpg" alt="">
+    <h3>فاتيكا شامبو 180 مللي بجوز الهند</h3>
+    <p>تركيبه مغذيه تمنح الشعر نعومه و لمعانا فائقا</p>
+    <div class="price">35.11 جنيه</div>
+    <input type="number" id="qty-32" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا شامبو 180 مللي بجوز الهند ')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا شامبو 180 مللي بجوز الهند', 'qty-32')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="كلير شامبو 360 مللي رجالي هالاند">
+        <img src="cosmetics-images/shampoo-clear-360-mili-mens-halaand.jpg" alt="">
+    <h3>كلير شامبو 360 مللي رجالي هالاند </h3>
+    <p>شامبو "كول سبورت" ضد القشرة للرجال</p>
+    <div class="price">110.00 جنيه</div>
+    <input type="number" id="qty-33" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كلير شامبو 360 مللي رجالي هالاند')">أضف إلى السلة</button>
+    <button onclick="buyNow('كلير شامبو 360 مللي رجالي هالاند', 'qty-33')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="كلير شامبو 360 مللي حريمي ضد التساقط">
+        <img src="cosmetics-images/shampoo-clear-360-mili-women-dd-eltasakt.jpg" alt="">
+    <h3>كلير شامبو 360 مللي حريمي ضد التساقط</h3>
+    <p>شامبو كلير للنساء 360 مل ضد التساقط هو شامبو مصمم لتقوية الشعر من الجذور، ومكافحة القشرة</p>
+    <div class="price">110.00 جنيه</div>
+    <input type="number" id="qty-34" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كلير شامبو 360 مللي حريمي ضد التساقط')">أضف إلى السلة</button>
+    <button onclick="buyNow('كلير شامبو 360 مللي حريمي ضد التساقط', 'qty-34')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="كلير شامبو 180 مللي رجالي هالاند">
+ <img src="cosmetics-images/shampoo-clear-360-mili-mens-halaand.jpg" alt="">
+    <h3>كلير شامبو 180 مللي رجالي هالاند</h3>
+    <p>شامبو "كول سبورت" ضد القشرة للرجال</p>
+    <div class="price">77.00 جنيه</div>
+    <input type="number" id="qty-35" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كلير شامبو 180 مللي رجالي هالاند')">أضف إلى السلة</button>
+    <button onclick="buyNow('كلير شامبو 180 مللي رجالي هالاند', 'qty-35')">اشترِ الآن</button>
+  </div>
+       <div class="product" data-name="كلير شامبو 180 مللي حريمي ضد التساقط">
+     <img src="cosmetics-images/shampoo-clear-360-mili-women-dd-eltasakt.jpg" alt="">
+    <h3>كلير شامبو 180 مللي حريمي ضد التساقط</h3>
+    <p>شامبو كلير للنساء 360 مل ضد التساقط هو شامبو مصمم لتقوية الشعر من الجذور، ومكافحة القشرة</p>
+    <div class="price">77.00 جنيه</div>
+    <input type="number" id="qty-36" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كلير شامبو 180 مللي حريمي ضد التساقط')">أضف إلى السلة</button>
+    <button onclick="buyNow('كلير شامبو 180 مللي حريمي ضد التساقط', 'qty-36')">اشترِ الآن</button>
+  </div>
+       <div class="product" data-name="شامبو هيد اند شولدرز 400 مللي ضد القشره ">
+        <img src="cosmetics-images/shampoo-head-and-shilderz-400-mili-d-elashra.jpg" alt="">
+    <h3>شامبو هيد اند شولدرز 400 مللي ضد القشره</h3>
+    <p>شامبو هيد آند شولدرز 400 مل للقشرة له تركيبة ثلاثية المفعول (تنظيف، حماية، وترطيب)</p>
+    <div class="price">170.00 جنيه</div>
+    <input type="number" id="qty-37" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو هيد اند شولدرز 400 مللي ضد القشره')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو هيد اند شولدرز 400 مللي ضد القشره', 'qty-37')">اشترِ الآن</button>
+  </div>
+       <div class="product" data-name="شامبو هيد اند شولدرز 200 مللي ضد القشره">
+            <img src="cosmetics-images/shampoo-head-and-shilderz-400-mili-d-elashra.jpg" alt="">
+    <h3>شامبو هيداند شولدرز 200 مللي ضد القشره</h3>
+    <p>شامبو هيد آند شولدرز 400 مل للقشرة له تركيبة ثلاثية المفعول (تنظيف، حماية، وترطيب)</p>
+    <div class="price">95.15 جنيه</div>
+    <input type="number" id="qty-38" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو هيد اند شولدرز 200 مللي ضد القشره')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو هيد اند شولدرز 200 مللي ضد القشره', 'qty-38')">اشترِ الآن</button>
+  </div>
+       <div class="product" data-name="شامبو هيد اند شولدرز 200 مللي انسيابي و حرير">
+        <img src="cosmetics-images/shampoo-head-and-sholderz-200-mili-ansiabi-w-harir.jpg" alt="">
+    <h3>شامبو هيد اند شولدرز 200 مللي انسيابي و حرير </h3>
+    <p>شامبو هيد أند شولدرز ليس فقط فعالًا ضد القشرة، بل أيضًا يغذي الشعر ويجعله سهل التمشيط.</p>
+    <div class="price">95.15 جنيه</div>
+    <input type="number" id="qty-39" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو هيد اند شولدرز 200 مللي انسيابي و حرير')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو هيد اند شولدرز 200 مللي انسيابي و حرير', 'qty-39')">اشترِ الآن</button>
+  </div>
+       <div class="product" data-name="لوريال بلسم 200 مللي (ابيض)">
+        <img src="cosmetics-images/loreal-blsam-200-mili-white.jpg" alt="">
+    <h3>لوريال بلسم 200 مللي (ابيض)</h3>
+    <p>منتج عناية بالشعر مصمم لتقوية الشعر الضعيف، مما يجعله أكثر نعومة ولمعانًا ويقلل التقصف</p>
+    <div class="price">105.00 جنيه</div>
+    <input type="number" id="qty-41" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لوريال بلسم 200 مللي (ابيض)')">أضف إلى السلة</button>
+    <button onclick="buyNow('لوريال بلسم 200 مللي (ابيض)', 'qty-41')">اشترِ الآن</button>
+  </div>
+         <div class="product" data-name="لوريال بلسم 200 مللي (دريم لونج)">
+          <img src="cosmetics-images/loreal-blsam-200-mili-dreamlong.jpg" alt="">
+    <h3>لوريال بلسم 200 مللي (دريم لونج)</h3>
+    <p>منتج عناية بالشعر مصمم لتقوية الشعر الضعيف، مما يجعله أكثر نعومة ولمعانًا ويقلل التقصف</p>
+    <div class="price">105.00 جنيه</div>
+    <input type="number" id="qty-42" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لوريال بلسم 200 مللي (دريم لونج)')">أضف إلى السلة</button>
+    <button onclick="buyNow('لوريال بلسم 200 مللي (دريم لونج)', 'qty-42')">اشترِ الآن</button>
+  </div>
+         <div class="product" data-name="لوريال بلسم 200 مللي (دريم لونج برو)">
+     <img src="cosmetics-images/loreal-blsam-200-mili-dreamlong.jpg" alt="">
+    <h3>لوريال بلسم 200 مللي (دريم لونج برو)</h3>
+    <p>منتج عناية بالشعر مصمم لتقوية الشعر الضعيف، مما يجعله أكثر نعومة ولمعانًا ويقلل التقصف</p>
+    <div class="price">105.00 جنيه</div>
+    <input type="number" id="qty-43" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لوريال بلسم 200 مللي (دريم لونج برو)')">أضف إلى السلة</button>
+    <button onclick="buyNow('لوريال بلسم 200 مللي (دريم لونج برو)', 'qty-43')">اشترِ الآن</button>
+  </div>
+         <div class="product" data-name="لوريال بلسم 200 مللي (اسود)">
+          <img src="cosmetics-images/loreal-blsam-200-mili-black.webp" alt="">
+    <h3>لوريال بلسم 200 مللي (اسود)</h3>
+    <p>منتج عناية بالشعر مصمم لتقوية الشعر الضعيف، مما يجعله أكثر نعومة ولمعانًا ويقلل التقصف</p>
+    <div class="price">105.00 جنيه</div>
+    <input type="number" id="qty-44" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لوريال بلسم 200 مللي (اسود)')">أضف إلى السلة</button>
+    <button onclick="buyNow('لوريال بلسم 200 مللي (اسود)', 'qty-44')">اشترِ الآن</button>
+  </div>
+         <div class="product" data-name="لوريال بلسم 200 مللي (للشعر الجاف)">
+          <img src="cosmetics-images/loreal-blsam-200-mili-llshar-elgaf.webp" alt="">
+    <h3>لوريال بلسم 200 مللي (للشعر الجاف)</h3>
+    <p>منتج عناية بالشعر مصمم لتقوية الشعر الضعيف، مما يجعله أكثر نعومة ولمعانًا ويقلل التقصف</p>
+    <div class="price">105.00 جنيه</div>
+    <input type="number" id="qty-45" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لوريال بلسم 200 مللي (للشعر الجاف)')">أضف إلى السلة</button>
+    <button onclick="buyNow('لوريال بلسم 200 مللي (للشعر الجاف)', 'qty-45')">اشترِ الآن</button>
+  </div>
+         <div class="product" data-name="لوريال بديل زيت 300 مللي (انواع)">
+          <img src="cosmetics-images/loreal-bdil-oil-300-mili-anwa3.avif" alt="">
+    <h3>لوريال بديل زيت 300 مللي (ذهبي)</h3>
+    <p>منتج عناية بالشعر مصمم لتقوية الشعر الضعيف، مما يجعله أكثر نعومة ولمعانًا ويقلل التقصف</p>
+    <div class="price">140.00 جنيه</div>
+    <input type="number" id="qty-46" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لوريال بديل زيت 300 مللي (ذهبي)')">أضف إلى السلة</button>
+    <button onclick="buyNow('لوريال بديل زيت 300 مللي (ذهبي)', 'qty-46')">اشترِ الآن</button>
+  </div>
+           <div class="product" data-name="بانتين بديل الزيت">
+            <img src="cosmetics-images/pantein-padiel-oil.jpg" alt="">
+    <h3>بانتين بديل الزيت</h3>
+    <p>منتج عناية بالشعر مصمم لتقوية الشعر الضعيف، مما يجعله أكثر نعومة ولمعانًا ويقلل التقصف</p>
+    <div class="price">179.85 جنيه</div>
+    <input type="number" id="qty-47" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بانتين بديل زيت')">أضف إلى السلة</button>
+    <button onclick="buyNow('بانتين بديل زيت', 'qty-47')">اشترِ الآن</button>
+  </div>
+           <div class="product" data-name="فايتكا كريم شعر 65 مللي بالجرجير">
+            <img src="cosmetics-images/vaticka-cream-shar-65-mili-blgargir.avif" alt="">
+    <h3>فاتيكا كريم شعر 65 مللي بالجرجير</h3>
+    <p>الهدف منه هو تقوية الشعر وتغذيته وتسهيل تصفيفه، ويعمل كمكيف ومرطب للشعر. </p>
+    <div class="price">22.85 جنيه</div>
+    <input type="number" id="qty-48" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا كريم شعر 65 مللي بالجرجير')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا كريم شعر 65 مللي بالجرجير', 'qty-48')">اشترِ الآن</button>
+  </div>
+           <div class="product" data-name="فاتيكا كريم شعر 65 مللي بالزيتون">
+            <img src="cosmetics-images/vaticka-cream-shar-65-mili-blzaitoun.jpg" alt="">
+    <h3>فاتيكا كريم شعر 65 مللي بالزيتون</h3>
+    <p>الهدف منه هو تقوية الشعر وتغذيته وتسهيل تصفيفه، ويعمل كمكيف ومرطب للشعر. </p>
+    <div class="price">22.85 جنيه</div>
+    <input type="number" id="qty-49" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا كريم شعر 65 مللي بالزيتون')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا كريم شعر 65 مللي بالزيتون', 'qty-49')">اشترِ الآن</button>
+  </div>
+           <div class="product" data-name="فاتيكا كريم شعر 65 مللي بالحنا (الاخضر)">
+            <img src="cosmetics-images/vaticka-cream-shar-65-mili-blhna-green.jpg" alt="">
+    <h3>فاتيكا كريم شعر 65 مللي بالحنا (الاخضر)</h3>
+    <p>الهدف منه هو تقوية الشعر وتغذيته وتسهيل تصفيفه، ويعمل كمكيف ومرطب للشعر. </p>
+    <div class="price">22.85 جنيه</div>
+    <input type="number" id="qty-50" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا كريم شعر 65 مللي بالحنا (الاخضر)')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا كريم شعر 65 مللي بالحنا (الاخضر)', 'qty-50')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا كريم شعر 65 مللي بالحبه السوداء">
+        <img src="cosmetics-images/vaticka-cream-shar-65-mili-blhaba-black.jpg" alt="">
+    <h3>فاتيكا كريم شعر 65 مللي بالحبه السوداء</h3>
+    <p>لترطيب الشعر وتقويته وتسهيل تصفيفه</p>
+    <div class="price">22.85 جنيه</div>
+    <input type="number" id="qty-51" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا كريم شعر 65 مللي بالحبه السوداء')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا كريم شعر 65 مللي بالحبه السوداء', 'qty-51')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="فاتيكا كريم شعر 65 مللي بجوز الهند">
+          <img src="cosmetics-images/vaticka-cream-shar-125-mili-bgouz-elhend-blue.jpg" alt="">
+    <h3>فاتيكا كريم شعر 65 مللي بجوز الهند</h3>
+    <p>لترطيب الشعر وتقويته وتسهيل تصفيفه</p>
+    <div class="price">22.85 جنيه</div>
+    <input type="number" id="qty-52" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا كريم شعر 65 مللي بجوز الهند')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا كريم شعر 65 مللي بجوز الهند', 'qty-52')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="فاتيكا كريم شعر 125 مللي بالزيتون (زيتي)">
+<img src="cosmetics-images/vaticka-cream-shar-65-mili-blzaitoun.jpg" alt="">
+          <h3>فاتيكا كريم شعر 125 مللي بالزيتون</h3>
+    <p>لترطيب الشعر وتقويته وتسهيل تصفيفه</p>
+    <div class="price">41.45 جنيه</div>
+    <input type="number" id="qty-53" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا كريم شعر 125 مللي بالزيتون (زيتي)')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا كريم شعر 125 مللي بالزيتون (زيتي)', 'qty-53')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="فاتيكا كريم شعر 125 مللي ضد القشره (الاصفر)">
+        <img src="cosmetics-images/vaticka-cream-shar-125-mili-dd-eleshra-yellow.jpg" alt="">
+          <h3>فاتيكا كريم شعر 125 مللي ضد الققشره(الاصفر)</h3>
+    <p>لترطيب الشعر وتقويته وتسهيل تصفيفه</p>
+    <div class="price">41.45 جنيه</div>
+    <input type="number" id="qty-54" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا كريم شعر 125 مللي ضد القشره (الاصفر)')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا كريم شعر 125 مللي ضد القشره (الاصفر)', 'qty-54')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="فاتيكا كريم شعر 125 مللي بجوز الهند (الازرق)">
+        <img src="cosmetics-images/vaticka-cream-shar-125-mili-bgouz-elhend-blue.jpg" alt="">
+          <h3>فاتيكا كريم شعر 125 مللي بجوز الهند (الازرق)</h3>
+    <p>لترطيب الشعر وتقويته وتسهيل تصفيفه</p>
+    <div class="price">41.45 جنيه</div>
+    <input type="number" id="qty-55" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا كريم شعر 125 مللي بجوز الهند (ازرق)')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا كريم شعر 125 مللي بجوز الهند (ازرق)', 'qty-55')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="فاتيكا كريم شعر 125 مللي بالجرجير (اخضر)">
+      <img src="cosmetics-images/vaticka-cream-shar-65-mili-blgargir.avif" alt="">
+          <h3>فاتيكا كريم شعر 125 مللي بالجرجير</h3>
+    <p>لترطيب الشعر وتقويته وتسهيل تصفيفه</p>
+    <div class="price">41.45 جنيه</div>
+    <input type="number" id="qty-56" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا كريم شعر 125 مللي بالجرجير')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا كريم شعر 125 مللي بالجرجير', 'qty-56')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="فاتيكا كريم شعر 190 مللي بالجرجير">
+   <img src="cosmetics-images/vaticka-cream-shar-65-mili-blgargir.avif" alt="">
+    <h3>فاتيكا كريم شعر 190 مللي بالجرجير</h3>
+    <p>لترطيب الشعر وتقويته وتسهيل تصفيفه</p>
+    <div class="price">56.60 جنيه</div>
+    <input type="number" id="qty-57" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا كريم شعر 190 مللي بالجرجير')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا كريم شعر 190 مللي بالجرجير', 'qty-57')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="فاتيكا كريم شعر 190 مللي بجوز الهند (ازرق)">
+        <img src="cosmetics-images/vaticka-cream-shar-125-mili-bgouz-elhend-blue.jpg" alt="">
+          <h3>فاتيكا كريم شعر 190 مللي بجوز الهند (ازرق)</h3>
+    <p>لترطيب الشعر وتقويته وتسهيل تصفيفه</p>
+    <div class="price">56.60 جنيه</div>
+    <input type="number" id="qty-58" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا كريم شعر 190 مللي بجوز الهند (ازرق)')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا كريم شعر 190 مللي بجوز الهند (ازرق)', 'qty-58')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="فاتيكا كريم شعر 190 مللي بالحبه السوداء">
+      <img src="cosmetics-images/vaticka-cream-shar-65-mili-blhaba-black.jpg" alt="">
+          <h3>فاتيكا كريم شعر 190 مللي بالحبه السوداء</h3>
+    <p>فاتيكا كريم شعر 190 مللي بالحبه السوداء</p>
+    <div class="price">56.60 جنيه</div>
+    <input type="number" id="qty-59" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا كريم شعر 190 مللي بالحبه السوداء')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا كريم شعر 190 مللي بالحبه السوداء', 'qty-59')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="فاتيكا كريم شعر 190 مللي بالزيتون (زيتي)">
+      <img src="cosmetics-images/vaticka-cream-shar-65-mili-blzaitoun.jpg" alt="">
+          <h3>فاتيكا كريم شعر 190 مللي بالزيتون (زيتي)</h3>
+    <p>لترطيب الشعر وتقويته وتسهيل تصفيفه</p>
+    <div class="price">56.60 جنيه</div>
+    <input type="number" id="qty-60" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا كريم شعر 190 مللي بالزيتون (زيتي)')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا كريم شعر 190 مللي بالزيتون (زيتي)', 'qty-60')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="فاتيكا كريم شعر 190 مللي ضد القشره (اصفر)">
+      <img src="cosmetics-images/vaticka-cream-shar-125-mili-dd-eleshra-yellow.jpg" alt="">
+          <h3>فاتيكا كريم شعر 190 مللي ضد القشره (اصفر)</h3>
+    <p>لترطيب الشعر وتقويته وتسهيل تصفيفه</p>
+    <div class="price">56.60 جنيه</div>
+    <input type="number" id="qty-61" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا كريم شعر 190 مللي ضد القشره (اصفر)')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا كريم شعر 190 مللي ضد القشره (اصفر)', 'qty-61')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفا عسل كريم شعر 85 جرام">
+        <img src="cosmetics-images/eva-3sl-cream-shar-85-gram.jpg" alt="">
+          <h3>ايفا عسل كريم شعر 85 جرام </h3>
+    <p>منتج مغذي للشعر الجاف والتالف والمتقصف</p>
+    <div class="price">40.00 جنيه</div>
+    <input type="number" id="qty-62" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا عسل كريم شعر 85 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا عسل كريم شعر 85 جرام', 'qty-62')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفا عسل كريم شعر 45 جرام">
+     <img src="cosmetics-images/eva-3sl-cream-shar-85-gram.jpg" alt="">
+    <h3>ايفا عسل كريم شعر 45 جرام </h3>
+    <p>منتج مغذي للشعر الجاف والتالف والمتقصف</p>
+    <div class="price">27.00 جنيه</div>
+    <input type="number" id="qty-63" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا عسل كريم شعر 45 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا عسل كريم شعر 45 جرام', 'qty-63')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="فاتيكا حمام كريم صغير 225 جرام بجنين القمح">
+        <img src="cosmetics-images/vaticka-hamam-cream-900-gram-bgnen-elamh.jpg" alt="">
+          <h3>فاتيكا حمام كريم صغير 225 جرام بجنين القمح</h3>
+    <p>منتج مغذي للشعر الجاف والتالف والمتقصف</p>
+    <div class="price">35.88 جنيه</div>
+    <input type="number" id="qty-64" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا حمام كريم 225 جرام بجنين القمح')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا حمام كريم 225 جرام بجنين القمح', 'qty-64')">اشترِ الآن</button>
+  </div>
+          <div class="product" data-name="املا كريم 125 مللي ">
+        <img src="cosmetics-images/amla-cream-125-mili.png" alt="">
+            <h3>املا كريم 125 مللي</h3>
+    <p>منتج مغذي للشعر الجاف والتالف والمتقصف</p>
+    <div class="price">67.87 جنيه</div>
+    <input type="number" id="qty-65" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('املا كريم 125 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('املا كريم 125 مللي', 'qty-65')">اشترِ الآن</button>
+  </div>
+          <div class="product" data-name="مينك كريم بلسم 200 جرام">
+            <img src="cosmetics-images/mink-cream-blsam-200-gram.jpg" alt="">
+    <h3>مينك كريم بلسم 200 جرام</h3>
+    <p>منتج مغذي للشعر الجاف والتالف والمتقصف</p>
+    <div class="price">46.00 جنيه</div>
+    <input type="number" id="qty-66" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('مينك كريم بلسم 200 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('مينك كريم بلسم 200 جرام', 'qty-66')">اشترِ الآن</button>
+  </div>
+            <div class="product" data-name="مينك كريم بلسم 125 جرام">
+   <img src="cosmetics-images/mink-cream-blsam-200-gram.jpg" alt="">
+    <h3>مينك كريم بلسم 125 جرام</h3>
+    <p>منتج مغذي للشعر الجاف والتالف والمتقصف</p>
+    <div class="price">22.47 جنيه</div>
+    <input type="number" id="qty-67" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('مينك كريم بلسم 125 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('مينك كريم بلسم 125 جرام', 'qty-67')">اشترِ الآن</button>
+  </div>
+          <div class="product" data-name="فاتيكا حمام كريم كبير 900 جرام بالجرجير">
+          <img src="cosmetics-images/vaticka-hmam-cream-large-900-gram-blgrger.jpg" alt="">
+            <h3>فاتيكا حمام كريم كبير 900 جرام بالجرجير</h3>
+    <p>منتج مغذي للشعر الجاف والتالف والمتقصف</p>
+    <div class="price">103.00 جنيه</div>
+    <input type="number" id="qty-68" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا حمام كريم كبير 900 جرام بالجرجير')">أضف إلى السلة</button>
+    <button onclick="buyNow(' فاتيكا حمام كريم كبير 900 جرام بالجرجير ', 'qty-68')">اشترِ الآن</button>
+  </div>
+          <div class="product" data-name="فاتيكا حمام كريم كبير 900 جرام بجنين القمح">
+          <img src="cosmetics-images/vaticka-hamam-cream-large-900-gram-bgnen-elamh.jpg" alt="">
+            <h3>فاتيكا حمام كريم كبير 900 جرام بجنين القمح</h3>
+    <p>منتج مغذي للشعر الجاف والتالف والمتقصف</p>
+    <div class="price">103.00 جنيه</div>
+    <input type="number" id="qty-69" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا حمام كريم كبير 900 جرام بجنين القمح')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا حمام كريم كبير 900 جرام بجنين القمح', 'qty-69')">اشترِ الآن</button>
+  </div>
+          <div class="product" data-name="فاتيكا حمام كريم كبير 900 جرام بالصبار">
+          <img src="cosmetics-images/vaticka-hamam-cream-large-900-gram-blsapaer.jpg" alt="">
+            <h3>فاتيكا حمام كريم 900 جرام بالصبار</h3>
+    <p>منتج مغذي للشعر الجاف والتالف والمتقصف</p>
+    <div class="price">103.00 جنيه</div>
+    <input type="number" id="qty-70" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا حمام كريم كبير 900 جرام بالصبار')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا حمام كريم كبير 900 جرام بالصبار', 'qty-70')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا حمام كريم كبير 900 جرام بالعسل و الخروع">
+      <img src="cosmetics-images/vaticka-hamam-cream-900-gram-bl3sl-w-elarwam.jpg" alt="">
+        <h3>فاتيكا حمام كريم كبير 900 جرام بالعسل و الخروع</h3>
+    <p>حمام كريم فاتيكا بالعسل والخروع مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته</p>
+    <div class="price">103.00 جنيه</div>
+    <input type="number" id="qty-71" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا حمام كريم كبير 900 جرام بالعسل و الخروع')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا حمام كريم كبير 900 جرام بالعسل و الخروع', 'qty-71')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا حمام كريم كبير 900 جرام بالثوم">
+      <img src="cosmetics-images/vaticka-hamam-cream-900-gram-bltoum.jpg" alt="">
+        <h3>فاتيكا حمام كريم كبير 900 جرام بالثوم </h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">103.00 جنيه</div>
+    <input type="number" id="qty-72" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا حمام كريم كبير 900 جرام بالثوم')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا حمام كريم كبير 900 جرام بالثوم', 'qty-72')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا حمام كريم وسط 450 جرام بالثوم">
+     <img src="cosmetics-images/vaticka-hamam-cream-900-gram-bltoum.jpg" alt="">
+    <h3>فاتيكا حمام كريم وسط 450 جرام بالثوم</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">61.00 جنيه</div>
+    <input type="number" id="qty-73" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا حمام كريم وسط 450 جرام بالثوم')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا حمام كريم وسط 450 جرام بالثوم', 'qty-73')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا حمام كريم وسط 450 جرام بالصبار">
+    <img src="cosmetics-images/vaticka-hamam-cream-large-900-gram-blsapaer.jpg" alt="">
+    <h3>فاتيكا حمام كريم وسط 450 جرام بالصبار</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">61.00 جنيه</div>
+    <input type="number" id="qty-74" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا حمام كريم وسط 450 جرام بالصبار')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا حمام كريم وسط 450 جرام بالصبار', 'qty-74')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا حمام كريم وسط 450 جرام بالجرجير">
+    <img src="cosmetics-images/vaticka-hmam-cream-large-900-gram-blgrger.jpg" alt="">
+    <h3>فاتيكا حمام كريم وسط 450 جرام بالجرجير</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">61.00 جنيه</div>
+    <input type="number" id="qty-75" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا حمام كريم وسط 450 جرام بالجرجير')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا حمام كريم وسط 450 جرام بالجرجير', 'qty-75')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا حمام كريم وسط 450 جرام بالزيتون و اللوز">
+      <img src="cosmetics-images/vaticka-hamam-cream-450-gram-blzaitoun-w-ellouz.jpg" alt="">
+        <h3>فاتيكا حمام كريم وسط 450 جرام بالزيتون و اللوز</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">61.00 جنيه</div>
+    <input type="number" id="qty-76" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا حمام كريم وسط 450 جرام بالزيتون و اللوز')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا حمام كريم وسط 450 جرام بالزيتون و اللوز', 'qty-76')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا حمام كريم وسط 450 جرام بالمينك">
+      <img src="cosmetics-images/vaticka-hmam-cream-450-gram-blmink.avif" alt="">
+        <h3>فاتيكا حمام كريم وسط 450 جرام بالمينك</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price"> جنيه</div>
+    <input type="number" id="qty-77" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا حمام كريم وسط 450 جرام بالمينك')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا حمام كريم وسط 450 جرام بالمينك', 'qty-77')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا حمام كريم وسط 450 جرام بالارجان">
+      <img src="cosmetics-images/vaticka-hmam-cream-450-gram-blargan.jpg" alt="">
+        <h3>فاتيكا حمام كريم وسط 450 جرام بالارجان</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">61.00 جنيه</div>
+    <input type="number" id="qty-78" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا حمام كريم وسط 450 جرام بالارجان')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا حمام كريم وسط 450 جرام بالارجان', 'qty-78')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا حمام كريم صغير 225 جرام بالارجان ">
+<img src="cosmetics-images/vaticka-hmam-cream-450-gram-blargan.jpg" alt="">
+    <h3>فاتيكا حمام كريم صغير 225 جرام بالارجان</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">35.88 جنيه</div>
+    <input type="number" id="qty-79" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا حمام كريم صغير 225 جرام بالارجان ')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا حمام كريم صغير 225 جرام بالارجان', 'qty-79')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا حمام كريم صغير 225 جرام بالعسل و البيض">
+<img src="cosmetics-images/vaticka-hamam-cream-225-gram-bl3sl-w-elped.jpg" alt="">    <h3>فاتيكا حمام كريم صغير 225 جرام بالعسل و البيض</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">35.88 جنيه</div>
+    <input type="number" id="qty-80" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا حمام كريم صغير 225 جرام بالعسل و البيض')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا حمام كريم صغير 225 جرام بالعسل و البيض', 'qty-80')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا حمام كريم صغير 225 جرام بجنين القمح ">
+      <img src="cosmetics-images/vaticka-hamam-cream-900-gram-bgnen-elamh.jpg" alt="">
+        <h3>فاتيكا حمام كريم صغير 225 جرام بجنين القمح</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">35.88 جنيه</div>
+    <input type="number" id="qty-81" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا حمام كريم صغير 225 جرام بجنين القمح')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا حمام كريم صغير 225 جرام بجنين القمح', 'qty-81')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا حمام كريم صغير 225 جرام بالجرجير">
+<img src="cosmetics-images/vaticka-hmam-cream-large-900-gram-blgrger.jpg" alt="">    <h3>فاتيكا حمام كريم صغير 225 جرام بالجرجير</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">35.88 جنيه</div>
+    <input type="number" id="qty-82" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا حمام كريم صغير 225 جرام بالجرجير')">أضف إلى السلة</button>
+    <button onclick="buyNow('فايتكا حمام كريم صغير 225 جرام بالجرجير', 'qty-82')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا حمام كريم صغير 225 جرام بالصبار">
+<img src="cosmetics-images/vaticka-hamam-cream-large-900-gram-blsapaer.jpg" alt="">    <h3>فاتيكا حمام كريم صغير 225 جرام بالصبار</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">35.88 جنيه</div>
+    <input type="number" id="qty-83" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا حمام كريم صغير 225 جرام بالصبار')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا حمام كريم صغير 225 جرام بالصبار', 'qty-83')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا حمام كريم صغير 225 جرام بالزيتون و اللوز">
+      <img src="cosmetics-images/vaticka-hamam-cream-450-gram-blzaitoun-w-ellouz.jpg" alt="">
+        <h3>فاتيكا حمام كريم صغير 225 جرام بالزيتون و اللوز</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">35.88 جنيه</div>
+    <input type="number" id="qty-84" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا حمام كريم صغير 225 جرام بالزيتون و اللوز')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا حمام كريم صغير 225 جرام بالزيتون و اللوز', 'qty-84')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا حمام كريم صغير 225 جرام بالحبه السوداء">
+      <img src="cosmetics-images/vaticka-cream-shar-65-mili-blhaba-black.jpg" alt="">
+        <h3>فاتيكا حمام كريم صغير 225 جرام بالحبه السوداء</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">35.88 جنيه</div>
+    <input type="number" id="qty-85" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا حمام كريم صغير 225 جرام بالحبه السوداء')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا حمام كريم صغير 225 جرام بالحبه السوداء', 'qty-85')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا حمام كريم صغير 225 جرام بالمينك و الخروع">
+      <img src="cosmetics-images/vaticka-hmam-cream-450-gram-blmink.avif" alt="">
+        <h3>فاتيكا حمام كريم صغير 225 جرام بالمينك و الخروع</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">35.88 جنيه</div>
+    <input type="number" id="qty-86" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا حمام كريم صغير 225 جرام بالمينك و الخروع')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا حمام كريم صغير 225 جرام بالمينك و الخروع', 'qty-86')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا حمام كريم صغير 225 جرام بالثوم">
+      <img src="cosmetics-images/vaticka-hamam-cream-900-gram-bltoum.jpg" alt="">
+        <h3>فاتيكا حمام كريم صغير 225 جرام بالثوم</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">35.88 جنيه</div>
+    <input type="number" id="qty-87" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا حمام كريم صغير 225 جرام بالثوم')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا حمام كريم صغير 225 جرام بالثوم', 'qty-87')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="ويلي حمام كريم 800 جرام">
+      <img src="cosmetics-images/willy-hamam-cream-800-gram.jpg" alt="">
+        <h3>ويلي حمام كريم 800 جرام</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">44.86 جنيه</div>
+    <input type="number" id="qty-88" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ويلي حمام كريم 800 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('ويلي حمام كريم 800 جرام', 'qty-88')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="ويلي حمام كريم 1 كيلو">
+    <img src="cosmetics-images/willy-hamam-cream-800-gram.jpg" alt="">
+    <h3>ويلي حمام كريم 1 كيلو</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">60.00 جنيه</div>
+    <input type="number" id="qty-89" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ويلي حمام كريم 1 كيلو')">أضف إلى السلة</button>
+    <button onclick="buyNow('ويلي حمام كريم 1 كيلو', 'qty-89')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="مينك حمام كريم 400 جرام ">
+      <img src="cosmetics-images/mink-hamam-cream-400-gram.jpg" alt="">
+        <h3>مينك حمام كريم 400 جرام</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">45.74 جنيه</div>
+    <input type="number" id="qty-90" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('مينك حمام كريم 400 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('مينك حمام كريم 400 جرام', 'qty-90')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="مينك حمام كريم 800 جرام ">
+    <img src="cosmetics-images/mink-hamam-cream-400-gram.jpg" alt="">
+    <h3>مينك حمام كريم 800 جرام</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">80.64 جنيه</div>
+    <input type="number" id="qty-91" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('مينك حمام كريم 800 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('مينك حمام كريم 800 جرام', 'qty-91')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 180 مللي بالزيتون">
+<img src="cosmetics-images/vaticka-oil-shar-180-mili-blzaytoun.jpg" alt="">    <h3>فاتيكا زيت شعر 180 مللي بالزيتون</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">31.00 جنيه</div>
+    <input type="number" id="qty-92" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 180 مللي بالزيتون')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت شعر 180 مللي بالزيتون', 'qty-92')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 180 مللي بالالوفيرا">
+      <img src="cosmetics-images/vaticka-oil-shar-180-mili-blahoufira.avif" alt="">
+        <h3>فاتيكا زيت شعر 180 مللي بالالوفيرا</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">31.00 جنيه</div>
+    <input type="number" id="qty-93" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 180 مللي بالالوفيرا')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت شعر 180 مللي بالالوفيرا', 'qty-93')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 180 مللي بالارجان">
+      <img src="cosmetics-images/vaticka-oil-shar-180-mili-blargan.jpg" alt="">
+        <h3>فاتيكا زيت شعر 180 مللي بالارجان</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">31.00 جنيه</div>
+    <input type="number" id="qty-94" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 180 مللي بالارجان')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت شعر 180 مللي بالارجان', 'qty-94')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 180 مللي بالحبه السوداء">
+      <img src="cosmetics-images/vaticka-oil-shar-180-mili-blhaba-black.jpg" alt="">
+        <h3>فاتيكا زيت شعر 180 مللي بالحبه السوداء</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">31.00 جنيه</div>
+    <input type="number" id="qty-95" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 180 مللي بالحبه السوداء')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت شعر 180 مللي بالحبه السوداء', 'qty-95')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 180 مللي بالجرجير">
+      <img src="cosmetics-images/vaticka-oil-shar-180-mili-blgergir.jpg" alt="">
+        <h3>فاتيكا زيت شعر 180 مللي بالجرجير</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">31.00 جنيه</div>
+    <input type="number" id="qty-96" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 180 مللي بالجرجير')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت شعر 180 مللي بالجرجير', 'qty-96')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 180 مللي بالمينك">
+      <img src="cosmetics-images/vaticka-oil-shar-180-mili-blmink.jpeg" alt="">
+        <h3>فاتيكا زيت شعر 180 مللي بالمينك</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">31.00 جنيه</div>
+    <input type="number" id="qty-97" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 180 مللي بالمينك')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت شعر 180 مللي بالمينك', 'qty-97')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 180 مللي بجوز الهند">
+      <img src="cosmetics-images/vaticka-oil-shar-180-mili-bgouz-elhend.jpg" alt="">
+        <h3>فاتيكا زيت شعر 180 مللي بجوز الهند</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">31.00 جنيه</div>
+    <input type="number" id="qty-98" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 180 مللي بجوز الهند')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت شعر 180 مللي بجوز الهند', 'qty-98')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 180 مللي باللوز">
+      <img src="cosmetics-images/vaticka-oil-shar-180-mili-bllouz.avif" alt="">
+        <h3>فاتيكا زيت شعر 180 مللي باللوز</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">31.00 جنيه</div>
+    <input type="number" id="qty-99" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 180 مللي باللوز')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت شعر 180 مللي باللوز', 'qty-99')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 90 مللي بالزيتون">
+      <img src="cosmetics-images/vaticka-oil-shar-90-mili-blzaytoun.jpg" alt="">
+        <h3>فاتيكا زيت شعر 90 مللي بالزيتون</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">17.50 جنيه</div>
+    <input type="number" id="qty-100" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 90 مللي بالزيتون')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت شعر 90 مللي بالزيتون', 'qty-100')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 90 مللي بالصبار">
+      <img src="cosmetics-images/vaticka-oil-shar-90-mili-blsapar.jpg" alt="">
+        <h3>فاتيكا زيت شعر 90 مللي بالصبار</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">17.50 جنيه</div>
+    <input type="number" id="qty-101" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 90 مللي بالصبار')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت شعر 90 مللي بالصبار', 'qty-101')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 90 مللي بالمينك">
+<img src="cosmetics-images/vaticka-oil-shar-90-mili-blmink.jpg" alt="">    <h3>فاتيكا زيت شعر 90 مللي بالمينك</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">17.50 جنيه</div>
+    <input type="number" id="qty-102" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 90 مللي بالمينك')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت شعر 90 مللي بالمينك', 'qty-102')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 90 مللي باللوز">
+      <img src="cosmetics-images/vaticka-oil-shar-90-mili-bllouz.jpg" alt="">
+        <h3>فاتيكا زيت شعر 90 مللي باللوز</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">17.50 جنيه</div>
+    <input type="number" id="qty-103" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 90 مللي باللوز')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت شعر 90 مللي باللوز', 'qty-103')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 90 مللي بالجرجير">
+      <img src="cosmetics-images/vaticka-oil-shar-90-mili-blgergir.jpg" alt="">
+        <h3>فاتيكا زيت شعر 90 مللي بالجرجير</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">17.50 جنيه</div>
+    <input type="number" id="qty-104" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 90 مللي بالجرجير')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت شعر 90 مللي بالجرجير', 'qty-104')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 90 مللي بالحبه السوداء">
+      <img src="cosmetics-images/vaticka-oil-shar-90-mili-blhapa-black.jpg" alt="">
+        <h3>فاتيكا زيت شعر 90 مللي بالحبه السوداء</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">17.50 جنيه</div>
+    <input type="number" id="qty-105" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 90 مللي بالحبه السوداء')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت شعر 90 مللي بالحبه السوداء', 'qty-105')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 90 مللي بالالوفيرا">
+      <img src="cosmetics-images/vaticka-oil-shar-180-mili-blahoufira.avif" alt="">
+        <h3>فاتيكا زيت شعر 90 مللي بالالوفيرا</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price"> جنيه</div>
+    <input type="number" id="qty-106" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 90 مللي بالالوفيرا')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت شعر 90 مللي بالالوفيرا', 'qty-106')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 90 مللي بجوز الهند">
+      <img src="cosmetics-images/vaticka-oil-shar-180-mili-bgouz-elhend.jpg" alt="">
+        <h3>فاتكيا زيت شعر 90 مللي بجوز الهند</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">17.50 جنيه</div>
+    <input type="number" id="qty-107" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 90 مللي بجوز الهند')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت شعر 90 مللي بجوز الهند', 'qty-107')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 90 مللي بالارجان">
+      <img src="cosmetics-images/vaticka-oil-shar-180-mili-blargan.jpg" alt="">
+        <h3>فاتيكا زيت شعر 90 مللي بالارجان</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">17.50 جنيه</div>
+    <input type="number" id="qty-108" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 90 مللي بالارجان')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت شعر 90 مللي بالارجان', 'qty-108')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 45 مللي بالارجان">
+    <img src="cosmetics-images/vaticka-oil-shar-180-mili-blargan.jpg" alt="">
+    <h3>فاتيكا زيت شعر 45 مللي بالارجان</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">7.81 جنيه</div>
+    <input type="number" id="qty-109" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 45 مللي بالارجان')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت شعر 45 مللي بالارجان', 'qty-109')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 45 مللي بالحبه السوداء">
+   <img src="cosmetics-images/vaticka-oil-shar-90-mili-blhapa-black.jpg" alt="">
+    <h3>فاتيكا زيت شعر 45 مللي بالحبه السوداء</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">7.81 جنيه</div>
+    <input type="number" id="qty-110" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 45 مللي بالحبه السوداء')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت شعر 45 مللي بالحبه السوداء', 'qty-110')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 45 مللي بالجرجير">
+    <img src="cosmetics-images/vaticka-oil-shar-180-mili-blgergir.jpg" alt="">
+    <h3>فاتيكا زيت شعر 45 مللي بالجرجير</h3>
+    <p>فاتيكا زيت شعر 45 مللي بالجرجير</p>
+    <div class="price">7.81 جنيه</div>
+    <input type="number" id="qty-111" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 45 مللي بالجرجير')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت شعر 45 مللي بالجرجير', 'qty-111')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 45 مللي بالالوفيرا">
+          <img src="cosmetics-images/vaticka-oil-shar-180-mili-blahoufira.avif" alt="">
+    <h3>فاتيكا زيت شعر 45 مللي بالالوفيرا</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">7.81 جنيه</div>
+    <input type="number" id="qty-112" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 45 مللي بالالوفيرا')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت شعر 45 مللي بالالوفيرا', 'qty-112')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 45 مللي باللوز">
+     <img src="cosmetics-images/vaticka-oil-shar-90-mili-bllouz.jpg" alt="">
+    <h3>فاتيكا زيت شعر 45 مللي باللوز</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">7.81 جنيه</div>
+    <input type="number" id="qty-113" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 45 مللي باللوز')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت شعر 45 مللي باللوز', 'qty-113')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 45 مللي بجوز الهند">
+     <img src="cosmetics-images/vaticka-oil-shar-180-mili-bgouz-elhend.jpg" alt="">
+    <h3>فاتيكا زيت شعر 45 مللي بجوز الهند</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">7.81 جنيه</div>
+    <input type="number" id="qty-114" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 45 مللي بجوز الهند')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت الشعر 45 مللي بجوز الهند', 'qty-114')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 45 مللي بالصبار">
+    <img src="cosmetics-images/vaticka-oil-shar-90-mili-blsapar.jpg" alt="">
+    <h3>فاتيكا زيت شعر 45 مللي بالصبار</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">7.81 جنيه</div>
+    <input type="number" id="qty-115" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 45 مللي بالصبار')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت شعر 45 مللي بالصبار', 'qty-115')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="فاتيكا زيت شعر 45 مللي بالزيتون">
+   <img src="cosmetics-images/vaticka-oil-shar-90-mili-blzaytoun.jpg" alt="">
+    <h3>فاتيكا زيت شعر 45 مللي بالزيتون</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">7.81 جنيه</div>
+    <input type="number" id="qty-116" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('فاتيكا زيت شعر 45 مللي بالزيتون')">أضف إلى السلة</button>
+    <button onclick="buyNow('فاتيكا زيت شعر 45 مللي بالزيتون', 'qty-116')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="زيت الو ايفا للشعر 225 مللي بالصبار و زيت الزيتون">
+      <img src="cosmetics-images/oil-alo-eva-lshar-250-mili-blsapar-w-oil-zaytoun.webp" alt="">
+        <h3>زيت الو ايف للشعر 225 مللي بالصبار و زيت الزيتون</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">62.55 جنيه</div>
+    <input type="number" id="qty-117" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('زيت الو ايفا للشعر 225 مللي بالصبار و زيت الزيتون')">أضف إلى السلة</button>
+    <button onclick="buyNow('زيت الو ايفا للشعر 225 مللي بالصبار و زيت الزيتون', 'qty-117')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="زيت الو ايفا للشعر 225 مللي بالصبار و خلاصه الاملا">
+      <img src="cosmetics-images/oil-alo-eva-lshar-225-mili-flspaer-w-5last-elamla.webp" alt="">
+        <h3>زيت الو ايفا للشعر 225 مللي بالصبار و خلاصه الاملا</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">62.55 جنيه</div>
+    <input type="number" id="qty-118" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('زيت الو ايفا للشعر 225 مللي بالصبار و خلاصه الاملا')">أضف إلى السلة</button>
+    <button onclick="buyNow('زيت الو ايفا للشعر 225 مللي بالصبار و خلاصه الاملا', 'qty-118')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="زيت الو ايفا للشعر 170 مللي بالصبار و خلاصه الاملا">
+     <img src="cosmetics-images/oil-alo-eva-lshar-225-mili-flspaer-w-5last-elamla.webp" alt="">
+    <h3>زيت الو ايفا للشعر 170 مللي بالصبار و خلاصه الاملا</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">51.20 جنيه</div>
+    <input type="number" id="qty-119" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('زيت الو ايفا للشعر 170 مللي بالصبار و خلاصه الاملا')">أضف إلى السلة</button>
+    <button onclick="buyNow('زيت الو ايفا للشعر 170 مللي بالصبار و خلاصه الاملا', 'qty-119')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="زيت الو ايفا للشعر 170 مللي بالصبار و زيت الارجان">
+      <img src="cosmetics-images/oil-alo-eva-lshar-225-mili-blsaper-w-oil-argan.jpg" alt="">
+        <h3>زيت الو ايفا للشعر 170 مللي بالصبار و زيت الارجان</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">56.88 جنيه</div>
+    <input type="number" id="qty-120" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('زيت الو ايفا للشعر 17 مللي بالصبار و زيت الارجان')">أضف إلى السلة</button>
+    <button onclick="buyNow('زيت الو ايفا للشعر 170 مللي بالصبار و زيت الارجان', 'qty-120')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="زيت دابر املا عادي 45 مللي">
+      <img src="cosmetics-images/oil-daper-amla-45-mili.png" alt="">
+        <h3>زيت دابر املا عادي</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">21.25 جنيه</div>
+    <input type="number" id="qty-121" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('زيت دابر املا عادي 45 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('زيت دابر املا عادي 45 مللي', 'qty-121')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="زيت دابر املا ياسمين 45 مللي">
+      <img src="cosmetics-images/oil-daper-amla-yasmin-45-mili.webp" alt="">
+        <h3>زيت دابر املا ياسمين 45 مللي</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">23.20 جنيه</div>
+    <input type="number" id="qty-122" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('زيت دابر املا ياسمين 45 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('زيت دابر املا ياسمين 45 مللي', 'qty-122')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="زيت دابر املا ذهبي 45 مللي">
+      <img src="cosmetics-images/oil-daper-amla-gold-45-mili.webp" alt="">
+        <h3>زيت دابر املا ذهبي 45 مللي</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price"> 23.20جنيه</div>
+    <input type="number" id="qty-123" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('زيت دابر املا ذهبي 45 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('زيت دابر املا ذهبي 45 مللي', 'qty-123')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="زيت دابر املا عادي 180 مللي ">
+    <img src="cosmetics-images/oil-daper-amla-45-mili.png" alt="">
+    <h3>زيت دابر املا عادي 180 مللي</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">64.90 جنيه</div>
+    <input type="number" id="qty-124" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('زيت دابر املا عادي 180 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('زيت دابر املا عادي 180 مللي', 'qty-124')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="زيت دابر املا ياسمين 180 مللي">
+   <img src="cosmetics-images/oil-daper-amla-yasmin-45-mili.webp" alt="">
+    <h3>زيت دابر املا ياسمين 180 مللي</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">69.00 جنيه</div>
+    <input type="number" id="qty-125" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('زيت دابر املا ياسمين 180 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('زيت دابر املا ياسمين 180 مللي', 'qty-125')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="زيت دابر املا ذهبي 180 مللي">
+    <img src="cosmetics-images/oil-daper-amla-gold-45-mili.webp" alt="">
+    <h3>زيت دابر املا ذهبي 180 مللي</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">69.00 جنيه</div>
+    <input type="number" id="qty-126" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('زيت دابر املا ذهبي 180 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('زيت دابر املا ذهبي 180 مللي', 'qty-126')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="زيت دابر املا عادي 90 مللي ">
+    <img src="cosmetics-images/oil-daper-amla-45-mili.png" alt="">
+    <h3>زيت دابر املا عادي 90 مللي</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">39.95 جنيه</div>
+    <input type="number" id="qty-127" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('زيت دابر املا عادي 90 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('زيت دابر املا عادي 90 مللي', 'qty-128')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="زيت دابر املا ياسمين 90 مللي">
+<img src="cosmetics-images/oil-daper-amla-yasmin-45-mili.webp" alt="">
+    <h3>زيت دابر املا ياسمين 90 مللي</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">45.00 جنيه</div>
+    <input type="number" id="qty-128" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('زيت دابر املا ياسمين 90 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('زيت دابر املا ياسمين 90 مللي', 'qty-128')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="زيت دابر املا عادي 270 مللي ">
+    <img src="cosmetics-images/oil-daper-amla-45-mili.png" alt="">
+    <h3>زيت دابر املا عادي 270 مللي</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">93.50 جنيه</div>
+    <input type="number" id="qty-129" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('زيت دابر املا عادي 270 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('زيت دابر املا عادي 270 مللي', 'qty-129')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="زيت دابر املا ذهبي 270 مللي">
+    <img src="cosmetics-images/oil-daper-amla-gold-45-mili.webp" alt="">
+    <h3>زيت دابر املا ذهبي 270 مللي</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price"> 93.50جنيه</div>
+    <input type="number" id="qty-130" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('زيت دابر املا ذهبي 270 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('زيت دابر املا ذهبي 270 مللي', 'qty-130')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="زيت دابر املا ياسمين 270 مللي">
+    <img src="cosmetics-images/oil-daper-amla-yasmin-45-mili.webp" alt="">
+    <h3>زيت دابر املا ياسمين 270 مللي</h3>
+    <p>مثالي للشعر الجاف والتالف، حيث يساعد على ترطيبه وتغذيته وتقويته.</p>
+    <div class="price">93.50 جنيه</div>
+    <input type="number" id="qty-131" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('زيت دابر املا ياسمين 270 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('زيت دابر املا ياسمين 270 مللي', 'qty-131')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="ستار جل 400 مللي اسود">
+      <img src="cosmetics-images/star-gel-400-mili-black.jpg" alt="">
+        <h3>ستار جل 400 مللي اسود</h3>
+    <p>جل لتصفيف الشعر يوفر تثبيتًا قويًا للشعر طوال اليوم (حتى 24 ساعة) مع لمعان قوي وحماية من عوامل الجو</p>
+    <div class="price">24.25 جنيه</div>
+    <input type="number" id="qty-132" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ستار جل 400 مللي اسود')">أضف إلى السلة</button>
+    <button onclick="buyNow('ستار جل 400 مللي اسود', 'qty-132')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="ستار جل 400 مللي ابيض شفاف">
+      <img src="cosmetics-images/star-gel-400-mili-white.jpg" alt="">
+        <h3>ستار جل 400 مللي ابيض شفاف</h3>
+    <p>جل لتصفيف الشعر يوفر تثبيتًا قويًا للشعر طوال اليوم (حتى 24 ساعة) مع لمعان قوي وحماية من عوامل الجو</p>
+    <div class="price">24.25 جنيه</div>
+    <input type="number" id="qty-133" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ستار جل 400 مللي ابيض شفاف')">أضف إلى السلة</button>
+    <button onclick="buyNow('ستار جل 400 مللي ابيض شفاف', 'qty-133')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="هيركود جل ازرق 250 مللي">
+      <img src="cosmetics-images/haircode-gel-blue-250-mili.jpg" alt="">
+        <h3>هيركود جل ازرق 250 مللي</h3>
+    <p>جل لتصفيف الشعر يوفر تثبيتًا قويًا للشعر طوال اليوم (حتى 24 ساعة) مع لمعان قوي وحماية من عوامل الجو</p>
+    <div class="price">35.00 جنيه</div>
+    <input type="number" id="qty-134" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('هيركود جل ازرق 250 مللي ')">أضف إلى السلة</button>
+    <button onclick="buyNow('هيركود جل ازرق 250 مللي ', 'qty-134')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="هيركود جل اكياس 10 مللي">
+      <img src="cosmetics-images/haircode-gel-kees-10-melli.png" alt="">
+        <h3>هيركود جل اكياس 10 مللي</h3>
+    <p>جل لتصفيف الشعر يوفر تثبيتًا قويًا للشعر طوال اليوم (حتى 24 ساعة) مع لمعان قوي وحماية من عوامل الجو</p>
+    <div class="price">2.00 جنيه</div>
+    <input type="number" id="qty-135" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('هيركود جل اكياس 10 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('هيركود جل اكياس 10 مللي', 'qty-135')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="بليس ليف ان 450 جرام (ارجان)">
+      <img src="cosmetics-images/bless-lef-in-450-gram-argan.avif" alt="">
+        <h3>بليس ليف ان 450 جرام (ارجان)</h3>
+    <p>كريم ليف إن للشعر من ماركة بليس بحجم 450 مل، يحتوي على زيت الأرجان لترطيب وتغذية الشعر</p>
+    <div class="price">105.00 جنيه</div>
+    <input type="number" id="qty-136" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بليس ليف ان 450 جرام (ارجان)')">أضف إلى السلة</button>
+    <button onclick="buyNow('بليس ليف ان 450 جرام (ارجان)', 'qty-136')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="بليس ليف ان 450 مللي (بالشيا)">
+      <img src="cosmetics-images/bless-lef-in-450-gram-shia.avif" alt="">
+        <h3>بليس ليف ان 450 مللي (بالشيا)</h3>
+    <p>كريم ليف إن يترك على الشعر مصمم لترطيب الشعر الجاف وتغذيته وتمنح لمعانًا وصحة</p>
+    <div class="price">105.00 جنيه</div>
+    <input type="number" id="qty-137" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بليس ليف ان 450 مللي (بالشيا)')">أضف إلى السلة</button>
+    <button onclick="buyNow('بليس ليف ان 450 مللي (بالشيا)', 'qty-137')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="بليس ليف ان 450 مللي (بجوز الهند)">
+      <img src="cosmetics-images/bless-lef-in-450-gram-bgouz-elhend.jpg" alt="">
+        <h3>بليس ليف ان 450 مللي (بجوز الهند)</h3>
+    <p>بلسم يترك على الشعر لترطيب وتغذية الشعر المجعد</p>
+    <div class="price">105.00 جنيه</div>
+    <input type="number" id="qty-138" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بليس ليف ان 450 مللي (بجوز الهند)')">أضف إلى السلة</button>
+    <button onclick="buyNow('بليس ليف ان 450 مللي (بجوز الهند) ', 'qty-138')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="بليس ليف ان 450 مللي (فيتامين E)">
+      <img src="cosmetics-images/bless-lef-in-450-gram.jpg" alt="">
+        <h3>بليس ليف ان 450 مللي (فيتامين E)</h3>
+    <p>بلسم يترك على الشعر لترطيب وتغذية الشعر المجعد</p>
+    <div class="price">105.00 جنيه</div>
+    <input type="number" id="qty-139" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بليس ليف ان 450 مللي (فيتامين E)')">أضف إلى السلة</button>
+    <button onclick="buyNow('بليس ليف ان 450 مللي (فيتامين E)', 'qty-139')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="بليس ليف ان 180 مللي (بجوز الهند)">
+    <img src="cosmetics-images/bless-lef-in-450-gram-bgouz-elhend.jpg" alt="">
+    <h3>بليس ليف ان 180 مللي (بجوز الهند)</h3>
+    <p>بلسم يترك على الشعر لترطيب وتغذية الشعر المجعد</p>
+    <div class="price">47.00 جنيه</div>
+    <input type="number" id="qty-140" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بليس ليف ان 180 مللي (بجوز الهند)')">أضف إلى السلة</button>
+    <button onclick="buyNow('بليس ليف ان 180 مللي (بجوز الهند)', 'qty-140')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="بلوب واكس ملمع 170 مللي (بجوز الهند)">
+      <img src="cosmetics-images/blob-wax-170-milli-bgouz-elhend.jpg" alt="">
+        <h3>بلوب واكس ملمع 170 مللي (بجوز الهند)</h3>
+    <p>مصمم لإضفاء اللمعان والترطيب وتقليل التجعد في الشعر</p>
+    <div class="price">39.00 جنيه</div>
+    <input type="number" id="qty-141" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بلوب واكس ملمع 170 مللي (بجوز الهند)')">أضف إلى السلة</button>
+    <button onclick="buyNow('بلوب واكس ملمع 170 مللي (بجوز الهند)', 'qty-141')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="بلوب واكس ملمع 170 مللي (الارجان)">
+      <img src="cosmetics-images/blob-wax-170-milli-argan.jpg" alt="">
+        <h3>بلوب واكس ملمع 170 مللي (الارجان)</h3>
+    <p>مصمم لإضفاء اللمعان والترطيب وتقليل التجعد في الشعر</p>
+    <div class="price">39.00 جنيه</div>
+    <input type="number" id="qty-142" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بلوب واكس ملمع 170 مللي (الارجان)')">أضف إلى السلة</button>
+    <button onclick="buyNow('بلوب واكس ملمع 170 مللي (الارجان)', 'qty-142')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="بلوب واكس ملمع 170 مللي (العسل)">
+      <img src="cosmetics-images/blob-wax-170-milli-el3sl.jpg" alt="">
+        <h3>بلوب واكس ملمع 170 مللي (العسل)</h3>
+    <p>مصمم لإضفاء اللمعان والترطيب وتقليل التجعد في الشعر</p>
+    <div class="price">39.00 جنيه</div>
+    <input type="number" id="qty-143" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بلوب واكس ملمع 170 مللي (العسل)')">أضف إلى السلة</button>
+    <button onclick="buyNow('بلوب واكس ملمع 170 مللي (العسل)', 'qty-143')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بلوب واكس ملمع 150 مللي (بجوز الهند)">
+     <img src="cosmetics-images/blob-wax-170-milli-bgouz-elhend.jpg" alt="">
+    <h3>بلوب واكس ملمع 150 مللي (بجوز الهند)</h3>
+    <p>مصمم لإضفاء اللمعان والترطيب وتقليل التجعد في الشعر</p>
+    <div class="price">32.00 جنيه</div>
+    <input type="number" id="qty-144" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بلوب واكس ملمع 150 مللي (بجوز الهند)')">أضف إلى السلة</button>
+    <button onclick="buyNow('بلوب واكس ملمع 150 مللي (بجوز الهند)', 'qty-144')">اشترِ الآن</button>
+  </div>
+   <div class="product" data-name="بلوب واكس ملمع 150مللي (شمع النحل)">
+  <img src="cosmetics-images/blob-wax-170-milli-sham3-eln7l.jpg" alt="">
+    <h3>بلوب واكس ملمع 150 مللي (شمع نحل)</h3>
+    <p>مصمم لإضفاء اللمعان والترطيب وتقليل التجعد في الشعر</p>
+    <div class="price">32.00 جنيه</div>
+    <input type="number" id="qty-145" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بلوب واكس ملمع 150 مللي (شمع نحل)')">أضف إلى السلة</button>
+    <button onclick="buyNow('بلوب واكس ملمع 150 مللي (شمع نحل)', 'qty-145')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="شامبو لوريال 400 مل بزيت الجوجوبا">
+      <img src="cosmetics-images/shampoo-loreal-400-milli-oil-gogoba.webp" alt="">    
+        <h3>شامبو لوريال 400 مل بزيت الجوجوبا</h3>
+    <p>تركيبه مغذيه تمنح الشعر لمعانا فائقا</p>
+    <div class="price">129.34 جنيه</div>
+    <input type="number" id="qty-146" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('شامبو لوريال 400 مل بزيت الجوجوبا')">أضف إلى السلة</button>
+    <button onclick="buyNow('شامبو لوريال 400 مل بزيت الجوجوبا', 'qty-146')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="بيوبوينت كريم فرد شعر 50 مللي">
+      <img src="cosmetics-images/biooint-50-milli.webp" alt="">
+        <h3>بيوبوينت كريم فرد شعر 50 مللي</h3>
+    <div class="price">63.95 جنيه</div>
+    <input type="number" id="qty-147" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بيوبوينت كريم فرد شعر 50 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('بيوبوينت كريم فرد شعر 50 مللي', 'qty-147')">اشترِ الآن</button>
+  </div>
+      <div class="product" data-name="تمارا نيو هير كريم بالليمون 170 جرام">
+      <img src="cosmetics-images/tmara-new-hair-cream-lemon-170-gram.png" alt="">
+        <h3>تمارا نيو هير كريم بالليمون 170 جرام</h3>
+    <div class="price">25.00 جنيه</div>
+    <input type="number" id="qty-148" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('تمارا نيو هير كريم بالليمون 170 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('تمارا نيو هير كريم بالليمون 170 جرام', 'qty-148')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="الو ايفا للشعر بالصبار 45 جرام">
+        <img src="cosmetics-images/alo-eva-balsapaer-45-gram.webp" alt="">
+          <h3>الو ايفا للشعر بالصبار 45 جرام</h3>
+    <div class="price"> جنيه 30.00</div>
+    <input type="number" id="qty-149" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('الو ايفا للشعر بالصبار 45 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('الو ايفا للشعر بالصبار 45 جرام', 'qty-149')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="الو ايفا للشعر بالصبار 85 جرام">
+ <img src="cosmetics-images/alo-eva-balsapaer-45-gram.webp" alt="">
+     <h3>الو ايفا للشعر بالصبار 85 جرام</h3>
+    <div class="price"> جنيه 43.00</div>
+    <input type="number" id="qty-150" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('الو ايفا للشعر بالصبار 85 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('الو ايفا للشعر بالصبار 85 جرام', 'qty-150')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفا شامبو المارشميلو 350 مللي">
+        <img src="cosmetics-images/eva-shampoo-marchemello-350-milli.avif" alt="">
+          <h3>ايفا شامبو المارشميلو 350 مللي</h3>
+    <div class="price"> جنيه 83.00</div>
+    <input type="number" id="qty-151" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا شامبو المارشميلو 350 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا شامبو المارشميلو 350 مللي', 'qty-151')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفا شامبو جوز الهند 350 مللي">
+        <img src="cosmetics-images/eva-shampoo-goz-elhend-350-milli.avif" alt="">
+          <h3>ايفا شامبو جوز الهند 350 مللي</h3>
+    <div class="price"> جنيه 83.00</div>
+    <input type="number" id="qty-152" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا شامبو جوز الهند 350 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا شامبو جوز الهند 350 مللي', 'qty-152')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="ايفا شامبو موكا 350 مللي">
+        <img src="cosmetics-images/eva-shampoo-moka-350-milli.jpg" alt="">
+          <h3>ايفا شامبو موكا 350 مللي</h3>
+    <div class="price"> جنيه 83.00</div>
+    <input type="number" id="qty-153" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('ايفا شامبو موكا 350 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('ايفا شامبو موكا 350 مللي', 'qty-153')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بالمرز كريم 50 جرام هيرفود">
+        <img src="cosmetics-images/palmirz-cream-50-gram-hairfood.jpg" alt="">
+          <h3>بالمرز كريم 50 جرام هيرفود</h3>
+    <p>علاج مغذٍ للشعر وفروة الرأس، مصمم لإحياء الشعر الجاف والتالف</p>
+    <div class="price">55.00 جنيه</div>
+    <input type="number" id="qty-154" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بالمرز كريم 50 جرام هيرفود')">أضف إلى السلة</button>
+    <button onclick="buyNow('بالمرز كريم 50 جرام هيرفود', 'qty-154')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بالمرز كريم 150 جرام بالبرجموت">
+        <img src="cosmetics-images/palmirz-cream-50-gram-pargamout.jpg" alt="">
+          <h3>بالمرز كريم 150 جرام بالبرجموت</h3>
+    <div class="price"> جنيه 135.00</div>
+    <input type="number" id="qty-155" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بالمرز كريم 150 جرام بالبرجموت')">أضف إلى السلة</button>
+    <button onclick="buyNow('بالمرز كريم 150 جرام بالبرجموت', 'qty-155')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بالمرز كريم 150 جرام بالزيتون">
+        <img src="cosmetics-images/palmirz-cream-50-gram-zaytoun.jpg" alt="">
+          <h3>بالمرز كريم 150 جرام بالزيتون</h3>
+    <div class="price"> جنيه 135.00</div>
+    <input type="number" id="qty-156" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بالمرز كريم 150 جرام بالزيتون')">أضف إلى السلة</button>
+    <button onclick="buyNow('بالمرز كريم 150 جرام بالزيتون', 'qty-156')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بالمرز كريم 150 جرام ضد القشره">
+        <img src="cosmetics-images/palmirz-cream-50-gram-dd-elkeshra.jpg" alt="">
+          <h3>بالمرز كريم 150 جرام ضد القشره</h3>
+    <div class="price"> جنيه 135.00</div>
+    <input type="number" id="qty-157" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بالمرز كريم 150 جرام ضد القشره')">أضف إلى السلة</button>
+    <button onclick="buyNow('بالمرز كريم 150 جرام ضد القشره', 'qty-157')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بالمرز كريم 150 جرام هير ستايل">
+        <img src="cosmetics-images/palmirz-cream-50-gram-hair-style.avif" alt="">
+          <h3>بالمرز كريم 150 جرام هير ستايل</h3>
+    <div class="price"> جنيه 135.00</div>
+    <input type="number" id="qty-158" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بالمرز كريم 150 جرام هير ستايل')">أضف إلى السلة</button>
+    <button onclick="buyNow('بالمرز كريم 150 جرام هير ستايل', 'qty-158')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بالمرز كريم 150 جرام هير سيلك">
+        <img src="cosmetics-images/palmirz-cream-50-gram-hair-silk.avif" alt="">
+          <h3>بالمرز كريم 150 جرام هير سيلك</h3>
+    <div class="price"> جنيه 135.00</div>
+    <input type="number" id="qty-159" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بالمرز كريم 150 جرام هير سيلك')">أضف إلى السلة</button>
+    <button onclick="buyNow('بالمرز كريم 150 جرام هير سيلك', 'qty-159')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بالمرز كريم 150 جرام بجوز الهند">
+        <img src="cosmetics-images/palmirz-cream-50-gram-bgouz-elhend.jpg" alt="">
+          <h3>بالمرز كريم 150 جرام بجوز الهند</h3>
+    <div class="price"> جنيه 130.00</div>
+    <input type="number" id="qty-160" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بالمرز كريم 150 جرام بجوز الهند')">أضف إلى السلة</button>
+    <button onclick="buyNow('بالمرز كريم 150 جرام بجوز الهند', 'qty-160')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بالمرز كريم 150 جرام هيرفود اصفر">
+        <img src="cosmetics-images/palmirz-cream-50-gram-yellow.avif" alt="">
+          <h3>بالمرز كريم 150 جرام هيرفود اصفر</h3>
+    <div class="price"> جنيه 130.00</div>
+    <input type="number" id="qty-161" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بالمرز كريم 150 جرام هيرفود اصفر')">أضف إلى السلة</button>
+    <button onclick="buyNow('بالمرز كريم 150 جرام هيرفود اصفر', 'qty-161')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بالمرز كريم 50 جرام بالبرجموت">
+<img src="cosmetics-images/palmirz-cream-50-gram-pargamout.jpg" alt="">
+    <h3>بالمرز كريم 50 جرام بالبرجموت</h3>
+    <div class="price"> جنيه 60.00</div>
+    <input type="number" id="qty-162" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بالمرز كريم 50 جرام بالبرجموت')">أضف إلى السلة</button>
+    <button onclick="buyNow('بالمرز كريم 50 جرام بالبرجموت', 'qty-162')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بالمرز كريم 50 جرام بالزيتون">
+<img src="cosmetics-images/palmirz-cream-50-gram-zaytoun.jpg" alt="">
+    <h3>بالمرز كريم 50 جرام بالزيتون</h3>
+    <div class="price"> جنيه 60.00</div>
+    <input type="number" id="qty-163" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بالمرز كريم 50 جرام بالزيتون')">أضف إلى السلة</button>
+    <button onclick="buyNow('بالمرز كريم 50 جرام بالزيتون', 'qty-163')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بالمرز كريم 50 جرام ضد القشره">
+<img src="cosmetics-images/palmirz-cream-50-gram-dd-elkeshra.jpg" alt="">
+    <h3>بالمرز كريم 50 جرام ضد القشره</h3>
+    <div class="price"> جنيه 62.00</div>
+    <input type="number" id="qty-164" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بالمرز كريم 50 جرام ضد القشره')">أضف إلى السلة</button>
+    <button onclick="buyNow('بالمرز كريم 50 جرام ضد القشره', 'qty-164')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بالمرز كريم 50 جرام هير ستايل">
+<img src="cosmetics-images/palmirz-cream-50-gram-hair-style.avif" alt="">
+    <h3>بالمرز كريم 50 جرام هير ستايل</h3>
+    <div class="price"> جنيه 62.00</div>
+    <input type="number" id="qty-165" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بالمرز كريم 50 جرام هير ستايل')">أضف إلى السلة</button>
+    <button onclick="buyNow('بالمرز كريم 50 جرام هير ستايل', 'qty-165')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بالمرز كريم 50 جرام هير سيلك">
+    <img src="cosmetics-images/palmirz-cream-50-gram-hair-silk.avif" alt="">
+    <h3>بالمرز كريم 50 جرام هير سيلك</h3>
+    <div class="price"> جنيه 62.00</div>
+    <input type="number" id="qty-166" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بالمرز كريم 50 جرام هير سيلك')">أضف إلى السلة</button>
+    <button onclick="buyNow('بالمرز كريم 50 جرام هير سيلك', 'qty-166')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بالمرز كريم 50 جرام اصفر">
+<img src="cosmetics-images/palmirz-cream-50-gram-yellow.avif" alt="">
+    <h3>بالمرز كريم 50 جرام اصفر</h3>
+    <div class="price"> جنيه 58.00</div>
+    <input type="number" id="qty-167" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بالمرز كريم 50 جرام اصفر')">أضف إلى السلة</button>
+    <button onclick="buyNow('بالمرز كريم 50 جرام اصفر', 'qty-167')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بالمرز كريم 50 جرام جوز الهند">
+<img src="cosmetics-images/palmirz-cream-50-gram-bgouz-elhend.jpg" alt="">
+    <h3>بالمرز كريم 50 جرام جوز الهند</h3>
+    <div class="price"> جنيه 58.00</div>
+    <input type="number" id="qty-168" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بالمرز كريم 50 جرام جوز الهند')">أضف إلى السلة</button>
+    <button onclick="buyNow('بالمرز كريم 50 جرام جوز الهند', 'qty-168')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بالمرز كريم سوفت صفيح 100 جرام">
+        <img src="cosmetics-images/palmerz-cream-soft-safi7-100-gram.webp" alt="">
+          <h3>بالمرز كريم سوفت صفيح 100 جرام</h3>
+    <div class="price"> جنيه 131.00</div>
+    <input type="number" id="qty-169" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بالمرز كريم سوفت صفيح 100 جرام')">أضف إلى السلة</button>
+    <button onclick="buyNow('بالمرز كريم سوفت صفيح 100 جرام', 'qty-169')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بالمرز كريم 150 جرام بريسنج اويل">
+        <img src="cosmetics-images/palmerz-cream-150-gram-preseing-oil.jfif" alt="">
+          <h3>بالمرز كريم 150 جرام بريسنج اويل</h3>
+    <div class="price"> جنيه 135.00</div>
+    <input type="number" id="qty-170" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بالمرز كريم 150 جرام بريسنج اويل')">أضف إلى السلة</button>
+    <button onclick="buyNow('بالمرز كريم 150 جرام بريسنج اويل', 'qty-170')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بليس ليف ان (بالشيا) موف 250 مللي">
+        <img src="cosmetics-images/bless-lef-in-shia-250-milli.jpg" alt="">
+          <h3>بليس ليف ان (بالشيا) موف 250 مللي</h3>
+    <div class="price"> جنيه 69.00</div>
+    <input type="number" id="qty-173" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بليس ليف ان (بالشيا) موف 250 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('بليس ليف ان (بالشيا) موف 250 مللي', 'qty-173')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بليس ليف ان (جوز هند) ازرق 250 مللي">
+        <img src="cosmetics-images/bless-lef-in-goz-hend-blue-250-milli.jpeg" alt="">
+          <h3>بليس ليف ان (جوز هند) ازرق 250 مللي</h3>
+    <div class="price"> جنيه 69.00</div>
+    <input type="number" id="qty-174" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بليس ليف ان (جوز هند) ازرق 250 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('بليس ليف ان (جوز هند) ازرق 250 مللي', 'qty-174')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بليس ليف ان كريم بزبده الشيا 180 مللي">
+        <img src="cosmetics-images/bless-lef-in-shia-250-milli.jpg" alt="">
+          <h3>بليس ليف ان كريم بزبده الشيا 180 مللي</h3>
+    <div class="price"> جنيه 48.00</div>
+    <input type="number" id="qty-175" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بليس ليف ان كريم بزبده الشيا 180 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('بليس ليف ان كريم بزبده الشيا 180 مللي', 'qty-175')">اشترِ الآن</button>
+  </div>
+       <div class="product" data-name="بليس ليف ان فيتامين E انبوبه 200 مللي">
+      <img src="cosmetics-images/bless-live-in-vitamien-E-220-mili.jpeg" alt="">
+        <h3>بليس ليف ان فيتامين E انبوبه 200 مللي</h3>
+    <div class="price"> جنيه 48.00</div>
+    <input type="number" id="qty-176" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بليس ليف ان فيتامين E انبوبه 200 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('بليس ليف ان فيتامين E انبوبه 200 مللي', 'qty-176')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="بليس ليف ان كريم بزيت الارجان 180 مللي">
+        <img src="cosmetics-images/bless-live-in-cream-argan-180-mili.jpeg" alt="">
+          <h3>بليس ليف ان كريم بزيت الارجان 180 مللي</h3>
+    <div class="price"> جنيه 48.00</div>
+    <input type="number" id="qty-177" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('بليس ليف ان كريم بزيت الارجان 180 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('بليس ليف ان كريم بزيت الارجان 180 مللي', 'qty-177')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كلير شامبو رجالي بالنعناع 180 مللي">
+        <img src="cosmetics-images/claer-shampoo-men-na3na3-180-mili.avif" alt="">
+          <h3>كلير شامبو رجالي بالنعناع 180 مللي</h3>
+    <div class="price"> جنيه 77.00</div>
+    <input type="number" id="qty-178" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كلير شامبو رجالي بالنعناع 180 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('كلير شامبو رجالي بالنعناع 180 مللي', 'qty-178')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كلير شامبو اكياس حريمي 5 مللي">
+        <img src="cosmetics-images/claer-shampoo-akiass-women-5-mili.webp" alt="">
+          <h3>كلير شامبو اكياس حريمي 5 مللي</h3>
+    <div class="price"> جنيه 2.00</div>
+    <input type="number" id="qty-179" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كلير شامبو اكياس حريمي 5 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('كلير شامبو اكياس حريمي 5 مللي', 'qty-179')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كلير شامبو رجالي تنظيف عميق 180 مللي">
+        <img src="cosmetics-images/claer-shampoo-men-tndef-amec-180-mili.jpg" alt="">
+          <h3>كلير شامبو رجالي تنظيف عميق 180 مللي</h3>
+    <div class="price"> جنيه 78.00</div>
+    <input type="number" id="qty-180" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كلير شامبو رجالي تنظيف عميق 180 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('كلير شامبو رجالي تنظيف عميق 180 مللي', 'qty-180')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كلير شامبو رجالي الفحم 180 مللي">
+        <img src="cosmetics-images/claer-shampoo-men-cool-180-mili.jpg" alt="">
+          <h3>كلير شامبو رجالي الفحم 180 مللي</h3>
+    <div class="price"> جنيه 78.00</div>
+    <input type="number" id="qty-181" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كلير شامبو رجالي الفحم 180 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('كلير شامبو رجالي الفحم 180 مللي', 'qty-181')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="كلير شامبو رجالي فينيسيوس 180 مللي">
+        <img src="cosmetics-images/claer-shampoo-men-vini-180-mili.avif" alt="">
+          <h3>كلير شامبو رجالي فينيسيوس 180 مللي</h3>
+    <div class="price"> جنيه 78.00</div>
+    <input type="number" id="qty-182" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('كلير شامبو رجالي فينيسيوس 180 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('كلير شامبو رجالي فينيسيوس 180 مللي', 'qty-182')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="لوريال بديل زيت مقاومه كامله للسقوط (نبيتي) 300 مللي">
+        <img src="cosmetics-images/loreal-bdel-oil-moquma-kamla-llsqut-npiti-300-mili.webp" alt="">
+          <h3>لوريال بديل زيت مقاومه كامله للسقوط (نبيتي) 300 مللي</h3>
+    <div class="price"> جنيه 140.00</div>
+    <input type="number" id="qty-183" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لوريال بديل زيت مقاومه كامله للسقوط (نبيتي) 300 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('لوريال بديل زيت مقاومه كامله للسقوط (نبيتي) 300 مللي', 'qty-183')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="لوريال بديل زيت (توتال ريبير) ابيض 300 مللي">
+        <img src="cosmetics-images/loreal-bdil-oil-total-riber-white-300-mili.jpg" alt="">
+           <h3>لوريال بديل زيت (توتال ريبير) ابيض 300 مللي</h3>
+    <div class="price"> جنيه 140.00</div>
+    <input type="number" id="qty-184" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لوريال بديل زيت (توتال ريبير) ابيض 300 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('لوريال بديل زيت (توتال ريبير) ابيض 300 مللي', 'qty-184')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="لوريال بلسم جليكوليك 200 مللي">
+        <img src="cosmetics-images/loreal-blsam-glikolic-200-mili.webp" alt="">
+          <h3>لوريال بلسم جليكوليك 200 مللي</h3>
+    <div class="price"> جنيه 115.00</div>
+    <input type="number" id="qty-185" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لوريال بلسم جليكوليك 200 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('لوريال بلسم جليكوليك 200 مللي', 'qty-185')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="لوريال بلسم مقاوم لتساقط الشعر 200 مللي">
+        <img src="cosmetics-images/lorael-balsm-moqauem-lltasakt-elshar-200-mili.webp" alt="">
+          <h3>لوريال بلسم مقاوم لتساقط الشعر 200 مللي</h3>
+    <div class="price"> جنيه 110.00</div>
+    <input type="number" id="qty-186" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لوريال بلسم مقاوم لتساقط الشعر 200 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('لوريال بلسم مقاوم لتساقط الشعر 200 مللي', 'qty-186')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="لوريال بلسم هيالورون بيور 200 مللي">
+        <img src="cosmetics-images/lorael-blsam-hyaloreen-pure-200-mili.jpg" alt="">
+          <h3>لوريال بلسم هيالورون بيور 200 مللي</h3>
+    <div class="price"> جنيه 110.00</div>
+    <input type="number" id="qty-187" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لوريال بلسم هيالورون بيور 200 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('لوريال بلسم هيالورون بيور 200 مللي', 'qty-187')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="لوريال بلسم هيالورونك (موف) 200 مللي">
+        <img src="cosmetics-images/lorael-blsam-hayalorinc-purple-200-mili.jpg" alt="">
+          <h3>لوريال بلسم هيالورونك (موف) 200 مللي</h3>
+    <div class="price"> جنيه 110.00</div>
+    <input type="number" id="qty-188" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لوريال بلسم هيالورونك (موف) 200 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('لوريال بلسم هيالورونك (موف) 200 مللي', 'qty-188')">اشترِ الآن</button>
+  </div>
+        <div class="product" data-name="لوريال شامبو هيالورون 400 مللي">
+        <img src="cosmetics-images/lorael-shampoo-hayaloren-400-mili.avif" alt="">
+          <h3>لوريال شامبو هيالورون 400 مللي</h3>
+    <div class="price"> جنيه 135.00</div>
+    <input type="number" id="qty-189" min="1" value="1" style="width:60px;text-align:center;">
+    <button onclick="addToCart('لوريال شامبو هيالورون 400 مللي')">أضف إلى السلة</button>
+    <button onclick="buyNow('لوريال شامبو هيالورون 400 مللي', 'qty-189')">اشترِ الآن</button>
+  </div>
+  <!-- باقي المنتجات هتكون بنفس الشكل -->
+  <!-- انسخ الكارت وغير الاسم والسعر والوصف -->
+</div>
+
+<div class="toast" id="toast">تمت الإضافة إلى السلة 🛒</div>
+
+<script>
+  const searchInput = document.getElementById('searchInput');
+  const products = document.querySelectorAll('.product');
+  const toast = document.getElementById('toast');
+
+  searchInput.addEventListener('keyup', function() {
+    const value = this.value.toLowerCase();
+    products.forEach(product => {
+      const name = product.getAttribute('data-name').toLowerCase();
+      product.style.display = name.includes(value) ? "block" : "none";
+    });
+  });
+
+  function addToCart(productName) {
+    toast.textContent = `تمت إضافة ${productName} إلى السلة 🛒`;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+  }
+  function buyNow(productName) {
+  // حفظ اسم المنتج في localStorage
+  localStorage.setItem("selectedProduct", productName);
+  // التحويل لصفحة الدفع
+  window.location.href = "checkout.html";
+}
+</script>
+<script>
+  function buyNow(productName) {
+    const quantity = 1; // تقدر تخليها متغيرة لو عندك اختيار كمية
+    const url = `checkout.html?product=${encodeURIComponent(productName)}&quantity=${quantity}`;
+    window.location.href = url;
+  }
+</script>
+<script>
+  function buyNow(productName, qtyId) {
+    const quantity = document.getElementById(qtyId).value || 1;
+    const url = `checkout.html?product=${encodeURIComponent(productName)}&quantity=${encodeURIComponent(quantity)}`;
+    window.location.href = url;
+  }
+</script>
+<script src="Cart.js"></script>
+</body>
+</html>
+
+
+
+
+
+
