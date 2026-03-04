@@ -50,12 +50,14 @@
       <button type="submit">إرسال الطلب عبر البريد</button>
     </form>
   </div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
 <script>
+// --- الجزء الأول: كود السلة والمشتريات (بدون أي تغيير في المنطق بتاعك) ---
 window.onload = function() {
-    const CART_KEY = "amalk_cart_v1"; // نفس الاسم الموحد
+    const CART_KEY = "amalk_cart_v1"; 
     const urlParams = new URLSearchParams(window.location.search);
     
-    // بيانات "اشترِ الآن" من الرابط
     const singleProduct = urlParams.get('product');
     const singlePrice = urlParams.get('price');
     const singleQty = urlParams.get('quantity');
@@ -64,26 +66,18 @@ window.onload = function() {
     const productQuantityInput = document.getElementById('productQuantity');
     const totalPriceDiv = document.getElementById('finalTotalPrice');
 
-    // الحالة 1: لو داس "اشترِ الآن" (منتج واحد)
     if (singleProduct && singlePrice) {
         productNameInput.value = singleProduct;
         productQuantityInput.value = singleQty;
         let total = parseFloat(singlePrice) * parseInt(singleQty);
         totalPriceDiv.innerText = `طلب منتج واحد - الإجمالي: ${total.toFixed(2)} جنيه`;
     } 
-    // الحالة 2: لو جاي من السلة (أكثر من منتج)
     else {
         let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
-        
         if (cart.length > 0) {
-            // هيجيب أسامي كل المنتجات في السلة ويحط بينهم " + "
             productNameInput.value = cart.map(item => item.name).join(" + ");
-            
-            // هيجمع إجمالي القطع
             let totalQty = cart.reduce((sum, item) => sum + parseInt(item.quantity), 0);
             productQuantityInput.value = totalQty;
-
-            // هيحسب السعر الإجمالي لكل المنتجات
             let totalCash = cart.reduce((sum, item) => sum + (parseFloat(item.price) * parseInt(item.quantity)), 0);
             totalPriceDiv.innerText = `إجمالي طلبات السلة: ${totalCash.toFixed(2)} جنيه`;
         } else {
@@ -92,38 +86,34 @@ window.onload = function() {
             totalPriceDiv.innerText = "القائمة فارغة";
         }
     }
-}
-</script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+};
 
-<script type="text/javascript">
-  document.getElementById('checkoutForm').addEventListener('submit', function(event) {
+// --- الجزء الثاني: كود الإرسال الموحد ببياناتك الصحيحة ---
+document.getElementById('checkoutForm').addEventListener('submit', function(event) {
     event.preventDefault();
-
+    
     const btn = event.target.querySelector('button');
     btn.innerText = "جاري الإرسال... ⏳";
     btn.disabled = true;
 
-    // تفعيل الحساب وتحديد المفتاح العام (Public Key) في نفس اللحظة
-    // استخدمت المفتاح اللي في صورتك بالظبط
+    // دي بياناتك اللي في الصور بالظبط
     const publicKey = "SvpoqikClslazGM2Z";
     const serviceID = "service_34tw6rq";
     const templateID = "template_11oixht";
 
-    // أمر الإرسال مع تمرير الـ Public Key كبراميتر رابع (دي أضمن طريقة)
+    // الإرسال مع تفعيل المفتاح في نفس اللحظة لمنع Account not found
     emailjs.sendForm(serviceID, templateID, this, publicKey)
-      .then(function() {
-        alert('✅ تم إرسال طلبك بنجاح! شكراً لتعاملك مع شركة الأمل.');
-        localStorage.removeItem("amalk_cart_v1"); 
-        window.location.href = "index.html"; 
-      }, function(error) {
-        console.error('EmailJS Error Detail:', error);
-        // هيطلع لك رسالة فيها سبب الرفض بالظبط من سيرفر EmailJS
-        alert('❌ فشل الإرسال: ' + (error.text || JSON.stringify(error)));
-        btn.innerText = "إرسال الطلب عبر البريد";
-        btn.disabled = false;
-      });
-  });
+        .then(function() {
+            alert('✅ تم إرسال طلبك بنجاح! شكراً لتعاملك مع شركة الأمل.');
+            localStorage.removeItem("amalk_cart_v1"); 
+            window.location.href = "index.html"; 
+        }, function(error) {
+            console.error('EmailJS Error:', error);
+            alert('❌ فشل الإرسال: ' + (error.text || "Account not found - راجع إعدادات EmailJS"));
+            btn.innerText = "إرسال الطلب عبر البريد";
+            btn.disabled = false;
+        });
+});
 </script>
 </body>
 </html>
