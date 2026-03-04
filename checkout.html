@@ -93,23 +93,6 @@ window.onload = function() {
         }
     }
 }
-document.getElementById('checkoutForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    // إظهار رسالة تحميل
-    const btn = event.target.querySelector('button');
-    btn.innerText = "جاري الإرسال...";
-
-    emailjs.sendForm('service_xxxx', 'template_xxxx', this) // حط الـ IDs بتاعتك هنا
-        .then(function() {
-            alert('✅ تم إرسال طلبك لشركة الأمل بنجاح!');
-            localStorage.removeItem("amalk_cart_v1"); // مسح السلة
-            window.location.href = "index.html";
-        }, function(error) {
-            alert('❌ عذراً، حدث خطأ في الإرسال');
-            btn.innerText = "إرسال الطلب عبر البريد";
-        });
-});
 </script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
