@@ -26,30 +26,37 @@
 <script>
     const CART_KEY = "amalk_cart_v1";
 
-    function renderCart() {
-        const cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
-        const container = document.getElementById('cartContent');
-        const totalArea = document.getElementById('totalArea');
+function renderCart() {
+    const cart = JSON.parse(localStorage.getItem("amalk_cart_v1")) || [];
+    const container = document.getElementById('cartContent');
+    const totalArea = document.getElementById('totalArea'); // تأكد إن الـ ID ده موجود في الـ HTML
 
-        if (cart.length === 0) {
-            container.innerHTML = "السلة فارغة";
-            totalArea.innerHTML = "";
-            return;
-        }
-
-        let html = "<table><tr><th>المنتج</th><th>السعر</th><th>الكمية</th><th>إزالة</th></tr>";
-        let total = 0;
-
-        cart.forEach((item, index) => {
-            let p = Number(item.price) || 0;
-            let q = Number(item.quantity) || 1;
-            total += (p * q);
-            html += `<tr><td>${item.name}</td><td>${p} ج.م</td><td>${q}</td><td><button onclick="removeItem(${index})">حذف</button></td></tr>`;
-        });
-
-        container.innerHTML = html + "</table>";
-        totalArea.innerHTML = "الإجمالي: " + total + " ج.م";
+    if (cart.length === 0) {
+        container.innerHTML = "<p style='text-align:center;'>السلة فارغة</p>";
+        totalArea.innerHTML = "";
+        return;
     }
+
+    let html = "<table><tr><th>المنتج</th><th>السعر</th><th>الكمية</th><th>إزالة</th></tr>";
+    let totalValue = 0;
+
+    cart.forEach((item, index) => {
+        let price = Number(item.price) || 0;
+        let qty = Number(item.quantity) || 1;
+        totalValue += (price * qty);
+
+        html += `<tr>
+            <td>${item.name}</td>
+            <td>${price} ج.م</td>
+            <td>${qty}</td>
+            <td><button class="btn-delete" onclick="removeItem(${index})">حذف</button></td>
+        </tr>`;
+    });
+
+    container.innerHTML = html + "</table>";
+    // ده السطر اللي هيعرض الإجمالي صح
+    totalArea.innerHTML = "إجمالي السلة: " + totalValue + " ج.م"; 
+}
 
     function removeItem(index) {
         let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
