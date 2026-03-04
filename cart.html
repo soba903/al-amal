@@ -1,32 +1,74 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <title>سلة المشتريات - شركة الأمل</title>
+    <style>
+        body { font-family: Cairo, sans-serif; background: #f0f4f8; padding: 20px; }
+        .cart-container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #0077b6; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; border-bottom: 1px solid #ddd; text-align: center; }
+        th { background: #0077b6; color: white; }
+        .total-price { font-size: 1.5em; font-weight: bold; color: #e91e63; text-align: left; margin-top: 20px; }
+        .btn-delete { background: #ff4d4d; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+        .btn-checkout { background: #28a745; color: white; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; display: block; width: 100%; font-size: 1.2em; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="cart-container">
+    <h1>سلة المشتريات 🛒</h1>
+    <div id="cartContent">
+        </div>
+    <div id="totalArea" class="total-price"></div>
+    <button class="btn-checkout" onclick="alert('جارٍ تحويلك للدفع...')">إتمام الشراء</button>
+</div>
+
 <script>
-function renderCart() {
-  const cart = getCart();
-  const div = document.getElementById('cartContainer');
+    // تأكد إن الاسم ده هو نفسه اللي في صفحة المنتجات
+    const CART_KEY = "amalk_cart_v1";
 
-  if (cart.length === 0) {
-    div.innerHTML = "<p>السلة فارغة حالياً.</p>";
-    return;
-  }
+    function renderCart() {
+        const cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+        const container = document.getElementById('cartContent');
+        const totalArea = document.getElementById('totalArea');
 
-  // ضفت عمود الكمية في العناوين عشان الجدول يظبط
-  let html = "<table><tr><th>الاسم</th><th>السعر</th><th>الكمية</th><th>إزالة</th></tr>";
+        if (cart.length === 0) {
+            container.innerHTML = "<p style='text-align:center;'>السلة فارغة حالياً يا بطل. اطلب حاجة الأول!</p>";
+            totalArea.innerHTML = "";
+            return;
+        }
 
-  cart.forEach((item, index) => {
-    html += `
-      <tr>
-        <td>${item.name}</td>
-        <td>${item.price} ج.م</td>
-        <td>${item.quantity || 1}</td>
-        <td><button onclick="removeItem(${index})">حذف</button></td>
-      </tr>`;
-  });
+        let html = "<table><tr><th>المنتج</th><th>السعر</th><th>الكمية</th><th>إزالة</th></tr>";
+        let total = 0;
 
-  html += "</table>";
-  
-  // حساب الإجمالي
-  const total = cart.reduce((sum, item) => sum + (parseFloat(item.price) * (item.quantity || 1)), 0);
-  html += `<div class="total"><strong>الإجمالي: ${total} ج.م</strong></div>`;
+        cart.forEach((item, index) => {
+            html += `
+                <tr>
+                    <td>${item.name}</td>
+                    <td>${item.price} ج.م</td>
+                    <td>${item.quantity}</td>
+                    <td><button class="btn-delete" onclick="removeItem(${index})">حذف</button></td>
+                </tr>`;
+            total += (parseFloat(item.price) * item.quantity);
+        });
 
-  div.innerHTML = html;
-}
+        html += "</table>";
+        container.innerHTML = html;
+        totalArea.innerHTML = "الإجمالي: " + total + " ج.م";
+    }
+
+    function removeItem(index) {
+        let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+        cart.splice(index, 1);
+        localStorage.setItem(CART_KEY, JSON.stringify(cart));
+        renderCart();
+    }
+
+    // تشغيل الدالة أول ما الصفحة تفتح
+    document.addEventListener("DOMContentLoaded", renderCart);
 </script>
+
+</body>
+</html>
