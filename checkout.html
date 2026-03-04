@@ -53,44 +53,44 @@
 
 <script>
 window.onload = function() {
-    // 1. هنجيب البيانات من الرابط (لو داس اشترِ الآن)
     const urlParams = new URLSearchParams(window.location.search);
     const singleProduct = urlParams.get('product');
-    
-    // 2. هنجيب الأسماء من السلة (لو كان ضايف منتجات)
-    // ملحوظة: تأكد إن الاسم "simple_order_list" هو نفس اللي استعملناه في addToCart
-    let cart = JSON.parse(localStorage.getItem("simple_order_list")) || [];
-    
+    const singlePrice = urlParams.get('price') || "0"; // لو باعت السعر في اللينك
+    const singleQty = urlParams.get('quantity') || "1";
+
     const productNameInput = document.getElementById('productName');
     const productQuantityInput = document.getElementById('productQuantity');
     const totalPriceDiv = document.getElementById('finalTotalPrice');
 
-    let finalOrderText = "";
-    let totalItems = 0;
-
+    // الحالة الأولى: لو جاي من زرار "اشترِ الآن" (بيانات من اللينك)
     if (singleProduct) {
-        // حالة "اشترِ الآن"
-        finalOrderText = singleProduct;
-        totalItems = 1;
-        totalPriceDiv.innerText = "طلب منتج واحد"; // لأننا لغينا الحسابات المالية حالياً
-    } else if (cart.length > 0) {
-        // حالة "السلة"
-        finalOrderText = cart.join(" - "); // هيحط المنتجات جنب بعضها
-        totalItems = cart.length;
-        totalPriceDiv.innerText = "إجمالي عدد الأصناف: " + totalItems;
-    } else {
-        finalOrderText = "لا توجد منتجات";
-        totalPriceDiv.innerText = "القائمة فارغة";
+        productNameInput.value = singleProduct;
+        productQuantityInput.value = singleQty;
+        
+        let total = parseFloat(singlePrice) * parseInt(singleQty);
+        totalPriceDiv.innerText = `طلب منتج واحد: ${total.toFixed(2)} جنيه`;
+    } 
+    // الحالة الثانية: لو جاي من "السلة" (بيانات من التخزين)
+    else {
+        let cart = JSON.parse(localStorage.getItem("amalk_cart_v1")) || [];
+        
+        if (cart.length > 0) {
+            // تجميع الأسماء
+            let names = cart.map(item => item.name).join(" + ");
+            // تجميع عدد القطع الكلي
+            let totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
+            // حساب السعر الإجمالي
+            let totalCash = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            productNameInput.value = names;
+            productQuantityInput.value = totalQty;
+            totalPriceDiv.innerText = `إجمالي المبلغ: ${totalCash.toFixed(2)} جنيه`;
+        } else {
+            productNameInput.value = "لا توجد منتجات";
+            productQuantityInput.value = "0";
+            totalPriceDiv.innerText = "السلة فارغة";
+        }
     }
-
-    // 3. بنحط الكلام ده في الـ Inputs عشان يتبعت مع الفورم
-    if (productNameInput) productNameInput.value = finalOrderText;
-    if (productQuantityInput) productQuantityInput.value = totalItems;
-}
-
-// دالة نمسح بيها السلة (نادي عليها لما الطلب يتبعت بنجاح في EmailJS)
-function clearCartAfterOrder() {
-    localStorage.removeItem("simple_order_list");
 }
 </script>
 </body>
