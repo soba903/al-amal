@@ -51,78 +51,47 @@
     </form>
   </div>
 
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
-  (function() {
-    emailjs.init("SvpoqikCIslazGM2Z"); 
-  })();
-
-  document.addEventListener("DOMContentLoaded", function() {
-    const CART_KEY = "amalk_cart_v1";
-    const params = new URLSearchParams(window.location.search);
+window.onload = function() {
+    // 1. هنجيب البيانات من الرابط (لو داس اشترِ الآن)
+    const urlParams = new URLSearchParams(window.location.search);
+    const singleProduct = urlParams.get('product');
     
-    // جلب بيانات لو الطلب جاي "فردي" من اللينك
-    const urlProduct = params.get("product");
-    const urlQty = params.get("quantity") || 1;
-    const urlPrice = params.get("price") || 0;
+    // 2. هنجيب الأسماء من السلة (لو كان ضايف منتجات)
+    // ملحوظة: تأكد إن الاسم "simple_order_list" هو نفس اللي استعملناه في addToCart
+    let cart = JSON.parse(localStorage.getItem("simple_order_list")) || [];
+    
+    const productNameInput = document.getElementById('productName');
+    const productQuantityInput = document.getElementById('productQuantity');
+    const totalPriceDiv = document.getElementById('finalTotalPrice');
 
-    const productInput = document.getElementById("productName");
-    const quantityInput = document.getElementById("productQuantity");
-    const priceDisplay = document.getElementById("finalTotalPrice");
+    let finalOrderText = "";
+    let totalItems = 0;
 
-    let finalTotal = 0;
-
-    // 1. فحص هل يوجد منتج فردي؟
-    if (urlProduct) {
-        productInput.value = urlProduct;
-        quantityInput.value = urlQty;
-        finalTotal = Number(urlPrice) * Number(urlQty);
-    } 
-    // 2. لو مفيش فردي، نسحب بيانات السلة كاملة
-    else {
-        const cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
-        if (cart.length > 0) {
-            productInput.value = cart.map(i => `${i.name} (${i.quantity})`).join(" - ");
-            quantityInput.value = cart.reduce((sum, i) => sum + Number(i.quantity), 0);
-            finalTotal = cart.reduce((sum, i) => sum + (Number(i.price) * Number(i.quantity)), 0);
-        } else {
-            productInput.value = "لا توجد منتجات";
-            quantityInput.value = 0;
-            finalTotal = 0;
-        }
+    if (singleProduct) {
+        // حالة "اشترِ الآن"
+        finalOrderText = singleProduct;
+        totalItems = 1;
+        totalPriceDiv.innerText = "طلب منتج واحد"; // لأننا لغينا الحسابات المالية حالياً
+    } else if (cart.length > 0) {
+        // حالة "السلة"
+        finalOrderText = cart.join(" - "); // هيحط المنتجات جنب بعضها
+        totalItems = cart.length;
+        totalPriceDiv.innerText = "إجمالي عدد الأصناف: " + totalItems;
+    } else {
+        finalOrderText = "لا توجد منتجات";
+        totalPriceDiv.innerText = "القائمة فارغة";
     }
 
-    // عرض السعر النهائي
-    priceDisplay.textContent = "إجمالي المبلغ: " + finalTotal + " ج.م";
+    // 3. بنحط الكلام ده في الـ Inputs عشان يتبعت مع الفورم
+    if (productNameInput) productNameInput.value = finalOrderText;
+    if (productQuantityInput) productQuantityInput.value = totalItems;
+}
 
-    // 3. إرسال الطلب
-    document.getElementById("checkoutForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      
-      const submitBtn = this.querySelector('button');
-      submitBtn.innerText = "جاري الإرسال...";
-      submitBtn.disabled = true;
-
-      emailjs.send('service_34tw6rq', 'template_11oixht', {
-        name: this.name.value,
-        phone: this.phone.value,
-        address: this.address.value,
-        paymentMethod: this.paymentMethod.value,
-        productName: productInput.value,
-        productQuantity: quantityInput.value,
-        totalPrice: finalTotal // بعتلك الإجمالي كمان للإيميل
-      }).then(() => {
-        alert("✅ تم إرسال طلبك بنجاح! سنتواصل معك قريباً.");
-        localStorage.removeItem(CART_KEY); // تنظيف السلة بعد الشراء
-        window.location.href = "index.html";
-      }).catch((err) => {
-        alert("❌ حدث خطأ، حاول مرة أخرى.");
-        console.error(err);
-        submitBtn.innerText = "إرسال الطلب";
-        submitBtn.disabled = false;
-      });
-    });
-  });
+// دالة نمسح بيها السلة (نادي عليها لما الطلب يتبعت بنجاح في EmailJS)
+function clearCartAfterOrder() {
+    localStorage.removeItem("simple_order_list");
+}
 </script>
 </body>
 </html>
