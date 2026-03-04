@@ -111,6 +111,36 @@ document.getElementById('checkoutForm').addEventListener('submit', function(even
         });
 });
 </script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+<script type="text/javascript">
+  (function() {
+    // 2. تفعيل الحساب بمفتاحك اللي في الصورة
+    emailjs.init("SvpoqikClslazGM2Z");
+  })();
+
+  // 3. كود الإرسال عند الضغط على الزرار
+  document.getElementById('checkoutForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const btn = event.target.querySelector('button');
+    btn.innerText = "جاري الإرسال... ⏳";
+    btn.disabled = true;
+
+    // استبدل SERVICE_ID و TEMPLATE_ID من حسابك (Email Services و Email Templates)
+    // لازم تتأكد إن الأسامي جوه الـ Template هي {{productName}} و {{name}} و {{phone}} إلخ
+    emailjs.sendForm('service_34tw6rq', 'template_11oixht', this)
+      .then(function() {
+        alert('✅ تم إرسال طلبك بنجاح! شكراً لتعاملك مع شركة الأمل.');
+        localStorage.removeItem("amalk_cart_v1"); // مسح السلة
+        window.location.href = "index.html"; 
+      }, function(error) {
+        alert('❌ فشل الإرسال: ' + JSON.stringify(error));
+        btn.innerText = "إرسال الطلب عبر البريد";
+        btn.disabled = false;
+      });
+  });
+</script>
 </body>
 </html>
 
