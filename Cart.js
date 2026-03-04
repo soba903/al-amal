@@ -19,19 +19,25 @@ function saveCart(cart) {
     updateCartCount();
 }
 
-function addToCart(name, price, image = "") {
-    const cart = getCart();
-    const existingItem = cart.find(item => item.name === name);
+// دالة الإضافة للسلة - ضفنا فيها السعر
+function addToCart(name, price) {
+    let cart = JSON.parse(localStorage.getItem("amalk_cart_v1")) || [];
+    let existingItem = cart.find(item => item.name === name);
 
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
-        // تأكدنا إن السعر بيتخزن كرقم Number
-        cart.push({ name, price: Number(price), image, quantity: 1 });
+        cart.push({ name: name, price: parseFloat(price), quantity: 1 });
     }
+    localStorage.setItem("amalk_cart_v1", JSON.stringify(cart));
+    alert("✅ تمت إضافة " + name + " للسلة");
+}
 
-    saveCart(cart);
-    alert("المنتج اتضاف يا بطل! ✅");
+// دالة اشترِ الآن - اللي كانت شغالة عندك بس ظبطناها للسعر والكمية
+function buyNow(name, price, qtyId) {
+    const qty = document.getElementById(qtyId).value || 1;
+    // بنبعت البيانات في اللينك لصفحة checkout
+    window.location.href = `checkout.html?product=${encodeURIComponent(name)}&price=${price}&quantity=${qty}`;
 }
 
 document.addEventListener("DOMContentLoaded", updateCartCount);
