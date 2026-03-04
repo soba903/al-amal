@@ -27,6 +27,19 @@
 </head>
 <body>
     <header>الأمل للمستلزمات الطبية</header>
+    <div id="cart-fab" onclick="window.location.href='cart.html'" style="position: fixed; bottom: 20px; left: 20px; background: #e91e63; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000;">
+    🛒
+    <span id="cart-count" style="position: absolute; top: 0; right: 0; background: white; color: #e91e63; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 1px solid #e91e63;">0</span>
+</div>
+
+<script>
+    // تحديث عدد المنتجات في الزرار أول ما الصفحة تفتح
+    function updateCartBadge() {
+        const cart = JSON.parse(localStorage.getItem('amalk_cart_v1')) || [];
+        document.getElementById('cart-count').innerText = cart.length;
+    }
+    document.addEventListener("DOMContentLoaded", updateCartBadge);
+</script>
 
     <div class="main-container">
         <div class="card" onclick="location.href='medical.html'">

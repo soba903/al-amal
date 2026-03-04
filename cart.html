@@ -1,69 +1,32 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<title>سلة المشتريات</title>
-<style>
-  body { font-family: Cairo, sans-serif; padding:20px; background:#f7f7f7; }
-  table { width:100%; background:#fff; border-radius:10px; overflow:hidden; }
-  th, td { padding:12px; border-bottom:1px solid #ddd; }
-  img { width:70px; height:70px; object-fit:cover; border-radius:8px; }
-  .total { text-align:left; margin-top:15px; font-size:20px; }
-  button { background:#e91e63; color:#fff; border:none; padding:8px 10px; border-radius:6px; cursor:pointer; }
-  h1{text-align: center;}
-  #cartContainer{
-    text-align: center;
-    font-size: large;
-  }
-</style>
-</head>
-
-<body>
-
-<h1>سلة المشتريات</h1>
-<div id="cartContainer"></div>
-<button onclick="proceedToCheckout()">إتمام عملية الشراء</button>
-
 <script>
-const CART_KEY = 'amalk_cart_v1';
-
-function getCart(){ return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
-function saveCart(c){ localStorage.setItem(CART_KEY, JSON.stringify(c)); renderCart(); }
-
 function renderCart() {
   const cart = getCart();
   const div = document.getElementById('cartContainer');
 
   if (cart.length === 0) {
-    div.innerHTML = "<p>السلة فارغة.</p>";
+    div.innerHTML = "<p>السلة فارغة حالياً.</p>";
     return;
   }
 
-  let html = "<table><tr><th>الاسم</th><th>السعر</th><th>إزالة</th></tr>";
+  // ضفت عمود الكمية في العناوين عشان الجدول يظبط
+  let html = "<table><tr><th>الاسم</th><th>السعر</th><th>الكمية</th><th>إزالة</th></tr>";
 
   cart.forEach((item, index) => {
     html += `
       <tr>
         <td>${item.name}</td>
         <td>${item.price} ج.م</td>
-        <td>${item.quantity}</td>
+        <td>${item.quantity || 1}</td>
         <td><button onclick="removeItem(${index})">حذف</button></td>
       </tr>`;
   });
 
   html += "</table>";
+  
+  // حساب الإجمالي
+  const total = cart.reduce((sum, item) => sum + (parseFloat(item.price) * (item.quantity || 1)), 0);
+  html += `<div class="total"><strong>الإجمالي: ${total} ج.م</strong></div>`;
 
   div.innerHTML = html;
 }
-
-function removeItem(i){
-  const cart = getCart();
-  cart.splice(i, 1);
-  saveCart(cart);
-}
-
-document.addEventListener("DOMContentLoaded", renderCart);
 </script>
-
-</body>
-</html>
