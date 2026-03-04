@@ -1835,7 +1835,32 @@
     window.location.href = url;
   }
 </script>
-<script src="Cart.js"></script>
+<script>
+// الكود ده لازم يكون جوه الصفحة نفسها
+const CART_KEY = "amalk_cart_v1";
+
+function addToCart(name, price) {
+    console.log("إضافة منتج:", name, price); // عشان نراقب في الـ Console
+    
+    let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+    
+    const existingItem = cart.find(item => item.name === name);
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({ name: name, price: price, quantity: 1 });
+    }
+    
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    
+    // التنبيه اللي هيعرفنا إن الدنيا تمام
+    alert("✅ تمام يا بطل! " + name + " اتضاف في السلة");
+    
+    // تحديث الرقم لو موجود
+    const countEl = document.getElementById("cartCount");
+    if (countEl) countEl.textContent = cart.length;
+}
+</script>
 </body>
 </html>
 
