@@ -1829,30 +1829,38 @@
   }
 </script>
 <script>
-  function buyNow(productName, qtyId) {
-    const quantity = document.getElementById(qtyId).value || 1;
-    const url = `checkout.html?product=${encodeURIComponent(productName)}&quantity=${encodeURIComponent(quantity)}`;
-    window.location.href = url;
-  }
-</script>
-<script>
-const CART_KEY = "amalk_cart_v1"; // وحدنا الاسم هنا وفي صفحة الـ checkout
+const CART_KEY = "amalk_cart_v1";
 
-function addToCart(name, price) {
+// 1. دالة إضافة للسلة (بالشكل اللي إنت كاتبه في المنتجات)
+function addToCart(name) {
+    // الكود ده بيروح يدور في الصفحة على السعر اللي جنب الاسم ده
+    const productDiv = document.querySelector(`[data-name="${name}"]`);
+    const priceText = productDiv.querySelector('.price').innerText;
+    const price = parseFloat(priceText.replace(/[^\d.]/g, '')); // بيستخرج رقم 137.00
+
     let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
     let existingItem = cart.find(item => item.name === name);
+
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
-        cart.push({ name: name, price: parseFloat(price), quantity: 1 });
+        cart.push({ name: name, price: price, quantity: 1 });
     }
+
     localStorage.setItem(CART_KEY, JSON.stringify(cart));
-    alert("✅ تمت إضافة " + name + " للسلة");
+    alert("✅ تم إضافة " + name + " للسلة");
 }
 
-function buyNow(name, price, qtyId) {
+// 2. دالة اشترِ الآن (بالشكل اللي إنت كاتبه في المنتجات)
+function buyNow(name, qtyId) {
+    // برضه هنسحب السعر أوتوماتيك من الصفحة
+    const productDiv = document.querySelector(`[data-name="${name}"]`);
+    const priceText = productDiv.querySelector('.price').innerText;
+    const price = parseFloat(priceText.replace(/[^\d.]/g, ''));
+    
     const qty = document.getElementById(qtyId).value || 1;
-    // التعديل ده عشان السعر والكمية يروحوا لصفحة الـ checkout
+
+    // بنحول لصفحة الـ checkout مع بعت السعر والكمية في الرابط
     window.location.href = `checkout.html?product=${encodeURIComponent(name)}&price=${price}&quantity=${qty}`;
 }
 </script>
