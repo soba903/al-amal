@@ -37,7 +37,7 @@
       <input type="tel" name="phone" placeholder="01000000000" required>
 
       <label>العنوان:</label>
-      <textarea name="address" placeholder="اكتب عنوانك بالتفصيل" rows="3" required></textarea>
+      <textarea name="address" placeholder="اكتب عنوانك بالتفاصيل" rows="3" required></textarea>
 
       <label>طريقة الدفع:</label>
       <select name="paymentMethod" required>
@@ -113,16 +113,7 @@ document.getElementById('checkoutForm').addEventListener('submit', function(even
 </script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-
 <script type="text/javascript">
-  // 2. تفعيل الحساب (استخدمت المفتاح اللي في الصورة SvpoqikClslazGM2Z)
-  (function() {
-      // السطر ده هو اللي بيقول لـ EmailJS أنت مين
-      emailjs.init("SvpoqikClslazGM2Z"); 
-  })();
-
-  // 3. دالة الإرسال
   document.getElementById('checkoutForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -130,16 +121,22 @@ document.getElementById('checkoutForm').addEventListener('submit', function(even
     btn.innerText = "جاري الإرسال... ⏳";
     btn.disabled = true;
 
-    // استخدام الـ IDs اللي في الصور بتاعتك
-    emailjs.sendForm('service_34tw6rq', 'template_11oixht', this)
+    // تفعيل الحساب وتحديد المفتاح العام (Public Key) في نفس اللحظة
+    // استخدمت المفتاح اللي في صورتك بالظبط
+    const publicKey = "SvpoqikClslazGM2Z";
+    const serviceID = "service_34tw6rq";
+    const templateID = "template_11oixht";
+
+    // أمر الإرسال مع تمرير الـ Public Key كبراميتر رابع (دي أضمن طريقة)
+    emailjs.sendForm(serviceID, templateID, this, publicKey)
       .then(function() {
         alert('✅ تم إرسال طلبك بنجاح! شكراً لتعاملك مع شركة الأمل.');
         localStorage.removeItem("amalk_cart_v1"); 
         window.location.href = "index.html"; 
       }, function(error) {
-        // لو ظهر خطأ هيطبع لنا السبب الحقيقي في الـ Console
-        console.log("EmailJS Error:", error);
-        alert('❌ فشل الإرسال: ' + (error.text || "تأكد من إعدادات الحساب"));
+        console.error('EmailJS Error Detail:', error);
+        // هيطلع لك رسالة فيها سبب الرفض بالظبط من سيرفر EmailJS
+        alert('❌ فشل الإرسال: ' + (error.text || JSON.stringify(error)));
         btn.innerText = "إرسال الطلب عبر البريد";
         btn.disabled = false;
       });
