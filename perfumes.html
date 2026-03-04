@@ -1883,64 +1883,74 @@
 <div class="toast" id="toast">تمت الإضافة إلى السلة 🛒</div>
 
 <script>
+  // 1. كود البحث (زي ما هو)
   const searchInput = document.getElementById('searchInput');
   const products = document.querySelectorAll('.product');
   const toast = document.getElementById('toast');
 
-  searchInput.addEventListener('keyup', function() {
-    const value = this.value.toLowerCase();
-    products.forEach(product => {
-      const name = product.getAttribute('data-name').toLowerCase();
-      product.style.display = name.includes(value) ? "block" : "none";
-    });
-  });
-
-  function addToCart(productName) {
-    toast.textContent = `تمت إضافة ${productName} إلى السلة 🛒`;
-    toast.classList.add('show');
-    setTimeout(() => toast.classLit.remove('show'), 2000);
+  if(searchInput) {
+      searchInput.addEventListener('keyup', function() {
+        const value = this.value.toLowerCase();
+        products.forEach(product => {
+          const name = product.getAttribute('data-name').toLowerCase();
+          product.style.display = name.includes(value) ? "block" : "none";
+        });
+      });
   }
-  function buyNow(productName) {
-  // حفظ اسم المنتج في localStorage
-  localStorage.setItem("selectedProduct", productName);
-  // التحويل لصفحة الدفع
-  window.location.href = "checkout.html";
-}
-</script>
-<script>
-const CART_KEY = "amalk_cart_v1";
 
-// 1. دالة إضافة للسلة (بالشكل اللي إنت كاتبه في المنتجات)
-function addToCart(name) {
-    // الكود ده بيروح يدور في الصفحة على السعر اللي جنب الاسم ده
-    const productDiv = document.querySelector(`[data-name="${name}"]`);
-    const priceText = productDiv.querySelector('.price').innerText;
-    const price = parseFloat(priceText.replace(/[^\d.]/g, '')); // بيستخرج رقم 137.00
+  // 2. الكود الموحد للسلة واشتري الآن
+  const CART_KEY = "amalk_cart_v1";
 
-    let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
-    let existingItem = cart.find(item => item.name === name);
+  function addToCart(name) {
+      // بنستخدم trim() عشان نشيل أي مسافات زيادة في الاسم
+      const cleanName = name.trim();
+      const productDiv = document.querySelector(`[data-name="${name}"]`);
+      
+      if (!productDiv) {
+          console.error("لم يتم العثور على المنتج: " + name);
+          return;
+      }
 
-    if (existingItem) {
-        existingItem.quantity += 1;
-    } else {
-        cart.push({ name: name, price: price, quantity: 1 });
-    }
+      const priceText = productDiv.querySelector('.price').innerText;
+      const price = parseFloat(priceText.replace(/[^\d.]/g, ''));
 
-    localStorage.setItem(CART_KEY, JSON.stringify(cart));
-    alert("✅ تم إضافة " + name + " للسلة");
-}
+      let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+      let existingItem = cart.find(item => item.name.trim() === cleanName);
 
-// 2. دالة اشترِ الآن (بالشكل اللي إنت كاتبه في المنتجات)
-function buyNow(name, qtyId) {
-    // برضه هنسحب السعر أوتوماتيك من الصفحة
-    const productDiv = document.querySelector(`[data-name="${name}"]`);
-    const priceText = productDiv.querySelector('.price').innerText;
-    const price = parseFloat(priceText.replace(/[^\d.]/g, ''));
-    
-    const qty = document.getElementById(qtyId).value || 1;
+      if (existingItem) {
+          existingItem.quantity += 1;
+      } else {
+          cart.push({ name: cleanName, price: price, quantity: 1 });
+      }
 
-    // بنحول لصفحة الـ checkout مع بعت السعر والكمية في الرابط
-    window.location.href = `checkout.html?product=${encodeURIComponent(name)}&price=${price}&quantity=${qty}`;
-}
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      
+      // إظهار التوست أو التنبيه
+      if(toast) {
+          toast.textContent = `تمت إضافة ${cleanName} إلى السلة 🛒`;
+          toast.classList.add('show');
+          setTimeout(() => toast.classList.remove('show'), 2000);
+      } else {
+          alert("✅ تمت الإضافة للسلة");
+      }
+  }
+
+  function buyNow(name, qtyId) {
+      const cleanName = name.trim();
+      const productDiv = document.querySelector(`[data-name="${name}"]`);
+      
+      if (!productDiv) {
+          alert("خطأ في تحديد المنتج");
+          return;
+      }
+
+      const priceText = productDiv.querySelector('.price').innerText;
+      const price = parseFloat(priceText.replace(/[^\d.]/g, ''));
+      const qty = document.getElementById(qtyId) ? document.getElementById(qtyId).value : 1;
+
+      // أهم سطر للتحويل
+      const url = `checkout.html?product=${encodeURIComponent(cleanName)}&price=${price}&quantity=${qty}`;
+      window.location.href = url;
+  }
 </script>
 </html>
