@@ -117,7 +117,7 @@
     emailjs.init("SvpoqikCIslazGM2Z"); // 🔹 حط المفتاح العام الخاص بـ EmailJS
   })();
 
-  document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener("DOMContentLoaded"), function(){
     const params = new URLSearchParams(window.location.search);
     const product = params.get("product") || "غير محدد";
     const quantity = params.get("quantity") || 1;
@@ -126,29 +126,54 @@
     document.getElementById("productName").value = product;
     document.getElementById("productQuantity").value = quantity;
 
+document.addEventListener("DOMContentLoaded", function() {
+    const CART_KEY = "amalk_cart_v1";
+    const cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+    
+    const productInput = document.getElementById("productName");
+    const quantityInput = document.getElementById("productQuantity");
+
+    if (cart.length > 0) {
+        // تجميع كل أسماء المنتجات وكمياتها في الفاتورة
+        let allProducts = cart.map(item => `${item.name} (${item.quantity})`).join(" - ");
+        let totalQty = cart.reduce((sum, item) => sum + (parseInt(item.quantity) || 1), 0);
+        let totalPrice = cart.reduce((sum, item) => sum + (parseFloat(item.price) * (parseInt(item.quantity) || 1)), 0);
+
+        productInput.value = allProducts;
+        quantityInput.value = totalQty;
+        
+        // إضافة سطر الإجمالي في الـ Form عشان المستخدم يشوفه
+        const priceLabel = document.createElement("p");
+        priceLabel.innerHTML = `<strong>إجمالي المبلغ المطلوب: ${totalPrice} ج.م</strong>`;
+        priceLabel.style.color = "#e91e63";
+        document.getElementById("checkoutForm").prepend(priceLabel);
+    }
+
     document.getElementById("checkoutForm").addEventListener("submit", function(e) {
-      e.preventDefault();
+        e.preventDefault();
 
-      // ✳️ إضافة اسم المنتج والكمية كمتغيرات إضافية قبل الإرسال
-      const formData = new FormData(this);
-      formData.append("productName", product);
-      formData.append("productQuantity", quantity);
-
-      emailjs.send('service_34tw6rq', 'template_11oixht', {
-        name: formData.get("name"),
-        email: formData.get("email"),
-        phone: formData.get("phone"),
-        address: formData.get("address"),
-        paymentMethod: formData.get("paymentMethod"),
-        productName: product,
-        productQuantity: quantity
-      }).then(() => {
-        alert("✅ تم إرسال الطلب بنجاح! سنتواصل معك قريبًا علي واتساب .");
-      }).catch(() => {
-        alert("❌ حدث خطأ أثناء إرسال الطلب، حاول مرة أخرى.");
-      });
+        const formData = new FormData(this);
+        
+        // إرسال البيانات لـ EmailJS
+        emailjs.send('service_34tw6rq', 'template_11oixht', {
+            name: formData.get("name"),
+            email: formData.get("email"),
+            phone: formData.get("phone"),
+            address: formData.get("address"),
+            paymentMethod: formData.get("paymentMethod"),
+            productName: productInput.value,
+            productQuantity: quantityInput.value
+        }).then(() => {
+            alert("✅ تم إرسال طلبك بنجاح! هنكلمك على واتساب فوراً.");
+            localStorage.removeItem(CART_KEY); // مسح السلة بعد الشراء
+            window.location.href = "index.html"; // رجوع للرئيسية
+        }).catch((err) => {
+            alert("❌ حصلت مشكلة في الإرسال، جرب تاني.");
+            console.error(err);
+        });
     });
-  });
+});
+}
   // 1. استهداف زرار الدفع من الـ HTML (تأكد إن الزرار عندك واخد id="checkout-btn")
 const checkoutBtn = document.getElementById('checkout-btn');
 

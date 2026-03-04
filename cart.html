@@ -29,35 +29,46 @@
     // تأكد إن الاسم ده هو نفسه اللي في صفحة المنتجات
     const CART_KEY = "amalk_cart_v1";
 
-    function renderCart() {
-        const cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
-        const container = document.getElementById('cartContent');
-        const totalArea = document.getElementById('totalArea');
+function renderCart() {
+    const cart = JSON.parse(localStorage.getItem("amalk_cart_v1")) || [];
+    const container = document.getElementById('cartContent'); // تأكد إن الـ ID ده موجود
+    const totalArea = document.getElementById('totalArea');
 
-        if (cart.length === 0) {
-            container.innerHTML = "<p style='text-align:center;'>السلة فارغة حالياً يا بطل. اطلب حاجة الأول!</p>";
-            totalArea.innerHTML = "";
-            return;
-        }
-
-        let html = "<table><tr><th>المنتج</th><th>السعر</th><th>الكمية</th><th>إزالة</th></tr>";
-        let total = 0;
-
-        cart.forEach((item, index) => {
-            html += `
-                <tr>
-                    <td>${item.name}</td>
-                    <td>${item.price} ج.م</td>
-                    <td>${item.quantity}</td>
-                    <td><button class="btn-delete" onclick="removeItem(${index})">حذف</button></td>
-                </tr>`;
-            total += (parseFloat(item.price) * item.quantity);
-        });
-
-        html += "</table>";
-        container.innerHTML = html;
-        totalArea.innerHTML = "الإجمالي: " + total + " ج.م";
+    if (cart.length === 0) {
+        container.innerHTML = "<p>السلة فارغة.</p>";
+        totalArea.innerHTML = "";
+        return;
     }
+
+    let html = "<table><tr><th>المنتج</th><th>السعر</th><th>الكمية</th><th>إزالة</th></tr>";
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        // تحويل السعر لرقم نظيف (بيشيل أي حروف زيادة)
+        let price = parseFloat(item.price) || 0; 
+        let quantity = parseInt(item.quantity) || 1;
+        let subtotal = price * quantity;
+        total += subtotal;
+
+        html += `
+            <tr>
+                <td>${item.name}</td>
+                <td>${price} ج.م</td>
+                <td>${quantity}</td>
+                <td><button onclick="removeItem(${index})">حذف</button></td>
+            </tr>`;
+    });
+
+    html += "</table>";
+    container.innerHTML = html;
+    // هنا الإجمالي هيتكتب صح بدل NaN
+    totalArea.innerHTML = `<h3>الإجمالي: ${total} ج.م</h3>`; 
+}
+
+// تعديل زرار "إتمام الشراء" في صفحة cart.html عشان يروح لصفحة الـ checkout
+function goToCheckout() {
+    window.location.href = "checkout.html";
+}
 
     function removeItem(index) {
         let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];

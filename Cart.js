@@ -25,7 +25,11 @@ function updateCartCount() {
   const el = document.getElementById("cartCount");
   if (el) el.textContent = total;
 }
-
+function saveCart(cart) {
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  alert("المنتج اتضاف يا بطل! ✅"); // ضيف السطر ده
+  updateCartCount();
+}
 // ✅ إضافة منتج للسلة
 function addToCart(name, price, image = "") {
   const cart = getCart();
