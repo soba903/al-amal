@@ -116,11 +116,13 @@ document.getElementById('checkoutForm').addEventListener('submit', function(even
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
 <script type="text/javascript">
-  // الطريقة دي بتضمن إن الـ Public Key يتفعل صح
+  // 2. تفعيل الحساب (استخدمت المفتاح اللي في الصورة SvpoqikClslazGM2Z)
   (function() {
-      emailjs.init("SvpoqikClslazGM2Z");
+      // السطر ده هو اللي بيقول لـ EmailJS أنت مين
+      emailjs.init("SvpoqikClslazGM2Z"); 
   })();
 
+  // 3. دالة الإرسال
   document.getElementById('checkoutForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
@@ -128,16 +130,16 @@ document.getElementById('checkoutForm').addEventListener('submit', function(even
     btn.innerText = "جاري الإرسال... ⏳";
     btn.disabled = true;
 
-    // بنستخدم emailjs.sendForm وبنمرر له الـ IDs اللي إنت لسه كاتبهم
+    // استخدام الـ IDs اللي في الصور بتاعتك
     emailjs.sendForm('service_34tw6rq', 'template_11oixht', this)
       .then(function() {
         alert('✅ تم إرسال طلبك بنجاح! شكراً لتعاملك مع شركة الأمل.');
-        localStorage.removeItem("amalk_cart_v1");
+        localStorage.removeItem("amalk_cart_v1"); 
         window.location.href = "index.html"; 
       }, function(error) {
-        // لو فشل، هيطلع لنا رسالة أوضح للخطأ
-        console.error('FAILED...', error);
-        alert('❌ فشل الإرسال: ' + (error.text || "تأكد من إعدادات EmailJS"));
+        // لو ظهر خطأ هيطبع لنا السبب الحقيقي في الـ Console
+        console.log("EmailJS Error:", error);
+        alert('❌ فشل الإرسال: ' + (error.text || "تأكد من إعدادات الحساب"));
         btn.innerText = "إرسال الطلب عبر البريد";
         btn.disabled = false;
       });
