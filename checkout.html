@@ -2,225 +2,75 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>إتمام عملية الشراء</title>
   <style>
-    body {
-      font-family: "Cairo", sans-serif;
-      background-color: #f9fbfd;
-      margin: 0;
-      padding: 0;
-    }
-
-    .checkout-container {
-      max-width: 600px;
-      margin: 60px auto;
-      background: #fff;
-      padding: 35px 40px;
-      border-radius: 20px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-    }
-
-    h2 {
-      text-align: center;
-      color: #007bff;
-      margin-bottom: 25px;
-      font-size: 26px;
-    }
-
-    label {
-      display: block;
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 6px;
-      font-size: 15px;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 20px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      font-size: 15px;
-      outline: none;
-      transition: all 0.2s ease-in-out;
-    }
-
-    input:focus, select:focus, textarea:focus {
-      border-color: #007bff;
-      box-shadow: 0 0 5px rgba(0,123,255,0.3);
-    }
-
-    button {
-      width: 100%;
-      background-color: #007bff;
-      color: white;
-      font-size: 18px;
-      padding: 14px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background-color: #0056b3;
-    }
-
-    .readonly-field {
-      background: #f2f2f2;
-    }
+    body { font-family: "Cairo", sans-serif; background-color: #f9fbfd; padding: 20px; }
+    .checkout-container { max-width: 600px; margin: auto; background: #fff; padding: 40px; border-radius: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
+    input, select, textarea { width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 10px; border: 1px solid #ccc; box-sizing: border-box; }
+    button { width: 100%; background-color: #007bff; color: white; padding: 15px; border: none; border-radius: 10px; cursor: pointer; font-size: 18px; }
+    .readonly-field { background: #f2f2f2; }
   </style>
 </head>
 <body>
 
-  <div class="checkout-container">
+<div class="checkout-container">
     <h2>إتمام عملية الشراء</h2>
     <form id="checkoutForm">
-      <label>اسم المنتج:</label>
+      <label>بيانات الطلب:</label>
       <input type="text" id="productName" name="productName" class="readonly-field" readonly>
-
-      <label>الكمية:</label>
+      <label>إجمالي القطع:</label>
       <input type="number" id="productQuantity" name="productQuantity" class="readonly-field" readonly>
-
-      <label>الاسم الكامل:</label>
-      <input type="text" name="name" placeholder="اكتب اسمك بالكامل" required>
-
-      <label>البريد الإلكتروني:</label>
-      <input type="email" name="email" placeholder="example@email.com" required>
-
-      <label>رقم الهاتف:</label>
-      <input type="tel" name="phone" placeholder="01000000000" required>
-
-      <label>العنوان:</label>
-      <textarea name="address" placeholder="اكتب عنوانك بالتفصيل" rows="3" required></textarea>
-
-      <label>طريقة الدفع:</label>
+      
+      <input type="text" name="name" placeholder="الاسم الكامل" required>
+      <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+      <input type="tel" name="phone" placeholder="رقم الهاتف" required>
+      <textarea name="address" placeholder="العنوان بالتفصيل" rows="3" required></textarea>
+      
       <select name="paymentMethod" required>
         <option value="">اختر طريقة الدفع</option>
-        <option value="Credit card">credit card</option>
         <option value="Vodafone cash">Vodafone cash</option>
-        <option value="Orange cash">Orange cash</option>
-        <option value="Etisalat cash">Orange cash</option>
-        <option value="We Pay">We pay</option>
         <option value="Insta pay">Insta pay</option>
+        <option value="Credit card">Credit card</option>
       </select>
-
+      
       <button type="submit">إرسال الطلب</button>
     </form>
-  </div>
+</div>
 
- <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
-  (function() {
-    emailjs.init("SvpoqikCIslazGM2Z"); // 🔹 حط المفتاح العام الخاص بـ EmailJS
-  })();
+  (function() { emailjs.init("SvpoqikCIslazGM2Z"); })();
 
-  document.addEventListener("DOMContentLoaded"), function(){
-    const params = new URLSearchParams(window.location.search);
-    const product = params.get("product") || "غير محدد";
-    const quantity = params.get("quantity") || 1;
+  document.addEventListener("DOMContentLoaded", function() {
+      const CART_KEY = "amalk_cart_v1";
+      const cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+      const productInput = document.getElementById("productName");
+      const quantityInput = document.getElementById("productQuantity");
 
-    // عرض البيانات في الحقول
-    document.getElementById("productName").value = product;
-    document.getElementById("productQuantity").value = quantity;
+      if (cart.length > 0) {
+          // تجميع المنتجات في نص واحد للفاتورة
+          productInput.value = cart.map(i => `${i.name} (${i.quantity})`).join(" - ");
+          quantityInput.value = cart.reduce((sum, i) => sum + i.quantity, 0);
+      }
 
-document.addEventListener("DOMContentLoaded", function() {
-    const CART_KEY = "amalk_cart_v1";
-    const cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
-    
-    const productInput = document.getElementById("productName");
-    const quantityInput = document.getElementById("productQuantity");
-
-    if (cart.length > 0) {
-        // تجميع كل أسماء المنتجات وكمياتها في الفاتورة
-        let allProducts = cart.map(item => `${item.name} (${item.quantity})`).join(" - ");
-        let totalQty = cart.reduce((sum, item) => sum + (parseInt(item.quantity) || 1), 0);
-        let totalPrice = cart.reduce((sum, item) => sum + (parseFloat(item.price) * (parseInt(item.quantity) || 1)), 0);
-
-        productInput.value = allProducts;
-        quantityInput.value = totalQty;
-        
-        // إضافة سطر الإجمالي في الـ Form عشان المستخدم يشوفه
-        const priceLabel = document.createElement("p");
-        priceLabel.innerHTML = `<strong>إجمالي المبلغ المطلوب: ${totalPrice} ج.م</strong>`;
-        priceLabel.style.color = "#e91e63";
-        document.getElementById("checkoutForm").prepend(priceLabel);
-    }
-
-    document.getElementById("checkoutForm").addEventListener("submit", function(e) {
-        e.preventDefault();
-
-        const formData = new FormData(this);
-        
-        // إرسال البيانات لـ EmailJS
-        emailjs.send('service_34tw6rq', 'template_11oixht', {
-            name: formData.get("name"),
-            email: formData.get("email"),
-            phone: formData.get("phone"),
-            address: formData.get("address"),
-            paymentMethod: formData.get("paymentMethod"),
-            productName: productInput.value,
-            productQuantity: quantityInput.value
-        }).then(() => {
-            alert("✅ تم إرسال طلبك بنجاح! هنكلمك على واتساب فوراً.");
-            localStorage.removeItem(CART_KEY); // مسح السلة بعد الشراء
-            window.location.href = "index.html"; // رجوع للرئيسية
-        }).catch((err) => {
-            alert("❌ حصلت مشكلة في الإرسال، جرب تاني.");
-            console.error(err);
-        });
-    });
-});
-}
-  // 1. استهداف زرار الدفع من الـ HTML (تأكد إن الزرار عندك واخد id="checkout-btn")
-const checkoutBtn = document.getElementById('checkout-btn');
-
-// 2. الفانكشن اللي بتبعت البيانات للسيرفر
-const startPayment = async () => {
-    // هنجيب المنتجات اللي في السلة (نفترض إنك مخزنها في مصفوفة)
-    const cartItems = [
-        {
-            price_data: {
-                currency: 'egp',
-                product_data: { name: 'Cosmetic Product Name' }, // اسم المنتج
-                unit_amount: 50000, // السعر بالقروش (يعني ده 500 جنيه)
-            },
-            quantity: 1, // الكمية
-        }
-    ];
-
-    try {
-        // بنخبط على باب الـ Backend
-        const response = await fetch('http://localhost:5000/api/payment/checkout', {
-            method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json',
-                // بنبعت التوكن عشان السيرفر يعرف مين اللي بيدفع
-                'Authorization': localStorage.getItem('token') 
-            },
-            body: JSON.stringify({ items: cartItems })
-        });
-
-        const data = await response.json();
-
-        if (data.url) {
-            // لو السيرفر رد باللينك، هنحول العميل فوراً لصفحة Stripe
-            window.location.href = data.url;
-        } else {
-            alert("في مشكلة حصلت، اتأكد إنك مسجل دخول");
-        }
-    } catch (error) {
-        console.error("Error:", error);
-        alert("السيرفر مش بيرد، اتأكد إنك مشغله (node server.js)");
-    }
-};
-
-// 3. ربط الفانكشن بالزرار لما يتداس عليه
-if (checkoutBtn) {
-    checkoutBtn.addEventListener('click', startPayment);
-}
+      document.getElementById("checkoutForm").addEventListener("submit", function(e) {
+          e.preventDefault();
+          
+          emailjs.send('service_34tw6rq', 'template_11oixht', {
+              name: this.name.value,
+              email: this.email.value,
+              phone: this.phone.value,
+              address: this.address.value,
+              paymentMethod: this.paymentMethod.value,
+              productName: productInput.value,
+              productQuantity: quantityInput.value
+          }).then(() => {
+              alert("✅ تم إرسال طلبك بنجاح!");
+              localStorage.removeItem(CART_KEY);
+              window.location.href = "index.html";
+          });
+      });
+  });
 </script>
 </body>
 </html>
