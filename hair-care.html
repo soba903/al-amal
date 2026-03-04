@@ -1797,75 +1797,75 @@
 <div class="toast" id="toast">تمت الإضافة إلى السلة 🛒</div>
 
 <script>
-  // 1. كود البحث (زي ما هو)
-  const searchInput = document.getElementById('searchInput');
-  const products = document.querySelectorAll('.product');
-  const toast = document.getElementById('toast');
+const CART_KEY = "amalk_cart_v1";
 
-  if(searchInput) {
-      searchInput.addEventListener('keyup', function() {
-        const value = this.value.toLowerCase();
-        products.forEach(product => {
-          const name = product.getAttribute('data-name').toLowerCase();
-          product.style.display = name.includes(value) ? "block" : "none";
+function buyNow(name, qtyId) {
+    // 1. تنظيف الاسم اللي جاي من الزرار
+    const cleanName = name.trim();
+    
+    // 2. البحث عن كل المنتجات في الصفحة
+    const allProducts = document.querySelectorAll('.product');
+    let productDiv = null;
+
+    // 3. مقارنة ذكية: بندور على الاسم جوه الـ data-name أو الـ h3
+    allProducts.forEach(p => {
+        let dataName = p.getAttribute('data-name') || "";
+        let h3Name = p.querySelector('h3') ? p.querySelector('h3').innerText : "";
+        
+        if (dataName.trim() === cleanName || h3Name.trim() === cleanName) {
+            productDiv = p;
+        }
+    });
+
+    if (!productDiv) {
+        // لو ملقاش بالاسم الصريح، هيدور "بالشبه" عشان ميوقفش البيعة
+        allProducts.forEach(p => {
+            let dataName = p.getAttribute('data-name') || "";
+            if (dataName.includes(cleanName) || cleanName.includes(dataName)) {
+                productDiv = p;
+            }
         });
-      });
-  }
+    }
 
-  // 2. الكود الموحد للسلة واشتري الآن
-  const CART_KEY = "amalk_cart_v1";
+    if (productDiv) {
+        const priceText = productDiv.querySelector('.price').innerText;
+        const price = parseFloat(priceText.replace(/[^\d.]/g, ''));
+        const qty = document.getElementById(qtyId) ? document.getElementById(qtyId).value : 1;
 
-  function addToCart(name) {
-      // بنستخدم trim() عشان نشيل أي مسافات زيادة في الاسم
-      const cleanName = name.trim();
-      const productDiv = document.querySelector(`[data-name="${name}"]`);
-      
-      if (!productDiv) {
-          console.error("لم يتم العثور على المنتج: " + name);
-          return;
-      }
+        // التحويل المباشر
+        window.location.href = `checkout.html?product=${encodeURIComponent(cleanName)}&price=${price}&quantity=${qty}`;
+    } else {
+        alert("عذراً، لم يتم التعرف على المنتج: " + name);
+    }
+}
 
-      const priceText = productDiv.querySelector('.price').innerText;
-      const price = parseFloat(priceText.replace(/[^\d.]/g, ''));
+// دالة السلة (نفس التعديل الذكي)
+function addToCart(name) {
+    const cleanName = name.trim();
+    const allProducts = document.querySelectorAll('.product');
+    let productDiv = null;
 
-      let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
-      let existingItem = cart.find(item => item.name.trim() === cleanName);
+    allProducts.forEach(p => {
+        if ((p.getAttribute('data-name') || "").trim() === cleanName) productDiv = p;
+    });
 
-      if (existingItem) {
-          existingItem.quantity += 1;
-      } else {
-          cart.push({ name: cleanName, price: price, quantity: 1 });
-      }
+    if (productDiv) {
+        const priceText = productDiv.querySelector('.price').innerText;
+        const price = parseFloat(priceText.replace(/[^\d.]/g, ''));
 
-      localStorage.setItem(CART_KEY, JSON.stringify(cart));
-      
-      // إظهار التوست أو التنبيه
-      if(toast) {
-          toast.textContent = `تمت إضافة ${cleanName} إلى السلة 🛒`;
-          toast.classList.add('show');
-          setTimeout(() => toast.classList.remove('show'), 2000);
-      } else {
-          alert("✅ تمت الإضافة للسلة");
-      }
-  }
+        let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+        let existingItem = cart.find(item => item.name === cleanName);
 
-  function buyNow(name, qtyId) {
-      const cleanName = name.trim();
-      const productDiv = document.querySelector(`[data-name="${name}"]`);
-      
-      if (!productDiv) {
-          alert("خطأ في تحديد المنتج");
-          return;
-      }
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({ name: cleanName, price: price, quantity: 1 });
+        }
 
-      const priceText = productDiv.querySelector('.price').innerText;
-      const price = parseFloat(priceText.replace(/[^\d.]/g, ''));
-      const qty = document.getElementById(qtyId) ? document.getElementById(qtyId).value : 1;
-
-      // أهم سطر للتحويل
-      const url = `checkout.html?product=${encodeURIComponent(cleanName)}&price=${price}&quantity=${qty}`;
-      window.location.href = url;
-  }
+        localStorage.setItem(CART_KEY, JSON.stringify(cart));
+        alert("✅ تمت إضافة " + cleanName + " للسلة");
+    }
+}
 </script>
 </body>
 </html>
