@@ -654,18 +654,25 @@
 }
 </script>
 <script>
-  function buyNow(productName) {
-    const quantity = 1; // تقدر تخليها متغيرة لو عندك اختيار كمية
-    const url = `checkout.html?product=${encodeURIComponent(productName)}&quantity=${quantity}`;
-    window.location.href = url;
-  }
-</script>
-<script>
-  function buyNow(productName, qtyId) {
-    const quantity = document.getElementById(qtyId).value || 1;
-    const url = `checkout.html?product=${encodeURIComponent(productName)}&quantity=${encodeURIComponent(quantity)}`;
-    window.location.href = url;
-  }
+const CART_KEY = "amalk_cart_v1"; // وحدنا الاسم هنا وفي صفحة الـ checkout
+
+function addToCart(name, price) {
+    let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+    let existingItem = cart.find(item => item.name === name);
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({ name: name, price: parseFloat(price), quantity: 1 });
+    }
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    alert("✅ تمت إضافة " + name + " للسلة");
+}
+
+function buyNow(name, price, qtyId) {
+    const qty = document.getElementById(qtyId).value || 1;
+    // التعديل ده عشان السعر والكمية يروحوا لصفحة الـ checkout
+    window.location.href = `checkout.html?product=${encodeURIComponent(name)}&price=${price}&quantity=${qty}`;
+}
 </script>
 </body>
 <script src="Cart.js"></script>

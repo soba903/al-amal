@@ -1836,29 +1836,24 @@
   }
 </script>
 <script>
-// الكود ده لازم يكون جوه الصفحة نفسها
-const CART_KEY = "amalk_cart_v1";
+const CART_KEY = "amalk_cart_v1"; // وحدنا الاسم هنا وفي صفحة الـ checkout
 
 function addToCart(name, price) {
-    console.log("إضافة منتج:", name, price); // عشان نراقب في الـ Console
-    
     let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
-    
-    const existingItem = cart.find(item => item.name === name);
+    let existingItem = cart.find(item => item.name === name);
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
-        cart.push({ name: name, price: price, quantity: 1 });
+        cart.push({ name: name, price: parseFloat(price), quantity: 1 });
     }
-    
     localStorage.setItem(CART_KEY, JSON.stringify(cart));
-    
-    // التنبيه اللي هيعرفنا إن الدنيا تمام
-    alert("✅ تمام يا بطل! " + name + " اتضاف في السلة");
-    
-    // تحديث الرقم لو موجود
-    const countEl = document.getElementById("cartCount");
-    if (countEl) countEl.textContent = cart.length;
+    alert("✅ تمت إضافة " + name + " للسلة");
+}
+
+function buyNow(name, price, qtyId) {
+    const qty = document.getElementById(qtyId).value || 1;
+    // التعديل ده عشان السعر والكمية يروحوا لصفحة الـ checkout
+    window.location.href = `checkout.html?product=${encodeURIComponent(name)}&price=${price}&quantity=${qty}`;
 }
 </script>
 </body>

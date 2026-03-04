@@ -722,28 +722,24 @@
 </script>
 </body>
 <script>
-// الكود الجديد: السلة بقت "قائمة طلبات" بالأسماء فقط
-function addToCart(name) {
-    // 1. هنجيب القائمة القديمة أو نفتح واحدة جديدة
-    let cart = JSON.parse(localStorage.getItem("simple_order_list")) || [];
-    
-    // 2. نأكد إن المنتج مش متكرر في القائمة
-    if (!cart.includes(name)) {
-        cart.push(name);
-        localStorage.setItem("simple_order_list", JSON.stringify(cart));
-        alert("✅ ضفنا " + name + " لطلباتك");
-    } else {
-        alert("المنتج موجود فعلاً في القائمة");
-    }
+const CART_KEY = "amalk_cart_v1"; // وحدنا الاسم هنا وفي صفحة الـ checkout
 
-    // 3. تحديث الرقم اللي على السلة فوق لو موجود
-    const countEl = document.getElementById("cartCount");
-    if (countEl) countEl.textContent = cart.length;
+function addToCart(name, price) {
+    let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+    let existingItem = cart.find(item => item.name === name);
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({ name: name, price: parseFloat(price), quantity: 1 });
+    }
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    alert("✅ تمت إضافة " + name + " للسلة");
 }
 
-// دالة اشترِ الآن: بتبعتك للـ checkout القديم بتاعك فوراً
-function buyNow(name) {
-    window.location.href = `checkout.html?product=${encodeURIComponent(name)}`;
+function buyNow(name, price, qtyId) {
+    const qty = document.getElementById(qtyId).value || 1;
+    // التعديل ده عشان السعر والكمية يروحوا لصفحة الـ checkout
+    window.location.href = `checkout.html?product=${encodeURIComponent(name)}&price=${price}&quantity=${qty}`;
 }
 </script>
 </html>

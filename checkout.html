@@ -50,45 +50,46 @@
       <button type="submit">إرسال الطلب عبر البريد</button>
     </form>
   </div>
-
 <script>
 window.onload = function() {
+    const CART_KEY = "amalk_cart_v1"; // نفس الاسم الموحد
     const urlParams = new URLSearchParams(window.location.search);
+    
+    // بيانات "اشترِ الآن" من الرابط
     const singleProduct = urlParams.get('product');
-    const singlePrice = urlParams.get('price') || "0"; // لو باعت السعر في اللينك
-    const singleQty = urlParams.get('quantity') || "1";
+    const singlePrice = urlParams.get('price');
+    const singleQty = urlParams.get('quantity');
 
     const productNameInput = document.getElementById('productName');
     const productQuantityInput = document.getElementById('productQuantity');
     const totalPriceDiv = document.getElementById('finalTotalPrice');
 
-    // الحالة الأولى: لو جاي من زرار "اشترِ الآن" (بيانات من اللينك)
-    if (singleProduct) {
+    // الحالة 1: لو داس "اشترِ الآن" (منتج واحد)
+    if (singleProduct && singlePrice) {
         productNameInput.value = singleProduct;
         productQuantityInput.value = singleQty;
-        
         let total = parseFloat(singlePrice) * parseInt(singleQty);
-        totalPriceDiv.innerText = `طلب منتج واحد: ${total.toFixed(2)} جنيه`;
+        totalPriceDiv.innerText = `طلب منتج واحد - الإجمالي: ${total.toFixed(2)} جنيه`;
     } 
-    // الحالة الثانية: لو جاي من "السلة" (بيانات من التخزين)
+    // الحالة 2: لو جاي من السلة (أكثر من منتج)
     else {
-        let cart = JSON.parse(localStorage.getItem("amalk_cart_v1")) || [];
+        let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
         
         if (cart.length > 0) {
-            // تجميع الأسماء
-            let names = cart.map(item => item.name).join(" + ");
-            // تجميع عدد القطع الكلي
-            let totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
-            // حساب السعر الإجمالي
-            let totalCash = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-
-            productNameInput.value = names;
+            // هيجيب أسامي كل المنتجات في السلة ويحط بينهم " + "
+            productNameInput.value = cart.map(item => item.name).join(" + ");
+            
+            // هيجمع إجمالي القطع
+            let totalQty = cart.reduce((sum, item) => sum + parseInt(item.quantity), 0);
             productQuantityInput.value = totalQty;
-            totalPriceDiv.innerText = `إجمالي المبلغ: ${totalCash.toFixed(2)} جنيه`;
+
+            // هيحسب السعر الإجمالي لكل المنتجات
+            let totalCash = cart.reduce((sum, item) => sum + (parseFloat(item.price) * parseInt(item.quantity)), 0);
+            totalPriceDiv.innerText = `إجمالي طلبات السلة: ${totalCash.toFixed(2)} جنيه`;
         } else {
             productNameInput.value = "لا توجد منتجات";
             productQuantityInput.value = "0";
-            totalPriceDiv.innerText = "السلة فارغة";
+            totalPriceDiv.innerText = "القائمة فارغة";
         }
     }
 }
