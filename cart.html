@@ -3,16 +3,35 @@
 <head>
     <meta charset="utf-8" />
     <title>سلة المشتريات - شركة الأمل</title>
-    <style>
-        body { font-family: Cairo, sans-serif; background: #f0f4f8; padding: 20px; }
-        .cart-container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: #0077b6; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 12px; border-bottom: 1px solid #ddd; text-align: center; }
-        th { background: #0077b6; color: white; }
-        .total-price { font-size: 1.5em; font-weight: bold; color: #e91e63; text-align: left; margin-top: 20px; }
-        .btn-checkout { background: #28a745; color: white; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; display: block; width: 100%; font-size: 1.2em; margin-top: 20px; }
-    </style>
+<style>
+    /* ستايل كارت المنتج في السلة */
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border-right: 5px solid #27ae60; /* لون شركة الأمل */
+}
+
+.cart-item h4 { margin: 0; color: #333; }
+.cart-item p { margin: 5px 0; color: #666; font-size: 0.9em; }
+
+/* زرار المسح */
+.remove-btn {
+    background: #ff4757;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.remove-btn:hover { background: #ff6b81; }
+</style>
 </head>
 <body>
 
