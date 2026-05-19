@@ -2,33 +2,37 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>معامل تحاليل</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>معامل تحاليل - شركة الأمل</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Cairo', sans-serif; margin: 0; background: #f0f8ff; }
+    .page-title-bar { background: linear-gradient(135deg, #023e8a, #0077b6); color: white; text-align: center; padding: 30px; }
+    .page-title-bar h2 { margin: 0; font-size: 1.8rem; }
+    .container { max-width: 1000px; margin: 40px auto; padding: 20px; text-align: center; }
+    .coming-soon { background: white; border-radius: 20px; padding: 60px 30px; box-shadow: 0 10px 30px rgba(0,119,182,0.1); }
+    .coming-soon .icon { font-size: 70px; margin-bottom: 20px; }
+    .coming-soon h3 { color: #023e8a; font-size: 1.8rem; margin-bottom: 10px; }
+    .coming-soon p { color: #6b7c8c; font-size: 1rem; }
+    .wa-btn { display: inline-block; background: linear-gradient(135deg, #128C7E, #25D366); color: white; text-decoration: none; padding: 14px 30px; border-radius: 30px; font-size: 1rem; font-weight: 700; margin-top: 20px; transition: transform 0.2s; }
+    .wa-btn:hover { transform: translateY(-3px); }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <div class="brand">الأمل للمستلزمات الطبية</div>
-      <nav class="main-nav">
-        <a href="index.html" class="nav-link">الرئيسية</a>
-        <a href="products.html" class="nav-link">المنتجات</a>
-        <a href="contact.html" class="nav-link">اتصل بنا</a>
-      </nav>
-    </div>
-  </header>
+<div class="page-title-bar"><h2>🔬 معامل تحاليل</h2></div>
 
-  <main class="container">
-    <section class="products-section">
-      <h2 class="section-title">معامل تحاليل</h2>
-      <div id="products-list" class="products-grid"></div>
-    </section>
-  </main>
+<div class="container">
+  <div class="coming-soon">
+    <div class="icon">🔬</div>
+    <h3>قريباً — معامل التحاليل</h3>
+    <p>هنضيف قريباً قائمة كاملة بمستلزمات معامل التحاليل.<br>للاستفسار تواصل معنا الآن!</p>
+    <a href="https://wa.me/201278413553" class="wa-btn" target="_blank">💬 اسأل عن المنتج</a>
+  </div>
+</div>
 
-  <footer class="site-footer"><div class="container">© 2025 الأمل للمستلزمات الطبية</div></footer>
-
-  <script>
-    if(!location.search.includes('cat')) location.href = 'products.html'
+<script src="shared_components.js"></script>
+</body>
+</html>
 
 
 

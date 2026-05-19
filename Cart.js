@@ -1,43 +1,78 @@
+/* Cart.js — شركة الأمل | إدارة سلة المشتريات */
 const CART_KEY = "amalk_cart_v1";
 
 function getCart() {
     try {
-        let cart = localStorage.getItem(CART_KEY);
-        return cart ? JSON.parse(cart) : [];
-    } catch (e) { return []; }
-}
-
-function updateCartCount() {
-    const cart = getCart();
-    const total = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-    const el = document.getElementById("cartCount");
-    if (el) el.textContent = total;
+        return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+    } catch(e) { return []; }
 }
 
 function saveCart(cart) {
     localStorage.setItem(CART_KEY, JSON.stringify(cart));
-    updateCartCount();
+    // تحديث العداد في الهيدر
+    if(typeof refreshCartCount === 'function') refreshCartCount();
 }
 
-// دالة الإضافة للسلة - ضفنا فيها السعر
-function addToCart(name, price) {
-    let cart = JSON.parse(localStorage.getItem("amalk_cart_v1")) || [];
-    let existingItem = cart.find(item => item.name === name);
-
-    if (existingItem) {
-        existingItem.quantity += 1;
+function updateCartCount() {
+    if(typeof refreshCartCount === 'function') {
+        refreshCartCount();
     } else {
-        cart.push({ name: name, price: parseFloat(price), quantity: 1 });
+        const cart = getCart();
+        const total = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        const el = document.getElementById('cart-count');
+        if(el) el.innerText = total;
     }
-    localStorage.setItem("amalk_cart_v1", JSON.stringify(cart));
-    alert("✅ تمت إضافة " + name + " للسلة");
 }
 
-// دالة اشترِ الآن - اللي كانت شغالة عندك بس ظبطناها للسعر والكمية
-function buyNow(name, price, qtyId) {
-    const qty = document.getElementById(qtyId).value || 1;
-    // بنبعت البيانات في اللينك لصفحة checkout
-    window.location.href = `checkout.html?product=${encodeURIComponent(name)}&price=${price}&quantity=${qty}`;
+function addToCart(name) {
+    const cleanName = name.trim();
+    // البحث عن السعر من الصفحة
+    const allProducts = document.querySelectorAll('.product');
+    let price = 0;
+    allProducts.forEach(p => {
+        if((p.getAttribute('data-name') || '').trim() === cleanName) {
+            const priceEl = p.querySelector('.price');
+            if(priceEl) price = parseFloat(priceEl.innerText.replace(/[^\d.]/g, '')) || 0;
+        }
+    });
+
+    let cart = getCart();
+    let existing = cart.find(i => i.name === cleanName);
+    if(existing) {
+        existing.quantity += 1;
+    } else {
+        cart.push({ name: cleanName, price: price, quantity: 1 });
+    }
+    saveCart(cart);
+    
+    // Toast notification
+    showToast(`✅ تمت إضافة ${cleanName} للسلة`);
 }
 
-document.addEventListener("DOMContentLoaded", updateCartCount);
+function buyNow(name, qtyId) {
+    const cleanName = name.trim();
+    const allProducts = document.querySelectorAll('.product');
+    let price = 0;
+    
+    allProducts.forEach(p => {
+        const dataName = (p.getAttribute('data-name') || '').trim();
+        if(dataName === cleanName || dataName.includes(cleanName) || cleanName.includes(dataName)) {
+            const priceEl = p.querySelector('.price');
+            if(priceEl) price = parseFloat(priceEl.innerText.replace(/[^\d.]/g, '')) || 0;
+        }
+    });
+
+    const qty = document.getElementById(qtyId) ? document.getElementById(qtyId).value : 1;
+    window.location.href = `checkout.html?product=${encodeURIComponent(cleanName)}&price=${price}&quantity=${qty}`;
+}
+
+function showToast(msg) {
+    const toast = document.getElementById('toast');
+    if(toast) {
+        toast.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', updateCartCount);

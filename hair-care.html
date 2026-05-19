@@ -135,11 +135,13 @@
     opacity: 1;
     transform: translateY(0);
   }
+.page-title-bar{background:linear-gradient(135deg,#023e8a,#0077b6);color:white;text-align:center;padding:20px;margin-bottom:10px;}
+.page-title-bar h2{margin:0;font-size:1.5rem;font-family:'Cairo',sans-serif;}
 </style>
 </head>
 <body>
 
-<header> قسم العناية بالشعر</header>
+<div class="page-title-bar"><h2>العناية بالشعر</h2></div>
 
 <div class="search-bar">
   <input type="text" id="searchInput" placeholder="ابحث عن منتج...">
@@ -158,13 +160,13 @@
    <button onclick="buyNow('شامبو لوريال 400 مل (أبيض)', 'qty-1')">اشترِ الآن</button>
   </div>
 
-  <div class="product" data-name="شامبو دوف ضد التساقط">
+  <div class="product" data-name="شامبو دووف 350 ملي ضد التساقط">
     <img src="cosmetics-images/shampoo-dove-dd-eltasakt.jpg" alt="">
-    <h3>شامبو دوف ضد التساقط 350 مل</h3>
+    <h3>شامبو دووف ضد التساقط 350 مل</h3>
     <p>يقوي بصيلات الشعر من الجذور لتقليل التساقط بشكل واضح.</p>
     <div class="price">104.31 جنيه</div>
     <input type="number" id="qty-2" min="1" value="1" style="width:60px;text-align:center;">
-    <button onclick="addToCart('شامبو دوف ضد التساقط')">أضف إلى السلة</button>
+    <button onclick="addToCart('شامبو دووف 350 ملي ضد التساقط')">أضف إلى السلة</button>
     <button onclick="buyNow('شامبو دووف 350 ملي ضد التساقط', 'qty-2')">اشترِ الآن</button>
 
   </div>
@@ -183,7 +185,7 @@
     <img src="cosmetics-images/shampoo-vaticka-balsapar.jpg" alt="">
     <h3>شامبو فاتيكا بالصبار</h3>
     <p>يغذي الشعر ويمنحه مظهرًا صحيًا وقويًا.</p>
-    <div class="price">35.11 جنيه</div>
+    <div class="price">101.00 جنيه</div>
     <input type="number" id="qty-4" min="1" value="1" style="width:60px;text-align:center;">
     <button onclick="addToCart('شامبو فاتيكا بالصبار')">أضف إلى السلة</button>
     <button onclick="buyNow('فاتيكا شامبو 600 مللي بالصبار', 'qty-4')">اشترِ الآن</button>
@@ -1867,6 +1869,7 @@ function addToCart(name) {
     }
 }
 </script>
+<script src="shared_components.js"></script>
 </body>
 </html>
 

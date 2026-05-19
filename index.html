@@ -3,56 +3,581 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>شركة الأمل - الرئيسية</title>
+    <title>الأمل للمستلزمات الطبية والتجميل</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
-        /* الستايل ده هينضف الشكل فوراً */
-        body { font-family: 'Cairo', sans-serif; background-color: #f0f4f8; margin: 0; padding: 0; }
-        header { background: #0077b6; color: white; padding: 25px; text-align: center; font-size: 1.8em; font-weight: bold; }
-        .main-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; padding: 50px; }
-        
-        .card { 
-            background: white; 
-            border-radius: 25px; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
-            width: 350px; 
-            overflow: hidden; 
-            cursor: pointer; 
-            transition: 0.4s; 
-            border: 2px solid transparent;
+        :root {
+            --primary: #0077b6;
+            --primary-dark: #023e8a;
+            --accent: #00b4d8;
+            --light: #f0f8ff;
+            --white: #ffffff;
+            --text: #073b4c;
+            --muted: #6b7c8c;
+            --shadow: 0 20px 60px rgba(0,119,182,0.12);
         }
-        .card:hover { transform: translateY(-15px); border-color: #0077b6; }
-        .card img { width: 100%; height: 250px; object-fit: cover; }
-        .card-title { padding: 25px; text-align: center; font-size: 1.5em; font-weight: bold; color: #023e8a; }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--light);
+            color: var(--text);
+            direction: rtl;
+        }
+
+        /* ===== HEADER ===== */
+        .site-header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, var(--accent) 100%);
+            color: white;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .brand-logo {
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+        .brand-text {
+            font-size: 1.25rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+        .brand-sub {
+            font-size: 0.7rem;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header-phone {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            transition: background 0.2s;
+        }
+        .header-phone:hover { background: rgba(255,255,255,0.25); }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 70%, var(--accent) 100%);
+            color: white;
+            padding: 70px 24px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='25'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .hero-content { position: relative; max-width: 700px; margin: 0 auto; }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            padding: 6px 18px;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.85;
+            margin-bottom: 32px;
+            line-height: 1.7;
+        }
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat-num {
+            font-size: 2rem;
+            font-weight: 900;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.75;
+        }
+
+        /* ===== ANNOUNCEMENT BAR ===== */
+        .announce {
+            background: #e63946;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* ===== CATEGORIES ===== */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+        .section-header p {
+            color: var(--muted);
+            font-size: 1rem;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .cat-card {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: transform 0.35s, box-shadow 0.35s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            position: relative;
+        }
+        .cat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 70px rgba(0,119,182,0.2);
+        }
+        .cat-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .cat-card:hover img { transform: scale(1.08); }
+        .cat-card-body {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .cat-card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+        .cat-card-arrow {
+            width: 36px;
+            height: 36px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+            transition: background 0.2s;
+        }
+        .cat-card:hover .cat-card-arrow { background: var(--accent); }
+
+        /* ===== WHY US ===== */
+        .why-us {
+            background: var(--white);
+            padding: 60px 24px;
+        }
+        .why-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+        .why-item {
+            padding: 24px 16px;
+        }
+        .why-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 16px;
+        }
+        .why-item h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+        }
+        .why-item p {
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* ===== CONTACT CTA ===== */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-dark), var(--accent));
+            color: white;
+            text-align: center;
+            padding: 60px 24px;
+        }
+        .cta-section h2 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+        .cta-section p {
+            opacity: 0.85;
+            margin-bottom: 28px;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 14px 32px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+        .btn-white {
+            background: white;
+            color: var(--primary-dark);
+            border: none;
+        }
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.6);
+        }
+
+        /* ===== FOOTER ===== */
+        .site-footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 40px 24px 20px;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .footer-col h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--accent);
+        }
+        .footer-col p, .footer-col a {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.8;
+            text-decoration: none;
+            color: white;
+            display: block;
+        }
+        .footer-col a:hover { opacity: 1; }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 20px;
+            text-align: center;
+            font-size: 0.85rem;
+            opacity: 0.6;
+        }
+
+        /* ===== CART FAB ===== */
+        .cart-fab {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            background: #e91e63;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(233,30,99,0.4);
+            z-index: 1000;
+            transition: transform 0.2s;
+            font-size: 24px;
+        }
+        .cart-fab:hover { transform: scale(1.1); }
+        .cart-count {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: white;
+            color: #e91e63;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            border: 2px solid #e91e63;
+        }
+
+        /* ===== WHATSAPP FAB ===== */
+        .wa-fab {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(37,211,102,0.4);
+            z-index: 1000;
+            transition: transform 0.2s;
+            font-size: 28px;
+            text-decoration: none;
+        }
+        .wa-fab:hover { transform: scale(1.1); }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.9rem; }
+            .hero-stats { gap: 24px; }
+            .stat-num { font-size: 1.5rem; }
+            .header-phone span { display: none; }
+        }
     </style>
 </head>
-<script src="cart.js"></script>
 <body>
-    <header>الأمل للمستلزمات الطبية</header>
-    <div id="cart-fab" onclick="window.location.href='cart.html'" style="position: fixed; bottom: 20px; left: 20px; background: #e91e63; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000;">
+
+<!-- Announcement Bar -->
+<div class="announce">🚚 توصيل لجميع أنحاء مصر — تواصل معنا الآن!</div>
+
+<!-- Header -->
+<header class="site-header">
+    <div class="header-inner">
+        <div class="brand">
+            <div class="brand-logo">🏥</div>
+            <div>
+                <div class="brand-text">الأمل</div>
+                <div class="brand-sub">للمستلزمات الطبية والتجميل</div>
+            </div>
+        </div>
+        <div class="header-actions">
+            <a href="contact.html" class="header-phone">📞 <span>تواصل معنا</span></a>
+        </div>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">✨ متجر الأمل الطبي والتجميلي</div>
+        <h1>كل احتياجاتك الطبية والجمالية في مكان واحد</h1>
+        <p>مستلزمات طبية عالية الجودة ومنتجات تجميل أصيلة بأفضل الأسعار</p>
+        <div class="hero-stats">
+            <div class="stat">
+                <div class="stat-num">500+</div>
+                <div class="stat-label">منتج متاح</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">100%</div>
+                <div class="stat-label">جودة مضمونة</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">سريع</div>
+                <div class="stat-label">توصيل فوري</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Categories -->
+<section class="section">
+    <div class="section-header">
+        <h2>تسوّق حسب الفئة</h2>
+        <p>اختر ما تحتاجه من تشكيلتنا الواسعة</p>
+    </div>
+    <div class="categories-grid">
+        <a href="medical.html" class="cat-card">
+            <img src="cosmetics-images/mostalzamat.webp" alt="مستلزمات طبية"
+                 onerror="this.src='https://placehold.co/400x220/0077b6/white?text=مستلزمات+طبية'">
+            <div class="cat-card-body">
+                <div class="cat-card-title">🏥 مستلزمات طبية</div>
+                <div class="cat-card-arrow">←</div>
+            </div>
+        </a>
+        <a href="cosmetics.html" class="cat-card">
+            <img src="cosmetics-images/mostahdarat-tgmil.jpeg" alt="مستحضرات تجميل"
+                 onerror="this.src='https://placehold.co/400x220/023e8a/white?text=مستحضرات+تجميل'">
+            <div class="cat-card-body">
+                <div class="cat-card-title">💄 مستحضرات تجميل</div>
+                <div class="cat-card-arrow">←</div>
+            </div>
+        </a>
+    </div>
+</section>
+
+<!-- Why Us -->
+<section class="why-us">
+    <div class="section-header">
+        <h2>ليه تختار الأمل؟</h2>
+    </div>
+    <div class="why-grid">
+        <div class="why-item">
+            <div class="why-icon">🏆</div>
+            <h3>جودة مضمونة</h3>
+            <p>جميع منتجاتنا أصلية 100% من موردين معتمدين</p>
+        </div>
+        <div class="why-item">
+            <div class="why-icon">🚚</div>
+            <h3>توصيل سريع</h3>
+            <p>نوصل لجميع أنحاء مصر بأسرع وقت ممكن</p>
+        </div>
+        <div class="why-item">
+            <div class="why-icon">💰</div>
+            <h3>أفضل الأسعار</h3>
+            <p>أسعار تنافسية وعروض دورية لعملائنا</p>
+        </div>
+        <div class="why-item">
+            <div class="why-icon">📞</div>
+            <h3>دعم 24/7</h3>
+            <p>فريق خدمة عملاء متاح على مدار الساعة</p>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <h2>مش لاقي اللي بتدور عليه؟</h2>
+    <p>تواصل معنا وهنساعدك تلاقي اللي تحتاجه</p>
+    <div class="cta-buttons">
+        <a href="https://wa.me/201278413553" class="btn btn-white">💬 واتساب</a>
+        <a href="contact.html" class="btn btn-outline">📞 اتصل بنا</a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>🏥 الأمل</h4>
+                <p>متجركم الأول للمستلزمات الطبية ومنتجات التجميل بجودة عالية وأسعار مناسبة.</p>
+            </div>
+            <div class="footer-col">
+                <h4>روابط سريعة</h4>
+                <a href="medical.html">مستلزمات طبية</a>
+                <a href="cosmetics.html">مستحضرات تجميل</a>
+                <a href="hair-care.html">العناية بالشعر</a>
+                <a href="baby-care.html">عناية الأطفال</a>
+            </div>
+            <div class="footer-col">
+                <h4>تواصل معنا</h4>
+                <a href="tel:+20100000000">📞 01278413553</a>
+                <a href="https://wa.me/201278413553">💬 واتساب</a>
+                <a href="contact.html">📍 موقعنا</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2025 شركة الأمل للمستلزمات الطبية — جميع الحقوق محفوظة
+        </div>
+    </div>
+</footer>
+
+<!-- Cart FAB -->
+<div class="cart-fab" onclick="window.location.href='cart.html'">
     🛒
-    <span id="cart-count" style="position: absolute; top: 0; right: 0; background: white; color: #e91e63; border-radius: 50%; width: 20px; height: 20px; font-size: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 1px solid #e91e63;">0</span>
+    <span class="cart-count" id="cart-count">0</span>
 </div>
 
+<!-- WhatsApp FAB -->
+<a href="https://wa.me/201278413553" class="wa-fab" target="_blank">💬</a>
+
+<script src="Cart.js"></script>
 <script>
-    // تحديث عدد المنتجات في الزرار أول ما الصفحة تفتح
     function updateCartBadge() {
         const cart = JSON.parse(localStorage.getItem('amalk_cart_v1')) || [];
         document.getElementById('cart-count').innerText = cart.length;
     }
     document.addEventListener("DOMContentLoaded", updateCartBadge);
 </script>
-
-    <div class="main-container">
-        <div class="card" onclick="location.href='medical.html'">
-            <img src="cosmetics-images/mostalzamat.webp" alt="مستلزمات" onerror="this.src='https://via.placeholder.com/350x250?text=Medical+Supplies'">
-            <div class="card-title">مستلزمات طبية</div>
-        </div>
-
-        <div class="card" onclick="location.href='cosmetics.html'">
-            <img src="cosmetics-images/mostahdarat-tgmil.jpeg" alt="تجميل" onerror="this.src='https://via.placeholder.com/350x250?text=Cosmetics'">
-            <div class="card-title">مستحضرات تجميل</div>
-        </div>
-    </div>
 </body>
 </html>
 

@@ -2,33 +2,56 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>تواصل معنا</title>
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تواصل معنا - شركة الأمل</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
   <style>
-    .whatss{
-      text-align: center;
-    }
-header{
-  text-align: center;
-}
-body{
-  background-color: aquamarine;
-}
-img{
-  background-color: aquamarine;
-}
+    body { font-family: 'Cairo', sans-serif; margin: 0; background: #f0f8ff; }
+    .page-title-bar { background: linear-gradient(135deg, #023e8a, #0077b6); color: white; text-align: center; padding: 30px; }
+    .page-title-bar h2 { margin: 0; font-size: 1.8rem; }
+    .contact-container { max-width: 700px; margin: 40px auto; padding: 20px; }
+    .contact-card { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 10px 30px rgba(0,119,182,0.1); margin-bottom: 20px; }
+    .contact-card h3 { color: #023e8a; margin: 0 0 20px; font-size: 1.3rem; text-align: center; }
+    .contact-item { display: flex; align-items: center; gap: 15px; padding: 15px; background: #f0f8ff; border-radius: 12px; margin-bottom: 12px; text-decoration: none; color: #073b4c; transition: transform 0.2s, background 0.2s; }
+    .contact-item:hover { transform: translateX(-5px); background: #d0eaff; }
+    .contact-icon { font-size: 28px; width: 50px; text-align: center; flex-shrink: 0; }
+    .contact-info strong { display: block; font-size: 1rem; color: #023e8a; }
+    .contact-info span { font-size: 0.85rem; color: #6b7c8c; }
+    .wa-btn { display: block; background: linear-gradient(135deg, #128C7E, #25D366); color: white; text-decoration: none; padding: 18px; border-radius: 15px; font-size: 1.2rem; font-weight: 700; margin-top: 20px; text-align: center; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 6px 20px rgba(37,211,102,0.35); }
+    .wa-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(37,211,102,0.45); }
   </style>
 </head>
 <body>
-  <header><h1>تواصل معنا</h1></header>
-<div class="whatss">
-<img src="cosmetics-images/whtass.png" alt="">
+<div class="page-title-bar"><h2>📞 تواصل معنا</h2></div>
+
+<div class="contact-container">
+    <div class="contact-card">
+        <h3>🏥 شركة الأمل للمستلزمات الطبية والتجميل</h3>
+        
+        <a href="tel:+201278413553" class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-info">
+                <strong>01278413553</strong>
+                <span>اتصل بنا الآن</span>
+            </div>
+        </a>
+
+        <a href="https://wa.me/201278413553" class="contact-item" target="_blank">
+            <div class="contact-icon">💬</div>
+            <div class="contact-info">
+                <strong>01278413553</strong>
+                <span>راسلنا على واتساب</span>
+            </div>
+        </a>
+
+        <a href="https://wa.me/201278413553" class="wa-btn" target="_blank">
+            💬 تواصل عبر واتساب الآن
+        </a>
+    </div>
 </div>
 
-
-  <script src="int.js"></script>
+<script src="shared_components.js"></script>
 </body>
-<script src="Cart.js"></script>
 </html>
 
 

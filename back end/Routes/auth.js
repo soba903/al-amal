@@ -1,57 +1,39 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User'); 
-const bcrypt = require('bcryptjs');
+const User = require('../models/User');
+const bcrypt = require('bcryptjs'); // تم التصحيح هنا
 const jwt = require('jsonwebtoken');
 
-// مسار التسجيل (Register)
-// مسار التسجيل (Register) - نسخة مطورة لاكتشاف الأخطاء
-// مسار التسجيل (Register) - النسخة الآمنة والمشفرة
+// API التسجيل (Register)
 router.post('/register', async (req, res) => {
     try {
         const { email, password } = req.body;
-
-        // 1. التأكد من وجود البيانات
-        if (!email || !password) {
-            return res.status(400).json({ msg: "برجاء إدخال الإيميل والباسورد" });
-        }
-
-        // 2. البحث عن مستخدم بنفس الإيميل
         let user = await User.findOne({ email });
         if (user) return res.status(400).json({ msg: "المستخدم موجود بالفعل" });
 
-        // 3. تشفير الباسورد (Hashing)
-        const salt = await bcrypt.genSalt(10); // إنشاء "ملح" للتشفير
-        const hashedPassword = await bcrypt.hash(password, salt); // تحويل الباسورد لرموز غير مفهومة
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
 
-        // 4. حفظ المستخدم بالباسورد المشفر
-        user = new User({ 
-            email, 
-            password: hashedPassword 
-        });
-        
+        user = new User({ email, password: hashedPassword });
         await user.save();
-        res.status(201).json({ msg: "تم إنشاء الحساب بنجاح وتشفير البيانات ✅" });
-
+        res.status(201).json({ msg: "تم إنشاء الحساب بنجاح ✅" });
     } catch (err) {
-        console.error("❌ خطأ في السيرفر:", err.message);
-        res.status(500).json({ msg: "حدث خطأ داخلي: " + err.message });
+        res.status(500).json({ error: err.message });
     }
 });
 
-
-// مسار الدخول (Login)
+// API تسجيل الدخول (Login)
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
-        if (!user) return res.status(400).json({ msg: "بيانات الدخول غير صحيحة" });
+        if (!user) return res.status(400).json({ msg: "المستخدم غير موجود" });
 
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) return res.status(400).json({ msg: "بيانات الدخول غير صحيحة" });
+        if (!isMatch) return res.status(400).json({ msg: "كلمة المرور خطأ" });
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.json({ token, user: { email: user.email } });
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || 'secret_key', { expiresIn: '1h' });
+        res.json({ token, msg: "تم تسجيل الدخول بنجاح 🚀" });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
