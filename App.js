@@ -24,7 +24,6 @@ function AuthForm() {
       alert("✅ " + (res.data.msg || "تمت العملية"));
       
 if (type === 'login') {
-  // بنبعت التوكن في الـ URL كأننا بنبعت رسالة
   const token = res.data.token;
   window.location.replace(`http://127.0.0.1:5500/old-design/index.html?token=${token}`);
 }

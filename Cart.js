@@ -1,4 +1,4 @@
-/* Cart.js — شركة الأمل | إدارة سلة المشتريات */
+
 const CART_KEY = "amalk_cart_v1";
 
 function getCart() {
@@ -26,7 +26,6 @@ function updateCartCount() {
 
 function addToCart(name) {
     const cleanName = name.trim();
-    // البحث عن السعر من الصفحة
     const allProducts = document.querySelectorAll('.product');
     let price = 0;
     allProducts.forEach(p => {
@@ -45,7 +44,6 @@ function addToCart(name) {
     }
     saveCart(cart);
     
-    // Toast notification
     showToast(`✅ تمت إضافة ${cleanName} للسلة`);
 }
 

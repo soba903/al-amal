@@ -53,7 +53,6 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
 <script>
-// --- الجزء الأول: كود السلة والمشتريات (بدون أي تغيير في المنطق بتاعك) ---
 window.onload = function() {
     const CART_KEY = "amalk_cart_v1"; 
     const urlParams = new URLSearchParams(window.location.search);
@@ -88,7 +87,6 @@ window.onload = function() {
     }
 };
 
-// --- الجزء الثاني: كود الإرسال الموحد ببياناتك الصحيحة ---
 document.getElementById('checkoutForm').addEventListener('submit', function(event) {
     event.preventDefault();
     
@@ -96,12 +94,12 @@ document.getElementById('checkoutForm').addEventListener('submit', function(even
     btn.innerText = "جاري الإرسال... ⏳";
     btn.disabled = true;
 
-    // دي بياناتك اللي في الصور بالظبط
+
     const publicKey = "qU2EO74nKpe_y5Tfu";
     const serviceID = "service_34tw6rq";
     const templateID = "template_11oixht";
 
-    // الإرسال مع تفعيل المفتاح في نفس اللحظة لمنع Account not found
+
     emailjs.sendForm(serviceID, templateID, this, publicKey)
         .then(function() {
             alert('✅ تم إرسال طلبك بنجاح! شكراً لتعاملك مع شركة الأمل.');

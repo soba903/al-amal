@@ -44,21 +44,20 @@
   padding: 20px;
 }
 
-/* للأجهزة المتوسطة زي التابلت */
+
 @media (max-width: 1024px) {
   .products {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* للموبايلات */
 @media (max-width: 768px) {
   .products {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* للموبايلات الصغيرة جدًا */
+
 @media (max-width: 480px) {
   .products {
     grid-template-columns: 1fr;
@@ -148,7 +147,7 @@
 </div>
 
 <div class="products" id="productList">
-    <!-- مثال منتج -->
+
     <div class="product" data-name="جهاز نيبو لايزر WE CARE">
     <img src="cosmetics-images/nepo-layzer-we-care.webp" alt="">
       <h3>جهاز نيبو لايزر WE CARE</h3>
@@ -864,8 +863,7 @@
     <button onclick="addToCart('بلاستر صوابع 1000 ق يور ايد')">أضف إلى السلة</button>
     <button onclick="buyNow('بلاستر صوابع 1000 ق يور ايد', 'qty-98')">اشترِ الآن</button>
   </div>
-      <!-- باقي المنتجات هتكون بنفس الشكل -->
-  <!-- انسخ الكارت وغير الاسم والسعر والوصف -->
+
 </div>
 <div class="toast" id="toast">تمت الإضافة إلى السلة 🛒</div>
 <script>
@@ -873,11 +871,11 @@ const CART_KEY = "amalk_cart_v1";
 
 function buyNow(name, qtyId) {
     const cleanName = name.trim();
-    // بنجيب الكمية لو موجودة، لو مش موجودة بنفترض إنها 1
+
     const qtyInput = document.getElementById(qtyId);
     const qty = qtyInput ? qtyInput.value : 1;
 
-    // بنبعت السعر بـ 0 عشان الكود ميفصلش
+
     const url = `checkout.html?product=${encodeURIComponent(cleanName)}&price=0&quantity=${qty}`;
     window.location.href = url;
 }
@@ -890,7 +888,6 @@ function addToCart(name) {
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
-        // بنضيف المنتج بسعر 0
         cart.push({ name: cleanName, price: 0, quantity: 1 });
     }
 

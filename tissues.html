@@ -44,21 +44,20 @@
   padding: 20px;
 }
 
-/* للأجهزة المتوسطة زي التابلت */
+
 @media (max-width: 1024px) {
   .products {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* للموبايلات */
+
 @media (max-width: 768px) {
   .products {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* للموبايلات الصغيرة جدًا */
 @media (max-width: 480px) {
   .products {
     grid-template-columns: 1fr;
@@ -149,7 +148,7 @@
 
 <div class="products" id="productList">
 
-  <!-- مثال منتج -->
+
     <div class="product" data-name="فاميليا جيب بالباكت">
     <img src="cosmetics-images/familia-gib-blbacket.png" alt="">
       <h3>فاميليا جيب بالباكت</h3>
@@ -190,14 +189,13 @@
     <button onclick="addToCart('زينه تربو مناديل سحب 500 منديل')">أضف إلى السلة</button>
     <button onclick="buyNow('زينه تربو مناديل سحب 500 منديل', 'qty-5')">اشترِ الآن</button>
   </div>
-    <!-- باقي المنتجات هتكون بنفس الشكل -->
-  <!-- انسخ الكارت وغير الاسم والسعر والوصف -->
+
 </div>
 
 <div class="toast" id="toast">تمت الإضافة إلى السلة 🛒</div>
 
 <script>
-  // 1. كود البحث (زي ما هو)
+
   const searchInput = document.getElementById('searchInput');
   const products = document.querySelectorAll('.product');
   const toast = document.getElementById('toast');
@@ -212,11 +210,11 @@
       });
   }
 
-  // 2. الكود الموحد للسلة واشتري الآن
+
   const CART_KEY = "amalk_cart_v1";
 
   function addToCart(name) {
-      // بنستخدم trim() عشان نشيل أي مسافات زيادة في الاسم
+
       const cleanName = name.trim();
       const productDiv = document.querySelector(`[data-name="${name}"]`);
       
@@ -239,7 +237,7 @@
 
       localStorage.setItem(CART_KEY, JSON.stringify(cart));
       
-      // إظهار التوست أو التنبيه
+   
       if(toast) {
           toast.textContent = `تمت إضافة ${cleanName} إلى السلة 🛒`;
           toast.classList.add('show');
@@ -262,7 +260,7 @@
       const price = parseFloat(priceText.replace(/[^\d.]/g, ''));
       const qty = document.getElementById(qtyId) ? document.getElementById(qtyId).value : 1;
 
-      // أهم سطر للتحويل
+   
       const url = `checkout.html?product=${encodeURIComponent(cleanName)}&price=${price}&quantity=${qty}`;
       window.location.href = url;
   }

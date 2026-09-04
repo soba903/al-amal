@@ -1,13 +1,11 @@
-/* int.js — شركة الأمل | EmailJS + Navigation Helpers */
 
-/* تهيئة EmailJS */
 (function(){
   if(window.emailjs && typeof emailjs.init === 'function'){
     emailjs.init('SvpoqikCIslazGM2Z');
   }
 })();
 
-/* ===== Navigation ===== */
+
 function openCategory(page) {
   window.location.href = page + '.html';
 }
@@ -31,10 +29,10 @@ function getQueryParam(key){
   return new URLSearchParams(window.location.search).get(key);
 }
 
-/* ===== Forms (EmailJS) ===== */
+
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* --- Contact Form --- */
+
   const contactForm = document.getElementById('contact-form');
   if(contactForm){
     contactForm.addEventListener('submit', function(e){
@@ -53,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* --- Checkout Form --- */
   const checkoutForm = document.getElementById('checkoutForm');
   if(checkoutForm){
-    // تعبئة اسم المنتج من الـ URL
+
     const productFromQuery = getQueryParam('product');
     const productInput = checkoutForm.querySelector('#productName');
     if(productFromQuery && productInput){

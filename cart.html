@@ -12,31 +12,31 @@
         th { background: #0077b6; color: white; }
         .total-price { font-size: 1.5em; font-weight: bold; color: #e91e63; text-align: left; margin-top: 20px; }
         .btn-checkout { background: #28a745; color: white; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; display: block; width: 100%; font-size: 1.2em; margin-top: 20px; }
-        /* ستايل زرار الحذف الجديد */
+
 .btn-delete {
-    background-color: #ff4d4d; /* أحمر جذاب */
+    background-color: #ff4d4d; 
     color: white;
     border: none;
     padding: 8px 16px;
-    border-radius: 8px; /* نفس انحناء زرار الشراء */
+    border-radius: 8px; 
     cursor: pointer;
     font-size: 0.9em;
     font-family: 'Cairo', sans-serif;
-    transition: all 0.3s ease; /* سر التفاعل */
-    box-shadow: 0 4px 6px rgba(255, 77, 77, 0.2); /* ظل أحمر خفيف */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(255, 77, 77, 0.2);
 }
 
 .btn-delete:hover {
-    background-color: #ff3333; /* يغمق سنة لما تلمسه */
-    transform: translateY(-2px); /* يترفع لفوق حركة بسيطة */
+    background-color: #ff3333; 
+    transform: translateY(-2px); 
     box-shadow: 0 6px 12px rgba(255, 77, 77, 0.3);
 }
 
 .btn-delete:active {
-    transform: translateY(0); /* يرجع لمكانه لما تدوس عليه */
+    transform: translateY(0); 
 }
 
-/* تعديل بسيط لزرار إتمام الشراء عشان يبقى متناسق مع الظل */
+
 .btn-checkout {
     transition: all 0.3s ease;
     box-shadow: 0 4px 6px rgba(40, 167, 69, 0.2);
@@ -88,7 +88,6 @@ function renderCart() {
     });
 
     container.innerHTML = html + "</table>";
-    // ده السطر اللي هيعرض الإجمالي صح
     totalArea.innerHTML = "إجمالي السلة: " + totalValue + " ج.م"; 
 }
 

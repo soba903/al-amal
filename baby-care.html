@@ -44,21 +44,20 @@
   padding: 20px;
 }
 
-/* للأجهزة المتوسطة زي التابلت */
+
 @media (max-width: 1024px) {
   .products {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* للموبايلات */
+
 @media (max-width: 768px) {
   .products {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* للموبايلات الصغيرة جدًا */
 @media (max-width: 480px) {
   .products {
     grid-template-columns: 1fr;
@@ -149,7 +148,6 @@
 
 <div class="products" id="productList">
 
-  <!-- مثال منتج -->
     <div class="product" data-name="بندولين شامبو اطفال 250 مللي ">
     <img src="cosmetics-images/pandoline-shampoo-atfal-250-ml.jpg" alt="شامبو لوريال">
     <h3>بندولين شامبو اطفال 250 مللي</h3>
@@ -677,8 +675,6 @@
     <button onclick="addToCart('هايت فريش منديل 160 منديل')">أضف إلى السلة</button>
     <button onclick="buyNow('هايت فريش منديل 160 منديل', 'qty-81')">اشترِ الآن</button>
   </div>
-    <!-- باقي المنتجات هتكون بنفس الشكل -->
-  <!-- انسخ الكارت وغير الاسم والسعر والوصف -->
 </div>
 
 <div class="toast" id="toast">تمت الإضافة إلى السلة 🛒</div>
@@ -686,14 +682,11 @@
 const CART_KEY = "amalk_cart_v1";
 
 function buyNow(name, qtyId) {
-    // 1. تنظيف الاسم اللي جاي من الزرار
     const cleanName = name.trim();
     
-    // 2. البحث عن كل المنتجات في الصفحة
     const allProducts = document.querySelectorAll('.product');
     let productDiv = null;
 
-    // 3. مقارنة ذكية: بندور على الاسم جوه الـ data-name أو الـ h3
     allProducts.forEach(p => {
         let dataName = p.getAttribute('data-name') || "";
         let h3Name = p.querySelector('h3') ? p.querySelector('h3').innerText : "";
@@ -704,7 +697,6 @@ function buyNow(name, qtyId) {
     });
 
     if (!productDiv) {
-        // لو ملقاش بالاسم الصريح، هيدور "بالشبه" عشان ميوقفش البيعة
         allProducts.forEach(p => {
             let dataName = p.getAttribute('data-name') || "";
             if (dataName.includes(cleanName) || cleanName.includes(dataName)) {
@@ -718,14 +710,12 @@ function buyNow(name, qtyId) {
         const price = parseFloat(priceText.replace(/[^\d.]/g, ''));
         const qty = document.getElementById(qtyId) ? document.getElementById(qtyId).value : 1;
 
-        // التحويل المباشر
         window.location.href = `checkout.html?product=${encodeURIComponent(cleanName)}&price=${price}&quantity=${qty}`;
     } else {
         alert("عذراً، لم يتم التعرف على المنتج: " + name);
     }
 }
 
-// دالة السلة (نفس التعديل الذكي)
 function addToCart(name) {
     const cleanName = name.trim();
     const allProducts = document.querySelectorAll('.product');
